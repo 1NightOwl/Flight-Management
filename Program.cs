@@ -1,3 +1,5 @@
+using FlightManagement.PL.Start.Loading;
+
 namespace FlightManagement
 {
     internal static class Program
@@ -11,7 +13,7 @@ namespace FlightManagement
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new FrmLoading());
         }
     }
 }
