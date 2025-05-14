@@ -93,6 +93,7 @@
             btnLogOut.BackColor = Color.Red;
             btnLogOut.FlatStyle = FlatStyle.Popup;
             btnLogOut.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogOut.ForeColor = SystemColors.ControlText;
             btnLogOut.Location = new Point(156, 21);
             btnLogOut.Name = "btnLogOut";
             btnLogOut.Size = new Size(94, 29);

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlightManagement.PL.Start.Log_in;
 
 namespace FlightManagement.PL.Preview
 {
@@ -30,8 +31,8 @@ namespace FlightManagement.PL.Preview
             {
 
                 this.Hide();
-                Form1 nextForm = new Form1();
-                nextForm.Show();
+                FrmLogIn login = new FrmLogIn();
+                login.Show();
             }
             else
             {

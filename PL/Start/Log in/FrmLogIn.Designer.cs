@@ -324,9 +324,10 @@
             // 
             // cbSelector
             // 
-            cbSelector.BackColor = Color.Teal;
+            cbSelector.BackColor = Color.LightSteelBlue;
             cbSelector.FlatStyle = FlatStyle.Flat;
             cbSelector.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbSelector.ForeColor = SystemColors.MenuText;
             cbSelector.FormattingEnabled = true;
             cbSelector.Items.AddRange(new object[] { "User", "Admin" });
             cbSelector.Location = new Point(325, 277);
