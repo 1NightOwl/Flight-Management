@@ -329,7 +329,6 @@
             cbSelector.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbSelector.ForeColor = SystemColors.MenuText;
             cbSelector.FormattingEnabled = true;
-            cbSelector.Items.AddRange(new object[] { "User", "Admin" });
             cbSelector.Location = new Point(325, 277);
             cbSelector.Name = "cbSelector";
             cbSelector.Size = new Size(151, 30);

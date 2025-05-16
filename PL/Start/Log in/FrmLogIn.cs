@@ -1,4 +1,5 @@
-﻿using FlightManagement.PL.Preview;
+﻿using FlightManagement.Core.Common;
+using FlightManagement.PL.Preview;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,9 @@ namespace FlightManagement.PL.Start.Log_in
         public FrmLogIn()
         {
             InitializeComponent();
+
+            cbSelector.Items.Add("Admin");
+            cbSelector.Items.Add("User");
         }
 
         private void btnLogIn_MouseHover(object sender, EventArgs e)
@@ -92,13 +96,13 @@ namespace FlightManagement.PL.Start.Log_in
         {
             string selectedRole = cbSelector.SelectedItem.ToString();
 
-            if (selectedRole == "Admin")
+            if (selectedRole == Constants.RoleAdmin)
             {
                 FrmPreviewAdmin admin = new FrmPreviewAdmin();
                 admin.Show();
                 this.Hide();
             }
-            else if (selectedRole == "User")
+            else if (selectedRole == Constants.RoleUser)
             {
                 FrmPreviewUser user = new FrmPreviewUser();
                 user.Show();

@@ -9,7 +9,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
+    <None Remove="Resources\SeatMaps\Airbus A320.png" />
+    <None Remove="Resources\SeatMaps\Boeing 737-800.png" />
+    <None Remove="Resources\SeatMaps\Embraer E190.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\SeatMaps\Airbus A320.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SeatMaps\Boeing 737-800.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SeatMaps\Embraer E190.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PL\Admin\Biletat\" />
+    <Folder Include="PL\Admin\Perdoruesit\" />
+    <Folder Include="PL\User\" />
   </ItemGroup>
 
   <ItemGroup>

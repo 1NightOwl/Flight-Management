@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             pnlDashboard = new Panel();
-            panel1 = new Panel();
+            pnlDetails = new Panel();
             btnLogOut = new Button();
             panel3 = new Panel();
             label2 = new Label();
@@ -42,16 +42,16 @@
             btnPendingTicket = new Button();
             btnTicket = new Button();
             pnlFlights = new Panel();
-            button1 = new Button();
-            btnPresentFlights = new Button();
-            btnAddFlight = new Button();
+            btnActiveFlights = new Button();
+            btnAssignRoute = new Button();
+            btnRegisterPlane = new Button();
             btnFlights = new Button();
             pnlLogo = new Panel();
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
             pnlControls = new Panel();
             pnlDashboard.SuspendLayout();
-            panel1.SuspendLayout();
+            pnlDetails.SuspendLayout();
             pnlUser.SuspendLayout();
             pnlTicket.SuspendLayout();
             pnlFlights.SuspendLayout();
@@ -62,7 +62,7 @@
             // pnlDashboard
             // 
             pnlDashboard.BackColor = Color.FromArgb(118, 166, 169);
-            pnlDashboard.Controls.Add(panel1);
+            pnlDashboard.Controls.Add(pnlDetails);
             pnlDashboard.Controls.Add(pnlUser);
             pnlDashboard.Controls.Add(btnUsers);
             pnlDashboard.Controls.Add(pnlTicket);
@@ -76,17 +76,17 @@
             pnlDashboard.Size = new Size(268, 853);
             pnlDashboard.TabIndex = 0;
             // 
-            // panel1
+            // pnlDetails
             // 
-            panel1.Controls.Add(btnLogOut);
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(label1);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 748);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(268, 105);
-            panel1.TabIndex = 16;
+            pnlDetails.Controls.Add(btnLogOut);
+            pnlDetails.Controls.Add(panel3);
+            pnlDetails.Controls.Add(label2);
+            pnlDetails.Controls.Add(label1);
+            pnlDetails.Dock = DockStyle.Bottom;
+            pnlDetails.Location = new Point(0, 748);
+            pnlDetails.Name = "pnlDetails";
+            pnlDetails.Size = new Size(268, 105);
+            pnlDetails.TabIndex = 16;
             // 
             // btnLogOut
             // 
@@ -216,50 +216,51 @@
             // pnlFlights
             // 
             pnlFlights.BackColor = Color.FromArgb(231, 216, 182);
-            pnlFlights.Controls.Add(button1);
-            pnlFlights.Controls.Add(btnPresentFlights);
-            pnlFlights.Controls.Add(btnAddFlight);
+            pnlFlights.Controls.Add(btnActiveFlights);
+            pnlFlights.Controls.Add(btnAssignRoute);
+            pnlFlights.Controls.Add(btnRegisterPlane);
             pnlFlights.Dock = DockStyle.Top;
             pnlFlights.Location = new Point(0, 248);
             pnlFlights.Name = "pnlFlights";
             pnlFlights.Size = new Size(268, 0);
             pnlFlights.TabIndex = 11;
             // 
-            // button1
+            // btnActiveFlights
             // 
-            button1.BackColor = Color.FromArgb(186, 188, 165);
-            button1.Dock = DockStyle.Top;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(0, 92);
-            button1.Name = "button1";
-            button1.Size = new Size(268, 46);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = false;
+            btnActiveFlights.BackColor = Color.FromArgb(186, 188, 165);
+            btnActiveFlights.Dock = DockStyle.Top;
+            btnActiveFlights.FlatStyle = FlatStyle.Flat;
+            btnActiveFlights.Location = new Point(0, 92);
+            btnActiveFlights.Name = "btnActiveFlights";
+            btnActiveFlights.Size = new Size(268, 46);
+            btnActiveFlights.TabIndex = 2;
+            btnActiveFlights.Text = "Fluturimet Aktive";
+            btnActiveFlights.UseVisualStyleBackColor = false;
             // 
-            // btnPresentFlights
+            // btnAssignRoute
             // 
-            btnPresentFlights.BackColor = Color.FromArgb(186, 188, 165);
-            btnPresentFlights.Dock = DockStyle.Top;
-            btnPresentFlights.FlatStyle = FlatStyle.Flat;
-            btnPresentFlights.Location = new Point(0, 46);
-            btnPresentFlights.Name = "btnPresentFlights";
-            btnPresentFlights.Size = new Size(268, 46);
-            btnPresentFlights.TabIndex = 1;
-            btnPresentFlights.Text = "Fluturimet Aktuale";
-            btnPresentFlights.UseVisualStyleBackColor = false;
+            btnAssignRoute.BackColor = Color.FromArgb(186, 188, 165);
+            btnAssignRoute.Dock = DockStyle.Top;
+            btnAssignRoute.FlatStyle = FlatStyle.Flat;
+            btnAssignRoute.Location = new Point(0, 46);
+            btnAssignRoute.Name = "btnAssignRoute";
+            btnAssignRoute.Size = new Size(268, 46);
+            btnAssignRoute.TabIndex = 1;
+            btnAssignRoute.Text = "Cakto Itinerar";
+            btnAssignRoute.UseVisualStyleBackColor = false;
             // 
-            // btnAddFlight
+            // btnRegisterPlane
             // 
-            btnAddFlight.BackColor = Color.FromArgb(186, 188, 165);
-            btnAddFlight.Dock = DockStyle.Top;
-            btnAddFlight.FlatStyle = FlatStyle.Flat;
-            btnAddFlight.Location = new Point(0, 0);
-            btnAddFlight.Name = "btnAddFlight";
-            btnAddFlight.Size = new Size(268, 46);
-            btnAddFlight.TabIndex = 0;
-            btnAddFlight.Text = "Shto Fluturim";
-            btnAddFlight.UseVisualStyleBackColor = false;
+            btnRegisterPlane.BackColor = Color.FromArgb(186, 188, 165);
+            btnRegisterPlane.Dock = DockStyle.Top;
+            btnRegisterPlane.FlatStyle = FlatStyle.Flat;
+            btnRegisterPlane.Location = new Point(0, 0);
+            btnRegisterPlane.Name = "btnRegisterPlane";
+            btnRegisterPlane.Size = new Size(268, 46);
+            btnRegisterPlane.TabIndex = 0;
+            btnRegisterPlane.Text = "Regjistro Aeroplan";
+            btnRegisterPlane.UseVisualStyleBackColor = false;
+            btnRegisterPlane.Click += btnAddFlight_Click;
             // 
             // btnFlights
             // 
@@ -325,8 +326,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmPreviewAdmin";
             pnlDashboard.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pnlDetails.ResumeLayout(false);
+            pnlDetails.PerformLayout();
             pnlUser.ResumeLayout(false);
             pnlTicket.ResumeLayout(false);
             pnlFlights.ResumeLayout(false);
@@ -347,13 +348,13 @@
         private Panel pnlTicket;
         private Button btnTicket;
         private Panel pnlFlights;
-        private Button btnAddFlight;
-        private Button btnPresentFlights;
+        private Button btnRegisterPlane;
+        private Button btnAssignRoute;
         private Button btnTicketNr;
         private Button btnPendingTicket;
         private Button btnPresentUsers;
-        private Button button1;
-        private Panel panel1;
+        private Button btnActiveFlights;
+        private Panel pnlDetails;
         private Label label2;
         private Label label1;
         private Panel panel2;

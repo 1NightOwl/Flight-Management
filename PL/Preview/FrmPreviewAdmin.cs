@@ -1,4 +1,5 @@
-﻿using FlightManagement.PL.Start.Log_in;
+﻿using FlightManagement.PL.Admin.Fluturimet.AddFlight;
+using FlightManagement.PL.Start.Log_in;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -101,6 +102,21 @@ namespace FlightManagement.PL.Preview
             {
 
             }
+        }
+
+        private void btnAddFlight_Click(object sender, EventArgs e)
+        {
+            LoadPanels(new FrmCrud());
+        }
+
+        private void LoadPanels(Form form)
+        {
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            pnlControls.Controls.Clear();
+            pnlControls.Controls.Add(form);
+            form.Show();
         }
     }
 }
