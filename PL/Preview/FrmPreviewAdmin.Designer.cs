@@ -248,6 +248,7 @@
             btnAssignRoute.TabIndex = 1;
             btnAssignRoute.Text = "Cakto Itinerar";
             btnAssignRoute.UseVisualStyleBackColor = false;
+            btnAssignRoute.Click += btnAssignRoute_Click;
             // 
             // btnRegisterPlane
             // 
@@ -299,9 +300,9 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImage = Properties.Resources.Logo;
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(55, 22);
+            pictureBox1.Location = new Point(55, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(158, 146);
+            pictureBox1.Size = new Size(158, 168);
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             // 

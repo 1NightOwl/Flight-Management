@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             pnlCrud = new Panel();
-            btnSwitchPanelData = new Button();
             btnSwitchPanelSeatMap = new Button();
+            btnSwitchPanelData = new Button();
             btnDelete = new Button();
             btnClear = new Button();
             btnEdit = new Button();
@@ -49,7 +49,7 @@
             lblModeli = new Label();
             lblTitullCrud = new Label();
             pnlData = new Panel();
-            lbTitleData = new Label();
+            lblTitleData = new Label();
             dgData = new DataGridView();
             pnlSeatMap = new Panel();
             lblTitleSeatMap = new Label();
@@ -64,8 +64,8 @@
             // pnlCrud
             // 
             pnlCrud.BackColor = Color.FromArgb(170, 190, 180);
-            pnlCrud.Controls.Add(btnSwitchPanelData);
             pnlCrud.Controls.Add(btnSwitchPanelSeatMap);
+            pnlCrud.Controls.Add(btnSwitchPanelData);
             pnlCrud.Controls.Add(btnDelete);
             pnlCrud.Controls.Add(btnClear);
             pnlCrud.Controls.Add(btnEdit);
@@ -84,44 +84,44 @@
             pnlCrud.Controls.Add(lblModeli);
             pnlCrud.Controls.Add(lblTitullCrud);
             pnlCrud.Dock = DockStyle.Bottom;
-            pnlCrud.Location = new Point(0, 477);
+            pnlCrud.Location = new Point(0, 448);
             pnlCrud.Name = "pnlCrud";
-            pnlCrud.Size = new Size(1214, 376);
+            pnlCrud.Size = new Size(1214, 405);
             pnlCrud.TabIndex = 0;
-            // 
-            // btnSwitchPanelData
-            // 
-            btnSwitchPanelData.BackColor = Color.FromArgb(130, 180, 175);
-            btnSwitchPanelData.FlatStyle = FlatStyle.Flat;
-            btnSwitchPanelData.Font = new Font("Times New Roman", 12F);
-            btnSwitchPanelData.Location = new Point(1073, 3);
-            btnSwitchPanelData.Name = "btnSwitchPanelData";
-            btnSwitchPanelData.Size = new Size(133, 33);
-            btnSwitchPanelData.TabIndex = 18;
-            btnSwitchPanelData.Text = "Data View →";
-            btnSwitchPanelData.UseVisualStyleBackColor = false;
-            btnSwitchPanelData.Click += btnSwitchPanelData_Click;
             // 
             // btnSwitchPanelSeatMap
             // 
             btnSwitchPanelSeatMap.BackColor = Color.FromArgb(130, 180, 175);
             btnSwitchPanelSeatMap.FlatStyle = FlatStyle.Flat;
             btnSwitchPanelSeatMap.Font = new Font("Times New Roman", 12F);
-            btnSwitchPanelSeatMap.Location = new Point(1035, 3);
+            btnSwitchPanelSeatMap.Location = new Point(1021, 3);
             btnSwitchPanelSeatMap.Name = "btnSwitchPanelSeatMap";
-            btnSwitchPanelSeatMap.Size = new Size(171, 33);
-            btnSwitchPanelSeatMap.TabIndex = 17;
-            btnSwitchPanelSeatMap.Text = "Seat Map View →";
+            btnSwitchPanelSeatMap.Size = new Size(185, 33);
+            btnSwitchPanelSeatMap.TabIndex = 18;
+            btnSwitchPanelSeatMap.Text = "💺 Pamje e vendeve";
             btnSwitchPanelSeatMap.UseVisualStyleBackColor = false;
             btnSwitchPanelSeatMap.Visible = false;
-            btnSwitchPanelSeatMap.Click += btnSwitchPanelSeatMap_Click;
+            btnSwitchPanelSeatMap.Click += btnSwitchPanelData_Click;
+            // 
+            // btnSwitchPanelData
+            // 
+            btnSwitchPanelData.BackColor = Color.FromArgb(130, 180, 175);
+            btnSwitchPanelData.FlatStyle = FlatStyle.Flat;
+            btnSwitchPanelData.Font = new Font("Times New Roman", 12F);
+            btnSwitchPanelData.Location = new Point(990, 3);
+            btnSwitchPanelData.Name = "btnSwitchPanelData";
+            btnSwitchPanelData.Size = new Size(216, 33);
+            btnSwitchPanelData.TabIndex = 17;
+            btnSwitchPanelData.Text = "📝 Të dhënat e avionave";
+            btnSwitchPanelData.UseVisualStyleBackColor = false;
+            btnSwitchPanelData.Click += btnSwitchPanelSeatMap_Click;
             // 
             // btnDelete
             // 
             btnDelete.BackColor = Color.Teal;
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Times New Roman", 12F);
-            btnDelete.Location = new Point(829, 298);
+            btnDelete.Location = new Point(829, 330);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(138, 54);
             btnDelete.TabIndex = 16;
@@ -133,19 +133,20 @@
             btnClear.BackColor = Color.Teal;
             btnClear.FlatStyle = FlatStyle.Popup;
             btnClear.Font = new Font("Times New Roman", 12F);
-            btnClear.Location = new Point(635, 298);
+            btnClear.Location = new Point(635, 330);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(138, 54);
             btnClear.TabIndex = 15;
             btnClear.Text = "Pastro";
             btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += this.btnClear_Click;
             // 
             // btnEdit
             // 
             btnEdit.BackColor = Color.Teal;
             btnEdit.FlatStyle = FlatStyle.Popup;
             btnEdit.Font = new Font("Times New Roman", 12F);
-            btnEdit.Location = new Point(441, 298);
+            btnEdit.Location = new Point(441, 330);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(138, 54);
             btnEdit.TabIndex = 14;
@@ -157,7 +158,7 @@
             btnAdd.BackColor = Color.Teal;
             btnAdd.FlatStyle = FlatStyle.Popup;
             btnAdd.Font = new Font("Times New Roman", 12F);
-            btnAdd.Location = new Point(247, 298);
+            btnAdd.Location = new Point(247, 330);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(138, 54);
             btnAdd.TabIndex = 13;
@@ -168,7 +169,7 @@
             // 
             cbPlaneStatus.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbPlaneStatus.FormattingEnabled = true;
-            cbPlaneStatus.Location = new Point(857, 192);
+            cbPlaneStatus.Location = new Point(857, 202);
             cbPlaneStatus.Name = "cbPlaneStatus";
             cbPlaneStatus.Size = new Size(174, 30);
             cbPlaneStatus.TabIndex = 12;
@@ -176,7 +177,7 @@
             // txtMaxRange
             // 
             txtMaxRange.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMaxRange.Location = new Point(857, 98);
+            txtMaxRange.Location = new Point(857, 108);
             txtMaxRange.Name = "txtMaxRange";
             txtMaxRange.Size = new Size(174, 30);
             txtMaxRange.TabIndex = 11;
@@ -184,7 +185,7 @@
             // txtSeatNr
             // 
             txtSeatNr.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSeatNr.Location = new Point(506, 192);
+            txtSeatNr.Location = new Point(506, 202);
             txtSeatNr.Name = "txtSeatNr";
             txtSeatNr.Size = new Size(174, 30);
             txtSeatNr.TabIndex = 10;
@@ -192,7 +193,7 @@
             // txtPlaneRegistration
             // 
             txtPlaneRegistration.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPlaneRegistration.Location = new Point(506, 98);
+            txtPlaneRegistration.Location = new Point(506, 108);
             txtPlaneRegistration.Name = "txtPlaneRegistration";
             txtPlaneRegistration.Size = new Size(174, 30);
             txtPlaneRegistration.TabIndex = 9;
@@ -200,7 +201,7 @@
             // txtPlaneId
             // 
             txtPlaneId.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPlaneId.Location = new Point(147, 192);
+            txtPlaneId.Location = new Point(147, 202);
             txtPlaneId.Name = "txtPlaneId";
             txtPlaneId.Size = new Size(174, 30);
             txtPlaneId.TabIndex = 8;
@@ -209,7 +210,7 @@
             // 
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus.Location = new Point(857, 166);
+            lblStatus.Location = new Point(857, 176);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(68, 23);
             lblStatus.TabIndex = 7;
@@ -219,7 +220,7 @@
             // 
             lblNrSeats.AutoSize = true;
             lblNrSeats.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNrSeats.Location = new Point(502, 166);
+            lblNrSeats.Location = new Point(502, 176);
             lblNrSeats.Name = "lblNrSeats";
             lblNrSeats.Size = new Size(149, 23);
             lblNrSeats.TabIndex = 6;
@@ -229,7 +230,7 @@
             // 
             lblId.AutoSize = true;
             lblId.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblId.Location = new Point(147, 166);
+            lblId.Location = new Point(147, 176);
             lblId.Name = "lblId";
             lblId.Size = new Size(139, 23);
             lblId.TabIndex = 5;
@@ -239,7 +240,7 @@
             // 
             lblMaxTravel.AutoSize = true;
             lblMaxTravel.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblMaxTravel.Location = new Point(857, 72);
+            lblMaxTravel.Location = new Point(857, 82);
             lblMaxTravel.Name = "lblMaxTravel";
             lblMaxTravel.Size = new Size(211, 23);
             lblMaxTravel.TabIndex = 4;
@@ -249,7 +250,7 @@
             // 
             lblNrID.AutoSize = true;
             lblNrID.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNrID.Location = new Point(502, 72);
+            lblNrID.Location = new Point(502, 82);
             lblNrID.Name = "lblNrID";
             lblNrID.Size = new Size(178, 23);
             lblNrID.TabIndex = 3;
@@ -259,7 +260,7 @@
             // 
             cbPlaneType.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbPlaneType.FormattingEnabled = true;
-            cbPlaneType.Location = new Point(147, 98);
+            cbPlaneType.Location = new Point(147, 108);
             cbPlaneType.Name = "cbPlaneType";
             cbPlaneType.Size = new Size(174, 30);
             cbPlaneType.TabIndex = 2;
@@ -269,7 +270,7 @@
             // 
             lblModeli.AutoSize = true;
             lblModeli.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblModeli.Location = new Point(147, 72);
+            lblModeli.Location = new Point(147, 82);
             lblModeli.Name = "lblModeli";
             lblModeli.Size = new Size(227, 23);
             lblModeli.TabIndex = 1;
@@ -289,7 +290,7 @@
             // pnlData
             // 
             pnlData.BackColor = Color.FromArgb(202, 209, 193);
-            pnlData.Controls.Add(lbTitleData);
+            pnlData.Controls.Add(lblTitleData);
             pnlData.Controls.Add(dgData);
             pnlData.Dock = DockStyle.Fill;
             pnlData.Location = new Point(0, 0);
@@ -298,15 +299,15 @@
             pnlData.TabIndex = 1;
             pnlData.Visible = false;
             // 
-            // lbTitleData
+            // lblTitleData
             // 
-            lbTitleData.AutoSize = true;
-            lbTitleData.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbTitleData.Location = new Point(112, 26);
-            lbTitleData.Name = "lbTitleData";
-            lbTitleData.Size = new Size(273, 33);
-            lbTitleData.TabIndex = 3;
-            lbTitleData.Text = "Aviona te shtuar sot ✈️";
+            lblTitleData.AutoSize = true;
+            lblTitleData.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitleData.Location = new Point(112, 26);
+            lblTitleData.Name = "lblTitleData";
+            lblTitleData.Size = new Size(273, 33);
+            lblTitleData.TabIndex = 3;
+            lblTitleData.Text = "✈️Avione te shtuar me:";
             // 
             // dgData
             // 
@@ -337,9 +338,9 @@
             lblTitleSeatMap.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTitleSeatMap.Location = new Point(112, 26);
             lblTitleSeatMap.Name = "lblTitleSeatMap";
-            lblTitleSeatMap.Size = new Size(443, 33);
+            lblTitleSeatMap.Size = new Size(475, 33);
             lblTitleSeatMap.TabIndex = 2;
-            lblTitleSeatMap.Text = "Paraqitja vizuale e avionit te selektuar:";
+            lblTitleSeatMap.Text = "💺Paraqitja vizuale e avionit te selektuar:";
             // 
             // pbSeatMap
             // 
@@ -358,8 +359,8 @@
             BackColor = SystemColors.AppWorkspace;
             ClientSize = new Size(1214, 853);
             Controls.Add(pnlCrud);
-            Controls.Add(pnlSeatMap);
             Controls.Add(pnlData);
+            Controls.Add(pnlSeatMap);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmCrud";
@@ -382,7 +383,7 @@
         private Panel pnlData;
         private Panel pnlSeatMap;
         private PictureBox pbSeatMap;
-        private Label lbTitleData;
+        private Label lblTitleData;
         private DataGridView dgData;
         private Label lblTitullCrud;
         private Label lblModeli;
@@ -402,7 +403,7 @@
         private Button btnDelete;
         private Button btnClear;
         private Button btnEdit;
-        private Button btnSwitchPanelSeatMap;
         private Button btnSwitchPanelData;
+        private Button btnSwitchPanelSeatMap;
     }
 }

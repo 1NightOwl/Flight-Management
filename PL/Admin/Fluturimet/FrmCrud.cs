@@ -26,24 +26,26 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             cbPlaneType.Items.AddRange(PlaneDeafults.planeTemplates.Keys.ToArray());
             cbPlaneStatus.SelectedIndex = -1;
             isLoaded = true;
+
+            lblTitleData.Text = "✈️Avione te shtuar me: "+ DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         private void btnSwitchPanelData_Click(object sender, EventArgs e)
-        {
-            btnSwitchPanelData.Visible = false;
-            btnSwitchPanelSeatMap.Visible = true;
-
-            pnlData.Visible = true;
-            pnlSeatMap.Visible = false;
-        }
-
-        private void btnSwitchPanelSeatMap_Click(object sender, EventArgs e)
         {
             btnSwitchPanelSeatMap.Visible = false;
             btnSwitchPanelData.Visible = true;
 
             pnlData.Visible = false;
             pnlSeatMap.Visible = true;
+        }
+
+        private void btnSwitchPanelSeatMap_Click(object sender, EventArgs e)
+        {
+            btnSwitchPanelData.Visible = false;
+            btnSwitchPanelSeatMap.Visible = true;
+
+            pnlData.Visible = true;
+            pnlSeatMap.Visible = false;
         }
 
         private void cbPlaneType_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,6 +59,7 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                 txtMaxRange.Text = plane.RangeKm.ToString();
                 cbPlaneStatus.SelectedItem = plane.Status;
 
+                lblTitleSeatMap.Text = $"💺Paraqitja vizuale e avionit te selektuar: {selectedPlaneType}";
 
                 pbSeatMap.Image = null;
 
@@ -78,6 +81,18 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             }
         }
 
-        
+        public void btnClear_Click(object sender, EventArgs e)
+        {
+            cbPlaneType.SelectedIndex = -1;
+            txtSeatNr.Text = string.Empty;
+            txtMaxRange.Text = string.Empty;
+            cbPlaneStatus.SelectedIndex = -1;
+            pbSeatMap.Image = null;
+            txtPlaneId.Text = string.Empty;
+            txtPlaneRegistration.Text = string.Empty;
+        }
+
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using FlightManagement.PL.Admin.Fluturimet.AddFlight;
+﻿using FlightManagement.PL.Admin.Fluturimet;
+using FlightManagement.PL.Admin.Fluturimet.AddFlight;
 using FlightManagement.PL.Start.Log_in;
 using System;
 using System.Collections.Generic;
@@ -77,11 +78,7 @@ namespace FlightManagement.PL.Preview
             showPannelUsers = !showPannelUsers;
             togglePannels();
         }
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            Application.Exit();
-        }
+        
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
@@ -108,6 +105,10 @@ namespace FlightManagement.PL.Preview
         {
             LoadPanels(new FrmCrud());
         }
+        private void btnAssignRoute_Click(object sender, EventArgs e)
+        {
+            LoadPanels(new FrmFlightRoutes());
+        }
 
         private void LoadPanels(Form form)
         {
@@ -118,5 +119,12 @@ namespace FlightManagement.PL.Preview
             pnlControls.Controls.Add(form);
             form.Show();
         }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            Application.Exit();
+        }
+
     }
 }

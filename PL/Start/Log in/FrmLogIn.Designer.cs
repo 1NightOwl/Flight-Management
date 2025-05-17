@@ -316,9 +316,9 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImage = Properties.Resources.Logo;
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(301, 59);
+            pictureBox1.Location = new Point(284, -1);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(217, 198);
+            pictureBox1.Size = new Size(247, 258);
             pictureBox1.TabIndex = 8;
             pictureBox1.TabStop = false;
             // 
