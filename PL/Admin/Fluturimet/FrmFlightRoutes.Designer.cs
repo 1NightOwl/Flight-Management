@@ -104,7 +104,6 @@
             btnSwitchPanelList.TabIndex = 17;
             btnSwitchPanelList.Text = "📝 Shto itinerar";
             btnSwitchPanelList.UseVisualStyleBackColor = false;
-            btnSwitchPanelList.UseWaitCursor = true;
             btnSwitchPanelList.Click += btnSwitchPanelList_Click;
             // 
             // btnDelete

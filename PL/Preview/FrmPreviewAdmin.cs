@@ -78,7 +78,7 @@ namespace FlightManagement.PL.Preview
             showPannelUsers = !showPannelUsers;
             togglePannels();
         }
-        
+
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
@@ -109,6 +109,10 @@ namespace FlightManagement.PL.Preview
         {
             LoadPanels(new FrmFlightRoutes());
         }
+        private void btnActiveFlights_Click(object sender, EventArgs e)
+        {
+            LoadPanels(new FrmActiveFlights());
+        }
 
         private void LoadPanels(Form form)
         {
@@ -126,5 +130,6 @@ namespace FlightManagement.PL.Preview
             Application.Exit();
         }
 
+        
     }
 }

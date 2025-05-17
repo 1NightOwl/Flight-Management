@@ -236,6 +236,7 @@
             btnActiveFlights.TabIndex = 2;
             btnActiveFlights.Text = "Fluturimet Aktive";
             btnActiveFlights.UseVisualStyleBackColor = false;
+            btnActiveFlights.Click += btnActiveFlights_Click;
             // 
             // btnAssignRoute
             // 
