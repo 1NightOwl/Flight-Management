@@ -63,7 +63,7 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 
                 pbSeatMap.Image = null;
 
-                string imageFileName = selectedPlaneType + ".png"; 
+                var imageFileName = selectedPlaneType + ".png"; 
                 string imagePath = Path.Combine(Application.StartupPath, "Resources", "SeatMaps", imageFileName);
 
                 if (File.Exists(imagePath))

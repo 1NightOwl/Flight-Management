@@ -47,10 +47,8 @@
             lblTitleRoute = new Label();
             lblTitleRouteInput = new Label();
             pnlCrud = new Panel();
+            btnShowClasses = new Button();
             cbDepartDay = new ComboBox();
-            lblPlaneClass = new Label();
-            rbNo = new RadioButton();
-            rbYes = new RadioButton();
             dtArrival = new DateTimePicker();
             dtDeparture = new DateTimePicker();
             cbDestination = new ComboBox();
@@ -61,11 +59,17 @@
             lblArrivalAirport = new Label();
             pnlRouteInput = new Panel();
             dgAviablePlanes = new DataGridView();
+            pnlPlaneClasses = new Panel();
+            lblFirstClass = new Label();
+            lblBusiness = new Label();
+            lblEconomy = new Label();
+            lblPlaneClasses = new Label();
             ((System.ComponentModel.ISupportInitialize)dgPlaneRouteList).BeginInit();
             pnlRouteList.SuspendLayout();
             pnlCrud.SuspendLayout();
             pnlRouteInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgAviablePlanes).BeginInit();
+            pnlPlaneClasses.SuspendLayout();
             SuspendLayout();
             // 
             // dgPlaneRouteList
@@ -180,7 +184,7 @@
             // txtPlaneId
             // 
             txtPlaneId.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPlaneId.Location = new Point(144, 192);
+            txtPlaneId.Location = new Point(144, 237);
             txtPlaneId.Name = "txtPlaneId";
             txtPlaneId.Size = new Size(174, 30);
             txtPlaneId.TabIndex = 8;
@@ -189,7 +193,7 @@
             // 
             lblArrivalTime.AutoSize = true;
             lblArrivalTime.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblArrivalTime.Location = new Point(644, 166);
+            lblArrivalTime.Location = new Point(644, 211);
             lblArrivalTime.Name = "lblArrivalTime";
             lblArrivalTime.Size = new Size(154, 23);
             lblArrivalTime.TabIndex = 7;
@@ -199,7 +203,7 @@
             // 
             lblId.AutoSize = true;
             lblId.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblId.Location = new Point(138, 166);
+            lblId.Location = new Point(138, 211);
             lblId.Name = "lblId";
             lblId.Size = new Size(139, 23);
             lblId.TabIndex = 5;
@@ -209,7 +213,7 @@
             // 
             lblDepartTime.AutoSize = true;
             lblDepartTime.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDepartTime.Location = new Point(640, 72);
+            lblDepartTime.Location = new Point(640, 117);
             lblDepartTime.Name = "lblDepartTime";
             lblDepartTime.Size = new Size(116, 23);
             lblDepartTime.TabIndex = 4;
@@ -219,7 +223,7 @@
             // 
             lblDepartureAirport.AutoSize = true;
             lblDepartureAirport.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDepartureAirport.Location = new Point(401, 72);
+            lblDepartureAirport.Location = new Point(401, 117);
             lblDepartureAirport.Name = "lblDepartureAirport";
             lblDepartureAirport.Size = new Size(159, 23);
             lblDepartureAirport.TabIndex = 3;
@@ -229,7 +233,7 @@
             // 
             cbPlaneType.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbPlaneType.FormattingEnabled = true;
-            cbPlaneType.Location = new Point(143, 98);
+            cbPlaneType.Location = new Point(143, 143);
             cbPlaneType.Name = "cbPlaneType";
             cbPlaneType.Size = new Size(174, 30);
             cbPlaneType.TabIndex = 2;
@@ -239,7 +243,7 @@
             // 
             lblModeli.AutoSize = true;
             lblModeli.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblModeli.Location = new Point(141, 72);
+            lblModeli.Location = new Point(141, 117);
             lblModeli.Name = "lblModeli";
             lblModeli.Size = new Size(227, 23);
             lblModeli.TabIndex = 1;
@@ -269,10 +273,8 @@
             // pnlCrud
             // 
             pnlCrud.BackColor = Color.FromArgb(170, 190, 180);
+            pnlCrud.Controls.Add(btnShowClasses);
             pnlCrud.Controls.Add(cbDepartDay);
-            pnlCrud.Controls.Add(lblPlaneClass);
-            pnlCrud.Controls.Add(rbNo);
-            pnlCrud.Controls.Add(rbYes);
             pnlCrud.Controls.Add(dtArrival);
             pnlCrud.Controls.Add(dtDeparture);
             pnlCrud.Controls.Add(cbDestination);
@@ -301,54 +303,33 @@
             pnlCrud.Size = new Size(1214, 405);
             pnlCrud.TabIndex = 3;
             // 
+            // btnShowClasses
+            // 
+            btnShowClasses.BackColor = Color.FromArgb(130, 180, 175);
+            btnShowClasses.FlatStyle = FlatStyle.Flat;
+            btnShowClasses.Font = new Font("Times New Roman", 12F);
+            btnShowClasses.Location = new Point(1056, 54);
+            btnShowClasses.Name = "btnShowClasses";
+            btnShowClasses.Size = new Size(150, 36);
+            btnShowClasses.TabIndex = 35;
+            btnShowClasses.Text = "📋 Shfaq klasat";
+            btnShowClasses.UseVisualStyleBackColor = false;
+            btnShowClasses.Click += btnShowClasses_Click;
+            // 
             // cbDepartDay
             // 
             cbDepartDay.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbDepartDay.FormattingEnabled = true;
-            cbDepartDay.Location = new Point(874, 192);
+            cbDepartDay.Location = new Point(874, 237);
             cbDepartDay.Name = "cbDepartDay";
             cbDepartDay.Size = new Size(174, 30);
             cbDepartDay.TabIndex = 34;
-            // 
-            // lblPlaneClass
-            // 
-            lblPlaneClass.AutoSize = true;
-            lblPlaneClass.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblPlaneClass.Location = new Point(481, 247);
-            lblPlaneClass.Name = "lblPlaneClass";
-            lblPlaneClass.Size = new Size(264, 23);
-            lblPlaneClass.TabIndex = 33;
-            lblPlaneClass.Text = "A ka avioni ndarje të klasave?";
-            // 
-            // rbNo
-            // 
-            rbNo.AutoSize = true;
-            rbNo.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
-            rbNo.Location = new Point(633, 276);
-            rbNo.Name = "rbNo";
-            rbNo.Size = new Size(51, 27);
-            rbNo.TabIndex = 32;
-            rbNo.TabStop = true;
-            rbNo.Text = "Jo";
-            rbNo.UseVisualStyleBackColor = true;
-            // 
-            // rbYes
-            // 
-            rbYes.AutoSize = true;
-            rbYes.Font = new Font("Times New Roman", 12F, FontStyle.Bold);
-            rbYes.Location = new Point(536, 276);
-            rbYes.Name = "rbYes";
-            rbYes.Size = new Size(53, 27);
-            rbYes.TabIndex = 31;
-            rbYes.TabStop = true;
-            rbYes.Text = "Po";
-            rbYes.UseVisualStyleBackColor = true;
             // 
             // dtArrival
             // 
             dtArrival.CustomFormat = "HH:mm";
             dtArrival.Format = DateTimePickerFormat.Custom;
-            dtArrival.Location = new Point(644, 195);
+            dtArrival.Location = new Point(644, 240);
             dtArrival.Name = "dtArrival";
             dtArrival.ShowUpDown = true;
             dtArrival.Size = new Size(164, 27);
@@ -358,7 +339,7 @@
             // 
             dtDeparture.CustomFormat = "HH:mm";
             dtDeparture.Format = DateTimePickerFormat.Custom;
-            dtDeparture.Location = new Point(640, 101);
+            dtDeparture.Location = new Point(640, 146);
             dtDeparture.Name = "dtDeparture";
             dtDeparture.ShowUpDown = true;
             dtDeparture.Size = new Size(168, 27);
@@ -369,7 +350,7 @@
             // 
             cbDestination.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbDestination.FormattingEnabled = true;
-            cbDestination.Location = new Point(403, 192);
+            cbDestination.Location = new Point(403, 237);
             cbDestination.Name = "cbDestination";
             cbDestination.Size = new Size(174, 30);
             cbDestination.TabIndex = 24;
@@ -379,7 +360,7 @@
             // 
             cbOrigin.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbOrigin.FormattingEnabled = true;
-            cbOrigin.Location = new Point(403, 98);
+            cbOrigin.Location = new Point(403, 143);
             cbOrigin.Name = "cbOrigin";
             cbOrigin.Size = new Size(174, 30);
             cbOrigin.TabIndex = 23;
@@ -388,16 +369,17 @@
             // txtPrice
             // 
             txtPrice.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPrice.Location = new Point(875, 98);
+            txtPrice.Location = new Point(875, 143);
             txtPrice.Name = "txtPrice";
             txtPrice.Size = new Size(174, 30);
             txtPrice.TabIndex = 21;
+            txtPrice.TextChanged += txtPrice_TextChanged;
             // 
             // lblDepartureDay
             // 
             lblDepartureDay.AutoSize = true;
             lblDepartureDay.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblDepartureDay.Location = new Point(874, 166);
+            lblDepartureDay.Location = new Point(874, 211);
             lblDepartureDay.Name = "lblDepartureDay";
             lblDepartureDay.Size = new Size(153, 23);
             lblDepartureDay.TabIndex = 20;
@@ -407,7 +389,7 @@
             // 
             lblSeatPrice.AutoSize = true;
             lblSeatPrice.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSeatPrice.Location = new Point(874, 72);
+            lblSeatPrice.Location = new Point(874, 117);
             lblSeatPrice.Name = "lblSeatPrice";
             lblSeatPrice.Size = new Size(203, 23);
             lblSeatPrice.TabIndex = 19;
@@ -417,7 +399,7 @@
             // 
             lblArrivalAirport.AutoSize = true;
             lblArrivalAirport.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblArrivalAirport.Location = new Point(403, 166);
+            lblArrivalAirport.Location = new Point(403, 211);
             lblArrivalAirport.Name = "lblArrivalAirport";
             lblArrivalAirport.Size = new Size(197, 23);
             lblArrivalAirport.TabIndex = 6;
@@ -446,11 +428,66 @@
             dgAviablePlanes.Size = new Size(991, 330);
             dgAviablePlanes.TabIndex = 3;
             // 
+            // pnlPlaneClasses
+            // 
+            pnlPlaneClasses.BackColor = Color.FromArgb(202, 209, 193);
+            pnlPlaneClasses.Controls.Add(lblFirstClass);
+            pnlPlaneClasses.Controls.Add(lblBusiness);
+            pnlPlaneClasses.Controls.Add(lblEconomy);
+            pnlPlaneClasses.Controls.Add(lblPlaneClasses);
+            pnlPlaneClasses.Dock = DockStyle.Fill;
+            pnlPlaneClasses.Location = new Point(0, 0);
+            pnlPlaneClasses.Name = "pnlPlaneClasses";
+            pnlPlaneClasses.Size = new Size(1214, 448);
+            pnlPlaneClasses.TabIndex = 6;
+            pnlPlaneClasses.Visible = false;
+            // 
+            // lblFirstClass
+            // 
+            lblFirstClass.AutoSize = true;
+            lblFirstClass.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFirstClass.Location = new Point(112, 318);
+            lblFirstClass.Name = "lblFirstClass";
+            lblFirstClass.Size = new Size(135, 23);
+            lblFirstClass.TabIndex = 6;
+            lblFirstClass.Text = "👑 Klasa First:";
+            // 
+            // lblBusiness
+            // 
+            lblBusiness.AutoSize = true;
+            lblBusiness.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBusiness.Location = new Point(112, 209);
+            lblBusiness.Name = "lblBusiness";
+            lblBusiness.Size = new Size(168, 23);
+            lblBusiness.TabIndex = 5;
+            lblBusiness.Text = "💼 Klasa Business:";
+            // 
+            // lblEconomy
+            // 
+            lblEconomy.AutoSize = true;
+            lblEconomy.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEconomy.Location = new Point(112, 100);
+            lblEconomy.Name = "lblEconomy";
+            lblEconomy.Size = new Size(116, 23);
+            lblEconomy.TabIndex = 4;
+            lblEconomy.Text = "💺Economy:";
+            // 
+            // lblPlaneClasses
+            // 
+            lblPlaneClasses.AutoSize = true;
+            lblPlaneClasses.Font = new Font("Times New Roman", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPlaneClasses.Location = new Point(112, 26);
+            lblPlaneClasses.Name = "lblPlaneClasses";
+            lblPlaneClasses.Size = new Size(241, 33);
+            lblPlaneClasses.TabIndex = 3;
+            lblPlaneClasses.Text = "🎫Klaset e avionit:  ";
+            // 
             // FrmFlightRoutes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1214, 853);
+            Controls.Add(pnlPlaneClasses);
             Controls.Add(pnlCrud);
             Controls.Add(pnlRouteList);
             Controls.Add(pnlRouteInput);
@@ -467,6 +504,8 @@
             pnlRouteInput.ResumeLayout(false);
             pnlRouteInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgAviablePlanes).EndInit();
+            pnlPlaneClasses.ResumeLayout(false);
+            pnlPlaneClasses.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -500,9 +539,12 @@
         private ComboBox cbDestination;
         private ComboBox cbOrigin;
         private DataGridView dgAviablePlanes;
-        private Label lblPlaneClass;
-        private RadioButton rbNo;
-        private RadioButton rbYes;
         private ComboBox cbDepartDay;
+        private Panel pnlPlaneClasses;
+        private Label lblPlaneClasses;
+        private Label lblFirstClass;
+        private Label lblBusiness;
+        private Label lblEconomy;
+        private Button btnShowClasses;
     }
 }

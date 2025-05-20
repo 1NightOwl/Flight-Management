@@ -12,7 +12,10 @@ namespace FlightManagement.Core.PlaneModels
     {
         private int _seatCount;
         private int _rangeKm;
-
+        
+        public bool HasClasses { get; set; }
+        public double BuisnessFactor { get; set; } = 1.5;
+        public double FirstClassFactor { get; set; } = 2.0;
         public string Model { get; set; }
         public string Id { get; set; }
         public string Registration { get; set; }
