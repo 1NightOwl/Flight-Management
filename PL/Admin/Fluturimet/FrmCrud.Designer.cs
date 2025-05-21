@@ -127,6 +127,7 @@
             btnDelete.TabIndex = 16;
             btnDelete.Text = "Fshi";
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
@@ -139,7 +140,7 @@
             btnClear.TabIndex = 15;
             btnClear.Text = "Pastro";
             btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += this.btnClear_Click;
+            btnClear.Click += btnClear_Click;
             // 
             // btnEdit
             // 
@@ -152,6 +153,7 @@
             btnEdit.TabIndex = 14;
             btnEdit.Text = "Nrdysho";
             btnEdit.UseVisualStyleBackColor = false;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnAdd
             // 
@@ -164,6 +166,7 @@
             btnAdd.TabIndex = 13;
             btnAdd.Text = "Shto";
             btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
             // cbPlaneStatus
             // 
@@ -320,6 +323,7 @@
             dgData.RowHeadersWidth = 51;
             dgData.Size = new Size(991, 330);
             dgData.TabIndex = 2;
+            dgData.CellContentClick += dgData_CellContentClick;
             // 
             // pnlSeatMap
             // 
