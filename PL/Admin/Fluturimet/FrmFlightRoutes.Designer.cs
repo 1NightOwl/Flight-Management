@@ -438,7 +438,7 @@
             pnlPlaneClasses.Dock = DockStyle.Fill;
             pnlPlaneClasses.Location = new Point(0, 0);
             pnlPlaneClasses.Name = "pnlPlaneClasses";
-            pnlPlaneClasses.Size = new Size(1214, 448);
+            pnlPlaneClasses.Size = new Size(1214, 853);
             pnlPlaneClasses.TabIndex = 6;
             pnlPlaneClasses.Visible = false;
             // 
@@ -487,10 +487,10 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1214, 853);
-            Controls.Add(pnlPlaneClasses);
             Controls.Add(pnlCrud);
             Controls.Add(pnlRouteList);
             Controls.Add(pnlRouteInput);
+            Controls.Add(pnlPlaneClasses);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmFlightRoutes";

@@ -32,7 +32,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             cbDestination.Items.AddRange(Airports);
 
             cbDepartDay.Items.AddRange(RouteDeafults.DaysOfTheWeek);
-
         }
 
         private void btnSwitchPanelInput_Click(object sender, EventArgs e)
@@ -139,9 +138,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-
             cbPlaneType.SelectedIndex = -1;
             cbOrigin.SelectedIndex = -1;
+            cbOrigin.Text = "";
 
             cbDestination.SelectedIndex = -1;
             cbDepartDay.SelectedIndex = -1;
@@ -153,8 +152,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dtDeparture.Value = DateTime.Now;
 
             UpdatePrices();
-        }
-
-        
+        }   
     }
 }
