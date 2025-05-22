@@ -1,4 +1,5 @@
-﻿using FlightManagement.Core.Data.Entities;
+﻿using FlightManagement.Core.Common;
+using FlightManagement.Core.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,25 @@ namespace FlightManagement.Core.Logic.Managers
     {
         public void AddRoute(Route route)
         {
-            Program.DbContext.Routes.Add(route);
+            Program.DbContext.Routes.Add(new Route
+            {
+                PlaneId = route.PlaneId,
+                Departure = route.Departure,
+                Arrival = route.Arrival,
+                DepartureDay = route.DepartureDay,
+                StartTime = route.StartTime,
+                EndTime = route.EndTime,
+                Price = route.Price,
+                CreatedDate = DateTime.Now
+            });
+
             Program.DbContext.SaveChanges();
         }
 
         public void UpdateRoute(int id, Route updated)
         {
             var dbRoute = Program.DbContext.Routes.Find(id)
-                         ?? throw new Exception("Rruga nuk u gjet.");
+                         ?? throw new FlightManagementException("Rruga nuk u gjet.");
 
             dbRoute.Departure = updated.Departure;
             dbRoute.Arrival = updated.Arrival;
@@ -33,18 +45,31 @@ namespace FlightManagement.Core.Logic.Managers
             Program.DbContext.SaveChanges();
         }
 
-        public List<Route> GetAllRoutes() =>
-            Program.DbContext.Routes
-                   .Include(r => r.Plane)
-                   .ToList();
+        public List<Route> GetAllRoutes()
+        {
+            return Program.DbContext
+                          .Routes
+                          .Select(r => new Route
+                          {
+                              Id = r.Id,
+                              PlaneId = r.PlaneId,
+                              Departure = r.Departure,
+                              Arrival = r.Arrival,
+                              DepartureDay = r.DepartureDay,
+                              StartTime = r.StartTime,
+                              EndTime = r.EndTime,
+                              Price = r.Price,
+                              CreatedDate = r.CreatedDate,
+                              UpdatedDate = r.UpdatedDate
+                          }).ToList();
+        }
 
         public Route? GetById(int id) =>
             Program.DbContext.Routes.Find(id);
 
         public void DeleteRoute(int id)
         {
-            var route = Program.DbContext.Routes.Find(id)
-                         ?? throw new Exception("Rruga nuk ekziston.");
+            var route = Program.DbContext.Routes.Find(id) ?? throw new FlightManagementException("Rruga nuk u gjet!");
             Program.DbContext.Routes.Remove(route);
             Program.DbContext.SaveChanges();
         }

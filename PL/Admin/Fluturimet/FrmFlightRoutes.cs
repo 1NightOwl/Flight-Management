@@ -1,5 +1,7 @@
-﻿using FlightManagement.Core.Logic;
+﻿using FlightManagement.Core.Data.Entities;
+using FlightManagement.Core.Logic;
 using FlightManagement.Core.Templates;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,13 +11,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace FlightManagement.PL.Admin.Fluturimet
 {
     public partial class FrmFlightRoutes : Form
     {
         string[] Airports = RouteDeafults.Airports;
-
+        private int selectedRouteDbId = -1;
         public bool isLoaded = false;
 
 
@@ -32,6 +35,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
             cbDestination.Items.AddRange(Airports);
 
             cbDepartDay.Items.AddRange(RouteDeafults.DaysOfTheWeek);
+
+            FillDataGridView();
+            FillDataGridViewAvailablePlanes();
         }
 
         private void btnSwitchPanelInput_Click(object sender, EventArgs e)
@@ -66,6 +72,16 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
         private void cbPlaneType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!isLoaded) return;
+
+            if (cbPlaneType.SelectedIndex == -1)
+            {
+                FillDataGridViewAvailablePlanes();
+                UpdatePrices();
+                return;
+            }
+
+            FillFilteredPlanes();
             UpdatePrices();
         }
 
@@ -82,7 +98,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 return;
             }
             string selectedPlaneType = cbPlaneType.SelectedItem.ToString();
-            
+
             ClassPriceManager.UpdateClassPrice(
                 selectedPlaneType,
                 txtPrice.Text,
@@ -151,7 +167,258 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dtArrival.Value = DateTime.Now;
             dtDeparture.Value = DateTime.Now;
 
+            txtPlaneId.ReadOnly = false;
+            cbPlaneType.Enabled = true;
+
             UpdatePrices();
-        }   
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedModel = cbPlaneType.SelectedItem?.ToString();
+                if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
+                {
+                    MessageBox.Show("Modeli i avionit nuk u gjet.");
+                    return;
+                }
+
+                
+                var newRoute = new Route
+                {
+                    PlaneId = selectedRouteDbId,
+                    Departure = cbOrigin.Text,
+                    Arrival = cbDestination.Text,
+                    DepartureDay = cbDepartDay.Text,
+                    StartTime = dtDeparture.Value.TimeOfDay,
+                    EndTime = dtArrival.Value.TimeOfDay,
+                    Price = int.Parse(txtPrice.Text),
+                    CreatedDate = DateTime.Today
+                };
+
+                Program.RoutesManager.AddRoute(newRoute);
+                MessageBox.Show("Rruga u shtua me sukses!");
+                btnClear_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gabim gjatë shtimit: " + ex.Message);
+            }
+            FillDataGridView();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (selectedRouteDbId == -1)
+            {
+                MessageBox.Show("Zgjidh një rruge për përditësim.");
+                return;
+            }
+
+            try
+            {
+                var selectedModel = cbPlaneType.SelectedItem?.ToString();
+                if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
+                {
+                    MessageBox.Show("Modeli i avionit nuk u gjet.");
+                    return;
+                }
+
+                var updatedRoute = new Route
+                {
+                    PlaneId = int.Parse(txtPlaneId.Text),
+                    Departure = cbOrigin.Text,
+                    Arrival = cbDestination.Text,
+                    DepartureDay = cbDepartDay.Text,
+                    StartTime = dtDeparture.Value.TimeOfDay,
+                    EndTime = dtArrival.Value.TimeOfDay,
+                    Price = int.Parse(txtPrice.Text),
+                    UpdatedDate = DateTime.Now
+                };
+
+                Program.RoutesManager.UpdateRoute(selectedRouteDbId, updatedRoute);
+                MessageBox.Show("Rruga u përditësua me sukses!");
+                btnClear_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gabim gjatë përditësimit: " + ex.Message);
+            }
+            txtPlaneId.Enabled = true;
+            cbPlaneType.Enabled = true;
+            FillDataGridView();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedRouteDbId == -1)
+            {
+                MessageBox.Show("Zgjidh një rruge për fshirje.");
+                return;
+            }
+
+            var confirm = MessageBox.Show("Jeni i sigurt që doni të fshini këtë rruge?", "Konfirmim", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.Yes)
+            {
+                Program.RoutesManager.DeleteRoute(selectedRouteDbId);
+                MessageBox.Show("Rruga u fshi me sukses!");
+                btnClear_Click(null, null);
+                FillDataGridView();
+            }
+            txtPlaneId.Enabled = true;
+            cbPlaneType.Enabled = true;
+        }
+        private void FillDataGridView()
+        {
+            dgPlaneRouteList.AutoGenerateColumns = true;
+            dgPlaneRouteList.DataSource = null;
+            dgPlaneRouteList.DataSource = Program.RoutesManager.GetAllRoutes();
+            dgPlaneRouteList.Columns["Plane"].Visible = false;
+            dgPlaneRouteList.Columns["Id"].Visible = false;
+
+            dgPlaneRouteList.Columns["PlaneId"].HeaderText = "ID e Avionit";
+            dgPlaneRouteList.Columns["Departure"].HeaderText = "Nisja";
+            dgPlaneRouteList.Columns["Arrival"].HeaderText = "Mbërritja";
+            dgPlaneRouteList.Columns["DepartureDay"].HeaderText = "Dita";
+            dgPlaneRouteList.Columns["StartTime"].HeaderText = "Ora Nisjes";
+            dgPlaneRouteList.Columns["EndTime"].HeaderText = "Ora Mbërritjes";
+            dgPlaneRouteList.Columns["Price"].HeaderText = "Çmimi";
+            dgPlaneRouteList.Columns["CreatedDate"].HeaderText = "Data Shtimit";
+            dgPlaneRouteList.Columns["UpdatedDate"].HeaderText = "Data Përditësimit";
+            dgPlaneRouteList.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
+            dgPlaneRouteList.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
+        }
+        private void FillDataGridViewAvailablePlanes()
+        {
+            dgAviablePlanes.AutoGenerateColumns = true;
+            dgAviablePlanes.DataSource = null;
+            dgAviablePlanes.DataSource = Program.PlanesManager.GetAll();
+            dgAviablePlanes.DataSource = Program.PlanesManager
+                                         .GetAll()
+                                         .Where(p => p.Status == "Aktiv")
+                                         .ToList();
+
+            var visibleColumns = new List<string>
+                    {
+                         "PlaneId",
+                         "Model",
+                         "SeatCount",
+                         "HasClasses",
+                         "BuisnessFactor",
+                         "FirstClassFactor"
+                     };
+
+            foreach (DataGridViewColumn col in dgAviablePlanes.Columns)
+            {
+                col.Visible = visibleColumns.Contains(col.Name);
+            }
+
+            dgAviablePlanes.Columns["Id"].Visible = false;
+            dgAviablePlanes.Columns["PlaneId"].HeaderText = "ID e Avionit";
+            dgAviablePlanes.Columns["Model"].HeaderText = "Modeli i Avionit";
+            dgAviablePlanes.Columns["SeatCount"].HeaderText = "Numri i Vendeve";
+            dgAviablePlanes.Columns["HasClasses"].HeaderText = "Ka Klasa?";
+            dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
+            dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
+        }
+
+        private void dgPlaneRouteList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
+            //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
+            DialogResult result = MessageBox.Show(
+                "Deshiron te marresh te dhenat e ketij avioni?",
+                "Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                cbPlaneType.Enabled = false;
+                txtPlaneId.Enabled = false;
+                if (e.RowIndex != -1)
+                {
+                    DataGridViewRow row = dgPlaneRouteList.Rows[e.RowIndex];
+                    selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
+
+                    txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
+                    cbOrigin.Text = row.Cells["Departure"].Value.ToString();
+                    cbDestination.Text = row.Cells["Arrival"].Value.ToString();
+                    cbDepartDay.Text = row.Cells["DepartureDay"].Value.ToString();
+                    dtDeparture.Value = DateTime.Today.Add((TimeSpan)row.Cells["StartTime"].Value);
+                    dtArrival.Value = DateTime.Today.Add((TimeSpan)row.Cells["EndTime"].Value);
+                    txtPrice.Text = row.Cells["Price"].Value.ToString();
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void dgAviablePlanes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
+            //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
+            DialogResult result = MessageBox.Show(
+                "Deshiron te marresh te dhenat e ketij avioni?",
+                "Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                cbPlaneType.Enabled = false;
+                txtPlaneId.Enabled = false;
+                if (e.RowIndex != -1)
+                {
+                    DataGridViewRow row = dgAviablePlanes.Rows[e.RowIndex];
+                    selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
+
+                    txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
+                    cbPlaneType.Text = row.Cells["Model"].Value.ToString();
+                }
+            }
+            else
+            {
+
+            }
+        }
+        private void FillFilteredPlanes()
+        {
+
+            string selectedModel = cbPlaneType.SelectedItem.ToString();
+
+            var filteredPlanes = Program.PlanesManager
+                    .GetAll()
+                    .Where(p => p.Status == "Aktiv" && p.Model == selectedModel)
+                    .ToList();
+
+            dgAviablePlanes.DataSource = null;
+            dgAviablePlanes.DataSource = filteredPlanes;
+
+            var visibleColumns = new List<string>
+             {
+                 "PlaneId",
+                 "Model",
+                 "SeatCount",
+                 "HasClasses",
+                 "BuisnessFactor",
+                 "FirstClassFactor"
+             };
+
+            foreach (DataGridViewColumn col in dgAviablePlanes.Columns)
+                col.Visible = visibleColumns.Contains(col.Name);
+
+            dgAviablePlanes.Columns["PlaneId"].HeaderText = "ID e Avionit";
+            dgAviablePlanes.Columns["Model"].HeaderText = "Modeli i Avionit";
+            dgAviablePlanes.Columns["SeatCount"].HeaderText = "Numri i Vendeve";
+            dgAviablePlanes.Columns["HasClasses"].HeaderText = "Ka Klasa?";
+            dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
+            dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
+        }
     }
 }

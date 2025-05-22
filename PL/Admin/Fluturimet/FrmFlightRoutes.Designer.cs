@@ -83,6 +83,7 @@
             dgPlaneRouteList.RowHeadersWidth = 51;
             dgPlaneRouteList.Size = new Size(991, 330);
             dgPlaneRouteList.TabIndex = 2;
+            dgPlaneRouteList.CellClick += dgPlaneRouteList_CellClick;
             // 
             // btnSwitchPanelInput
             // 
@@ -121,6 +122,7 @@
             btnDelete.TabIndex = 16;
             btnDelete.Text = "Fshi";
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
@@ -146,6 +148,7 @@
             btnEdit.TabIndex = 14;
             btnEdit.Text = "Nrdysho";
             btnEdit.UseVisualStyleBackColor = false;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnAdd
             // 
@@ -158,6 +161,7 @@
             btnAdd.TabIndex = 13;
             btnAdd.Text = "Shto";
             btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
             // lbTitleRouteList
             // 
@@ -427,6 +431,7 @@
             dgAviablePlanes.RowHeadersWidth = 51;
             dgAviablePlanes.Size = new Size(991, 330);
             dgAviablePlanes.TabIndex = 3;
+            dgAviablePlanes.CellClick += dgAviablePlanes_CellClick;
             // 
             // pnlPlaneClasses
             // 
@@ -488,9 +493,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1214, 853);
             Controls.Add(pnlCrud);
-            Controls.Add(pnlRouteList);
             Controls.Add(pnlRouteInput);
             Controls.Add(pnlPlaneClasses);
+            Controls.Add(pnlRouteList);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmFlightRoutes";
