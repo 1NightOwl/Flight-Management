@@ -323,7 +323,7 @@
             dgData.RowHeadersWidth = 51;
             dgData.Size = new Size(991, 330);
             dgData.TabIndex = 2;
-            dgData.CellContentClick += dgData_CellContentClick;
+            dgData.CellClick += dgData_CellClick;
             // 
             // pnlSeatMap
             // 

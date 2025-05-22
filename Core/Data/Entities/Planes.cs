@@ -21,8 +21,8 @@ namespace FlightManagement.Core.Data.Entities
         public bool HasClasses { get; set; }
         public double BuisnessFactor { get; set; }
         public double FirstClassFactor { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
 
         public static void ConfigureForDb(EntityTypeBuilder<Planes> builder)
         {

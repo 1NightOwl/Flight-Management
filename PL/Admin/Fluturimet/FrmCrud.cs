@@ -1,5 +1,6 @@
 ﻿using FlightManagement.Core.Data.Entities;
 using FlightManagement.Core.Logic;
+using FlightManagement.PL.Start.Log_in;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 {
     public partial class FrmCrud : Form
     {
+        private int selectedPlaneDbId = -1;
+
         public bool isLoaded = false;
         public FrmCrud()
         {
@@ -65,11 +68,14 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 
                 lblTitleSeatMap.Text = $"💺Paraqitja vizuale e avionit te selektuar: {selectedPlaneType}";
 
-                pbSeatMap.Image = null;
 
+                //Heqja e imazhit te vendosur
+                pbSeatMap.Image = null;
+                //marrja e emrit te imazhit qe do te vendoset per avionin e ri
                 var imageFileName = selectedPlaneType + ".png";
                 string imagePath = Path.Combine(Application.StartupPath, "Resources", "SeatMaps", imageFileName);
 
+                //kontrollimi nese imazhi ekziston ose jo dhe vendosja e sakte e saje ne picture box
                 if (File.Exists(imagePath))
                 {
                     pbSeatMap.Image = Image.FromFile(imagePath);
@@ -87,6 +93,7 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 
         public void btnClear_Click(object sender, EventArgs e)
         {
+            //Pastrimi i te gjithe fushave
             cbPlaneType.SelectedIndex = -1;
             txtSeatNr.Text = string.Empty;
             txtMaxRange.Text = string.Empty;
@@ -101,17 +108,31 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
         {
             try
             {
+                //Marrja e modelit te avionit
+                string selectedModel = cbPlaneType.SelectedItem?.ToString();
+                //Dhe kontrollimi nese ai ndodhet ne templatein e krijuar per avionat tek deafults
+                if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
+                {
+                    MessageBox.Show("Modeli i avionit nuk u gjet.");
+                    return;
+                }
+
+                //Marrja e te dhenave te avionit nga fushat per tu bere gati epr tu cuar ne databaze
                 var newPlane = new Planes
                 {
-                    Model = cbPlaneType.SelectedItem?.ToString(),
+                    Model = selectedModel,
                     PlaneId = int.Parse(txtPlaneId.Text),
                     Registration = txtPlaneRegistration.Text,
                     SeatCount = int.Parse(txtSeatNr.Text),
                     RangeKm = int.Parse(txtMaxRange.Text),
                     Status = cbPlaneStatus.SelectedItem?.ToString(),
+                    HasClasses = template.HasClasses,
+                    BuisnessFactor = template.BuisnessFactor,
+                    FirstClassFactor = template.FirstClassFactor,
                     CreatedDate = DateTime.Today
                 };
 
+                //Shtimi i avionit ne databaze
                 Program.PlanesManager.AddPlane(newPlane);
                 MessageBox.Show("Avioni u shtua me sukses!");
                 btnClear_Click(null, null);
@@ -120,34 +141,91 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             {
                 MessageBox.Show("Gabim gjatë shtimit: " + ex.Message);
             }
-
+            //Rifreskimi i data grid
             FillDataGridView();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            //Marrja e id se avionit te selektuar
+            int id = selectedPlaneDbId;
+            //Nese ai eshte -1 do te thote qe nuk ekziston ne databaze
+            if (selectedPlaneDbId == -1)
+            {
+                MessageBox.Show("Zgjidh një avion për perditesim.");
+                return;
+            }
 
+            try
+            {
+                //Marrja e modelit te avionit
+                string selectedModel = cbPlaneType.SelectedItem?.ToString();
+                //Kontrollimi nese ai avion ndodhet apo jo ne databaze, qe te mos behet hyrja e nje avioni te panjohur ne databaze, duke cuar ne gabime te ndryshme
+                if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
+                {
+                    MessageBox.Show("Modeli i avionit nuk u gjet.");
+                    return;
+                }
+                //Marrja e te dhenave te reja nga fushat dhe per tu bere gati per tu updatuar ne databaze
+                var updatedPlane = new Planes
+                {
+                    Model = selectedModel,
+                    PlaneId = int.Parse(txtPlaneId.Text),
+                    Registration = txtPlaneRegistration.Text,
+                    SeatCount = int.Parse(txtSeatNr.Text),
+                    RangeKm = int.Parse(txtMaxRange.Text),
+                    Status = cbPlaneStatus.SelectedItem?.ToString(),
+                    HasClasses = template.HasClasses,
+                    BuisnessFactor = template.BuisnessFactor,
+                    FirstClassFactor = template.FirstClassFactor,
+                    UpdatedDate = DateTime.Now
+                };
+                //Dergimi i te dhenave ne databaze
+                Program.PlanesManager.Update(selectedPlaneDbId, updatedPlane);
+                MessageBox.Show("Avioni u përditësua me sukses!");
+                //Pastrimi i fushave
+                btnClear_Click(null, null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gabim gjatë përditësimit: " + ex.Message);
+            }
+            //Rifreskimi i data grid
             FillDataGridView();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
-            FillDataGridView();
-        }
-
-        private void dgData_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            //Marrja e id per avionin e selektuar
+            int id = selectedPlaneDbId;
+            //Kontrollimi nese ai avion ekziston ne databaze
+            if (id == -1)
+            {
+                MessageBox.Show("Zgjidh një avion për fshirje.");
+                return;
+            }
+            //Konfirmimi nese avioni do te fshihet apo jo
+            var confirm = MessageBox.Show("Jeni i sigurt që doni të fshini këtë avion?", "Konfirmim", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.Yes)
+            {
+                //Fshirja e avionit nga databaza
+                Program.PlanesManager.Delete(selectedPlaneDbId);
+                MessageBox.Show("Avioni u fshi me sukses!");
+                //Pastrimi i fushave
+                btnClear_Click(null, null);
+                //Rifreskimi i datagrid
+                FillDataGridView();
+            }
         }
 
         private void FillDataGridView()
         {
+            //Gjenerimi i kolonave per ne datagrid
+            dgData.AutoGenerateColumns = true;
             dgData.DataSource = null;
             dgData.DataSource = Program.PlanesManager.GetAll();
-
+            //Heqja e kolonave te panevojshme dhe vendosja e emrave te duhur per secilen kolone
             dgData.Columns["Id"].Visible = false;
-            dgData.Columns["UpdatedDate"].Visible = false;
 
             dgData.Columns["PlaneId"].HeaderText = "ID e Avionit";
             dgData.Columns["Model"].HeaderText = "Modeli";
@@ -159,6 +237,44 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             dgData.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgData.Columns["FirstClassFactor"].HeaderText = "Koef. First";
             dgData.Columns["CreatedDate"].HeaderText = "Data e Shtimit";
+
+            dgData.Columns["UpdatedDate"].HeaderText = "Data e Perditesimit";
+            //Vendosja e formatit te duhur per datat, dhe vendosja e vleres null per avionet qe nuk jane updetuar akoma
+            dgData.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
+            dgData.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
+        }
+
+        private void dgData_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
+            //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
+            DialogResult result = MessageBox.Show(
+                "Deshiron te marresh te dhenat e ketij avioni?",
+                "Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                if (e.RowIndex != -1)
+                {
+                    //Marrja e id se avionit te selektuar
+                    DataGridViewRow row = dgData.Rows[e.RowIndex];
+                    selectedPlaneDbId = Convert.ToInt32(row.Cells["Id"].Value);
+                    //Marrja e te dhenave te tjera per te plotesuar fushat e nevojshme qe jane te shfaqura ne panel
+                    cbPlaneType.SelectedItem = row.Cells["Model"].Value.ToString();
+                    txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
+                    txtPlaneRegistration.Text = row.Cells["Registration"].Value.ToString();
+                    txtSeatNr.Text = row.Cells["SeatCount"].Value.ToString();
+                    txtMaxRange.Text = row.Cells["RangeKm"].Value.ToString();
+                    cbPlaneStatus.Text = row.Cells["Status"].Value.ToString();
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 }

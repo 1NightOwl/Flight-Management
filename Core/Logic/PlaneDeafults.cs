@@ -29,6 +29,8 @@ namespace FlightManagement.Core.Logic
                     RangeKm = 6150, 
                     Status = "Aktiv",
                     HasClasses = false,
+                    BuisnessFactor = 0.0,
+                    FirstClassFactor = 0.0
                 } },
 
             { "Embraer E190", 

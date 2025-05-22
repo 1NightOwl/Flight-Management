@@ -64,7 +64,8 @@ namespace FlightManagement.Core.Logic.Managers
                               HasClasses = p.HasClasses,
                               BuisnessFactor = p.BuisnessFactor,
                               FirstClassFactor = p.FirstClassFactor,
-                              CreatedDate = p.CreatedDate
+                              CreatedDate = p.CreatedDate,
+                              UpdatedDate = p.UpdatedDate
                           }).ToList();
         }
 
@@ -75,9 +76,9 @@ namespace FlightManagement.Core.Logic.Managers
             return plane;
         }
 
-        public void Delete(Planes plane)
+        public void Delete(int id)
         {
-            var dbPlane = Program.DbContext.Plane.Find(plane.Id) ?? throw new FlightManagementException("Avioni nuk u gjet!");
+            var dbPlane = Program.DbContext.Plane.Find(id) ?? throw new FlightManagementException("Avioni nuk u gjet!");
             Program.DbContext.Plane.Remove(dbPlane);
             Program.DbContext.SaveChanges();
         }
