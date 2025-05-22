@@ -16,7 +16,9 @@ namespace FlightManagement.Core.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-H71D5BQ\\SQLEXPRESS;Initial Catalog=FlightManagement;Integrated Security=True;Trust Server Certificate=True");
+            //optionsBuilder.UseSqlServer("Data Source=DESKTOP-H71D5BQ\\SQLEXPRESS;Initial Catalog=FlightManagement;Integrated Security=True;Trust Server Certificate=True");
+
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-DQASLH0\\SQLEXPRESS;Initial Catalog=FlightManagement;Integrated Security=True;Trust Server Certificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

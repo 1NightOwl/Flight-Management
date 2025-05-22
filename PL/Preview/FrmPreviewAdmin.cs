@@ -1,4 +1,5 @@
-﻿using FlightManagement.PL.Admin.Fluturimet;
+﻿using FlightManagement.PL.Admin.Biletat;
+using FlightManagement.PL.Admin.Fluturimet;
 using FlightManagement.PL.Admin.Fluturimet.AddFlight;
 using FlightManagement.PL.Start.Log_in;
 using System;
@@ -130,6 +131,9 @@ namespace FlightManagement.PL.Preview
             Application.Exit();
         }
 
-        
+        private void btnPendingTicket_Click(object sender, EventArgs e)
+        {
+            LoadPanels(new FrmBiletat());
+        }
     }
 }

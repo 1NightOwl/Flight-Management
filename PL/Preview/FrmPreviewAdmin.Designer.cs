@@ -199,6 +199,7 @@
             btnPendingTicket.TabIndex = 2;
             btnPendingTicket.Text = "Biletat ne pritje";
             btnPendingTicket.UseVisualStyleBackColor = false;
+            btnPendingTicket.Click += btnPendingTicket_Click;
             // 
             // btnTicket
             // 
