@@ -57,7 +57,7 @@
             btnRouteSwitch.Name = "btnRouteSwitch";
             btnRouteSwitch.Size = new Size(196, 33);
             btnRouteSwitch.TabIndex = 18;
-            btnRouteSwitch.Text = "📋 Shiko Itenerarin";
+            btnRouteSwitch.Text = "🗺️ Shiko Itenerarin";
             btnRouteSwitch.UseVisualStyleBackColor = false;
             btnRouteSwitch.Click += btnRouteSwitch_Click;
             // 
@@ -84,7 +84,7 @@
             btnPdfExport.Name = "btnPdfExport";
             btnPdfExport.Size = new Size(228, 80);
             btnPdfExport.TabIndex = 16;
-            btnPdfExport.Text = "📤 Eksport në PDF";
+            btnPdfExport.Text = "📄 Eksport në PDF";
             btnPdfExport.UseVisualStyleBackColor = false;
             // 
             // btnWeekly
@@ -96,7 +96,7 @@
             btnWeekly.Name = "btnWeekly";
             btnWeekly.Size = new Size(228, 80);
             btnWeekly.TabIndex = 15;
-            btnWeekly.Text = "Shfaq Orarin Javor";
+            btnWeekly.Text = "🗓️Shfaq Orarin Javor";
             btnWeekly.UseVisualStyleBackColor = false;
             // 
             // btnExcelExport
@@ -108,7 +108,7 @@
             btnExcelExport.Name = "btnExcelExport";
             btnExcelExport.Size = new Size(228, 80);
             btnExcelExport.TabIndex = 13;
-            btnExcelExport.Text = "📥 Eksporto në Excel";
+            btnExcelExport.Text = "📊 Eksporto në Excel";
             btnExcelExport.UseVisualStyleBackColor = false;
             // 
             // lblTitleRoute
@@ -210,12 +210,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1214, 853);
             Controls.Add(pnlOptions);
-            Controls.Add(pnlRouteList);
             Controls.Add(pnlActivePlanes);
+            Controls.Add(pnlRouteList);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmActiveFlights";
             Text = "FrmActiveFlights";
+            Load += FrmActiveFlights_Load;
             pnlActivePlanes.ResumeLayout(false);
             pnlActivePlanes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgActivePlanes).EndInit();

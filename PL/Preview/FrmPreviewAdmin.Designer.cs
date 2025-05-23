@@ -90,15 +90,15 @@
             // 
             // btnLogOut
             // 
-            btnLogOut.BackColor = Color.Red;
+            btnLogOut.BackColor = Color.Teal;
             btnLogOut.FlatStyle = FlatStyle.Popup;
             btnLogOut.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogOut.ForeColor = SystemColors.ControlText;
-            btnLogOut.Location = new Point(156, 21);
+            btnLogOut.Location = new Point(158, 11);
             btnLogOut.Name = "btnLogOut";
-            btnLogOut.Size = new Size(94, 29);
+            btnLogOut.Size = new Size(104, 29);
             btnLogOut.TabIndex = 13;
-            btnLogOut.Text = "Log Out";
+            btnLogOut.Text = "🚪Log Out";
             btnLogOut.UseVisualStyleBackColor = false;
             btnLogOut.Click += btnLogOut_Click;
             // 
@@ -161,7 +161,7 @@
             btnUsers.Name = "btnUsers";
             btnUsers.Size = new Size(268, 60);
             btnUsers.TabIndex = 14;
-            btnUsers.Text = "Perdoruesit";
+            btnUsers.Text = "👥Perdoruesit";
             btnUsers.UseVisualStyleBackColor = false;
             btnUsers.Click += btnUsers_Click;
             // 
@@ -210,7 +210,7 @@
             btnTicket.Name = "btnTicket";
             btnTicket.Size = new Size(268, 60);
             btnTicket.TabIndex = 12;
-            btnTicket.Text = "Biletat";
+            btnTicket.Text = "🎟️Biletat";
             btnTicket.UseVisualStyleBackColor = false;
             btnTicket.Click += btnTicket_Click;
             // 
@@ -235,7 +235,7 @@
             btnActiveFlights.Name = "btnActiveFlights";
             btnActiveFlights.Size = new Size(268, 46);
             btnActiveFlights.TabIndex = 2;
-            btnActiveFlights.Text = "Fluturimet Aktive";
+            btnActiveFlights.Text = "⏱️✈️Fluturimet Aktive";
             btnActiveFlights.UseVisualStyleBackColor = false;
             btnActiveFlights.Click += btnActiveFlights_Click;
             // 
@@ -248,7 +248,7 @@
             btnAssignRoute.Name = "btnAssignRoute";
             btnAssignRoute.Size = new Size(268, 46);
             btnAssignRoute.TabIndex = 1;
-            btnAssignRoute.Text = "Cakto Itinerar";
+            btnAssignRoute.Text = "🗺️Cakto Itinerar";
             btnAssignRoute.UseVisualStyleBackColor = false;
             btnAssignRoute.Click += btnAssignRoute_Click;
             // 
@@ -261,7 +261,7 @@
             btnRegisterPlane.Name = "btnRegisterPlane";
             btnRegisterPlane.Size = new Size(268, 46);
             btnRegisterPlane.TabIndex = 0;
-            btnRegisterPlane.Text = "Regjistro Aeroplan";
+            btnRegisterPlane.Text = "➕✈️Regjistro Aeroplan";
             btnRegisterPlane.UseVisualStyleBackColor = false;
             btnRegisterPlane.Click += btnAddFlight_Click;
             // 
@@ -274,7 +274,7 @@
             btnFlights.Name = "btnFlights";
             btnFlights.Size = new Size(268, 60);
             btnFlights.TabIndex = 10;
-            btnFlights.Text = "Fluturimet";
+            btnFlights.Text = "✈️Fluturimet";
             btnFlights.UseVisualStyleBackColor = false;
             btnFlights.Click += btnFlights_Click;
             // 
@@ -311,6 +311,7 @@
             // pnlControls
             // 
             pnlControls.BackColor = Color.FromArgb(202, 209, 193);
+            pnlControls.BorderStyle = BorderStyle.FixedSingle;
             pnlControls.Dock = DockStyle.Fill;
             pnlControls.Location = new Point(268, 0);
             pnlControls.Name = "pnlControls";

@@ -62,8 +62,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             string selectedPlaneType = cbPlaneType.SelectedItem.ToString();
             if (PlaneDeafults.planeTemplates.TryGetValue(selectedPlaneType, out var plane))
             {
-                txtSeatNr.Text = plane.SeatCount.ToString();
-                txtMaxRange.Text = plane.RangeKm.ToString();
+                numSeatNr.Text = plane.SeatCount.ToString();
+                numMaxRange.Text = plane.RangeKm.ToString();
                 cbPlaneStatus.SelectedItem = plane.Status;
 
                 lblTitleSeatMap.Text = $"💺Paraqitja vizuale e avionit te selektuar: {selectedPlaneType}";
@@ -95,13 +95,14 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
         {
             //Pastrimi i te gjithe fushave
             cbPlaneType.SelectedIndex = -1;
-            txtSeatNr.Text = string.Empty;
-            txtMaxRange.Text = string.Empty;
+            numSeatNr.ResetText();
+            numMaxRange.ResetText();
             cbPlaneStatus.SelectedIndex = -1;
             pbSeatMap.Image = null;
             txtPlaneId.Text = string.Empty;
             txtPlaneRegistration.Text = string.Empty;
 
+            btnEdit.Enabled = false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -123,8 +124,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                     Model = selectedModel,
                     PlaneId = int.Parse(txtPlaneId.Text),
                     Registration = txtPlaneRegistration.Text,
-                    SeatCount = int.Parse(txtSeatNr.Text),
-                    RangeKm = int.Parse(txtMaxRange.Text),
+                    SeatCount = int.Parse(numSeatNr.Text),
+                    RangeKm = int.Parse(numMaxRange.Text),
                     Status = cbPlaneStatus.SelectedItem?.ToString(),
                     HasClasses = template.HasClasses,
                     BuisnessFactor = template.BuisnessFactor,
@@ -134,7 +135,7 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 
                 //Shtimi i avionit ne databaze
                 Program.PlanesManager.AddPlane(newPlane);
-                MessageBox.Show("Avioni u shtua me sukses!");
+                MessageBox.Show("Avioni u shtua me sukses!✅");
                 btnClear_Click(null, null);
             }
             catch (Exception ex)
@@ -172,8 +173,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                     Model = selectedModel,
                     PlaneId = int.Parse(txtPlaneId.Text),
                     Registration = txtPlaneRegistration.Text,
-                    SeatCount = int.Parse(txtSeatNr.Text),
-                    RangeKm = int.Parse(txtMaxRange.Text),
+                    SeatCount = int.Parse(numSeatNr.Text),
+                    RangeKm = int.Parse(numMaxRange.Text),
                     Status = cbPlaneStatus.SelectedItem?.ToString(),
                     HasClasses = template.HasClasses,
                     BuisnessFactor = template.BuisnessFactor,
@@ -185,6 +186,7 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                 MessageBox.Show("Avioni u përditësua me sukses!");
                 //Pastrimi i fushave
                 btnClear_Click(null, null);
+                btnEdit.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -259,6 +261,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             {
                 if (e.RowIndex != -1)
                 {
+                    btnEdit.Enabled = true;
+
                     //Marrja e id se avionit te selektuar
                     DataGridViewRow row = dgData.Rows[e.RowIndex];
                     selectedPlaneDbId = Convert.ToInt32(row.Cells["Id"].Value);
@@ -266,8 +270,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                     cbPlaneType.SelectedItem = row.Cells["Model"].Value.ToString();
                     txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
                     txtPlaneRegistration.Text = row.Cells["Registration"].Value.ToString();
-                    txtSeatNr.Text = row.Cells["SeatCount"].Value.ToString();
-                    txtMaxRange.Text = row.Cells["RangeKm"].Value.ToString();
+                    numSeatNr.Text = row.Cells["SeatCount"].Value.ToString();
+                    numMaxRange.Text = row.Cells["RangeKm"].Value.ToString();
                     cbPlaneStatus.Text = row.Cells["Status"].Value.ToString();
                 }
             }

@@ -7,6 +7,8 @@ namespace FlightManagement
 {
     internal static class Program
     {
+
+
         public static PlanesManager PlanesManager;
         public static RoutesManager RoutesManager;
         public static AppDbContext DbContext { get; private set; }

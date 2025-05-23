@@ -47,13 +47,13 @@
             lblTitleRoute = new Label();
             lblTitleRouteInput = new Label();
             pnlCrud = new Panel();
+            numPrice = new NumericUpDown();
             btnShowClasses = new Button();
             cbDepartDay = new ComboBox();
             dtArrival = new DateTimePicker();
             dtDeparture = new DateTimePicker();
             cbDestination = new ComboBox();
             cbOrigin = new ComboBox();
-            txtPrice = new TextBox();
             lblDepartureDay = new Label();
             lblSeatPrice = new Label();
             lblArrivalAirport = new Label();
@@ -67,6 +67,7 @@
             ((System.ComponentModel.ISupportInitialize)dgPlaneRouteList).BeginInit();
             pnlRouteList.SuspendLayout();
             pnlCrud.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numPrice).BeginInit();
             pnlRouteInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgAviablePlanes).BeginInit();
             pnlPlaneClasses.SuspendLayout();
@@ -113,7 +114,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = Color.Teal;
+            btnDelete.BackColor = Color.Crimson;
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Times New Roman", 12F);
             btnDelete.Location = new Point(829, 330);
@@ -277,13 +278,13 @@
             // pnlCrud
             // 
             pnlCrud.BackColor = Color.FromArgb(170, 190, 180);
+            pnlCrud.Controls.Add(numPrice);
             pnlCrud.Controls.Add(btnShowClasses);
             pnlCrud.Controls.Add(cbDepartDay);
             pnlCrud.Controls.Add(dtArrival);
             pnlCrud.Controls.Add(dtDeparture);
             pnlCrud.Controls.Add(cbDestination);
             pnlCrud.Controls.Add(cbOrigin);
-            pnlCrud.Controls.Add(txtPrice);
             pnlCrud.Controls.Add(lblDepartureDay);
             pnlCrud.Controls.Add(lblSeatPrice);
             pnlCrud.Controls.Add(btnSwitchPanelInput);
@@ -306,6 +307,16 @@
             pnlCrud.Name = "pnlCrud";
             pnlCrud.Size = new Size(1214, 405);
             pnlCrud.TabIndex = 3;
+            // 
+            // numPrice
+            // 
+            numPrice.Location = new Point(873, 146);
+            numPrice.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+            numPrice.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numPrice.Name = "numPrice";
+            numPrice.Size = new Size(175, 27);
+            numPrice.TabIndex = 36;
+            numPrice.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // btnShowClasses
             // 
@@ -369,15 +380,6 @@
             cbOrigin.Size = new Size(174, 30);
             cbOrigin.TabIndex = 23;
             cbOrigin.SelectedIndexChanged += cbOrigin_SelectedIndexChanged;
-            // 
-            // txtPrice
-            // 
-            txtPrice.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPrice.Location = new Point(875, 143);
-            txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(174, 30);
-            txtPrice.TabIndex = 21;
-            txtPrice.TextChanged += txtPrice_TextChanged;
             // 
             // lblDepartureDay
             // 
@@ -506,6 +508,7 @@
             pnlRouteList.PerformLayout();
             pnlCrud.ResumeLayout(false);
             pnlCrud.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numPrice).EndInit();
             pnlRouteInput.ResumeLayout(false);
             pnlRouteInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgAviablePlanes).EndInit();
@@ -536,7 +539,6 @@
         private Panel pnlCrud;
         private Label lblArrivalAirport;
         private Panel pnlRouteInput;
-        private TextBox txtPrice;
         private Label lblDepartureDay;
         private Label lblSeatPrice;
         private DateTimePicker dtArrival;
@@ -551,5 +553,6 @@
         private Label lblBusiness;
         private Label lblEconomy;
         private Button btnShowClasses;
+        private NumericUpDown numPrice;
     }
 }

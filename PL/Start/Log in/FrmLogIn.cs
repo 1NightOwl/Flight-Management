@@ -20,6 +20,8 @@ namespace FlightManagement.PL.Start.Log_in
 
             cbSelector.Items.Add("Admin");
             cbSelector.Items.Add("User");
+
+
         }
 
         private void btnLogIn_MouseHover(object sender, EventArgs e)
@@ -89,7 +91,7 @@ namespace FlightManagement.PL.Start.Log_in
 
         private void cbSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnLogIn.Enabled = cbSelector.SelectedIndex != -1;
+            btnLogin.Enabled = cbSelector.SelectedIndex != -1;
         }
 
         private void btnLogIn_Click(object sender, EventArgs e)
@@ -128,6 +130,11 @@ namespace FlightManagement.PL.Start.Log_in
             txtPassword1.Clear();
             txtEmail1.Clear();
             cbSelector.SelectedIndex = -1;
+        }
+
+        private void FrmLogIn_Load(object sender, EventArgs e)
+        {
+            this.AcceptButton = btnLogin;
         }
     }
 }

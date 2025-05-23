@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lblEmail = new Label();
             lblPassword = new Label();
             lblTextTop = new Label();
@@ -37,7 +38,7 @@
             pnlLogIn = new Panel();
             btnShow = new Button();
             lbRegister = new LinkLabel();
-            btnLogIn = new Button();
+            btnLogin = new Button();
             pnlRegister = new Panel();
             lblUsername = new Label();
             txtUsername1 = new TextBox();
@@ -51,6 +52,7 @@
             lblPassword1 = new Label();
             pictureBox1 = new PictureBox();
             cbSelector = new ComboBox();
+            toolTip1 = new ToolTip(components);
             pnlLogIn.SuspendLayout();
             pnlRegister.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -107,6 +109,7 @@
             txtEmUsr.Font = new Font("Times New Roman", 12F);
             txtEmUsr.Location = new Point(38, 67);
             txtEmUsr.Name = "txtEmUsr";
+            txtEmUsr.PlaceholderText = "Emri i përdoruesit, ose email-i";
             txtEmUsr.Size = new Size(247, 30);
             txtEmUsr.TabIndex = 1;
             // 
@@ -118,6 +121,7 @@
             txtPassword.Location = new Point(38, 172);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
+            txtPassword.PlaceholderText = "Fjalëkalimi…";
             txtPassword.Size = new Size(247, 30);
             txtPassword.TabIndex = 2;
             // 
@@ -127,7 +131,7 @@
             pnlLogIn.BorderStyle = BorderStyle.FixedSingle;
             pnlLogIn.Controls.Add(btnShow);
             pnlLogIn.Controls.Add(lbRegister);
-            pnlLogIn.Controls.Add(btnLogIn);
+            pnlLogIn.Controls.Add(btnLogin);
             pnlLogIn.Controls.Add(lblEmail);
             pnlLogIn.Controls.Add(txtPassword);
             pnlLogIn.Controls.Add(txtEmUsr);
@@ -139,12 +143,15 @@
             // 
             // btnShow
             // 
+            btnShow.AutoSize = true;
             btnShow.BackgroundImage = Properties.Resources.eye;
             btnShow.BackgroundImageLayout = ImageLayout.Stretch;
+            btnShow.Cursor = Cursors.Hand;
             btnShow.Location = new Point(291, 172);
             btnShow.Name = "btnShow";
             btnShow.Size = new Size(32, 30);
             btnShow.TabIndex = 10;
+            toolTip1.SetToolTip(btnShow, "Shfaq/fsheh fjalëkalimin");
             btnShow.UseVisualStyleBackColor = true;
             btnShow.Click += btnShow_Click;
             // 
@@ -161,21 +168,22 @@
             lbRegister.Text = "Don't have an account? Register now";
             lbRegister.Click += lbRegister_Click;
             // 
-            // btnLogIn
+            // btnLogin
             // 
-            btnLogIn.BackColor = Color.Teal;
-            btnLogIn.Enabled = false;
-            btnLogIn.FlatStyle = FlatStyle.Popup;
-            btnLogIn.Font = new Font("Times New Roman", 12F);
-            btnLogIn.ForeColor = SystemColors.Control;
-            btnLogIn.Location = new Point(107, 239);
-            btnLogIn.Name = "btnLogIn";
-            btnLogIn.Size = new Size(124, 53);
-            btnLogIn.TabIndex = 3;
-            btnLogIn.Text = "Log In";
-            btnLogIn.UseVisualStyleBackColor = false;
-            btnLogIn.Click += btnLogIn_Click;
-            btnLogIn.MouseHover += btnLogIn_MouseHover;
+            btnLogin.AutoSize = true;
+            btnLogin.BackColor = Color.Teal;
+            btnLogin.Enabled = false;
+            btnLogin.FlatStyle = FlatStyle.Popup;
+            btnLogin.Font = new Font("Times New Roman", 12F);
+            btnLogin.ForeColor = SystemColors.Control;
+            btnLogin.Location = new Point(107, 239);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(124, 53);
+            btnLogin.TabIndex = 3;
+            btnLogin.Text = "Log In";
+            btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogIn_Click;
+            btnLogin.MouseHover += btnLogIn_MouseHover;
             // 
             // pnlRegister
             // 
@@ -214,6 +222,7 @@
             txtUsername1.Font = new Font("Times New Roman", 12F);
             txtUsername1.Location = new Point(26, 52);
             txtUsername1.Name = "txtUsername1";
+            txtUsername1.PlaceholderText = "Emri i përdoruesit…";
             txtUsername1.Size = new Size(247, 30);
             txtUsername1.TabIndex = 1;
             // 
@@ -221,10 +230,12 @@
             // 
             btnShow1.BackgroundImage = Properties.Resources.eye;
             btnShow1.BackgroundImageLayout = ImageLayout.Stretch;
+            btnShow1.Cursor = Cursors.Hand;
             btnShow1.Location = new Point(279, 192);
             btnShow1.Name = "btnShow1";
             btnShow1.Size = new Size(32, 29);
             btnShow1.TabIndex = 5;
+            toolTip1.SetToolTip(btnShow1, "Shfaq/fsheh fjalëkalimin");
             btnShow1.UseVisualStyleBackColor = true;
             btnShow1.Click += btnShow1_Click;
             // 
@@ -288,6 +299,7 @@
             txtPassword1.Location = new Point(26, 192);
             txtPassword1.Name = "txtPassword1";
             txtPassword1.PasswordChar = '*';
+            txtPassword1.PlaceholderText = "Fjalëkalimi…";
             txtPassword1.Size = new Size(247, 30);
             txtPassword1.TabIndex = 3;
             // 
@@ -298,6 +310,7 @@
             txtEmail1.Font = new Font("Times New Roman", 12F);
             txtEmail1.Location = new Point(26, 125);
             txtEmail1.Name = "txtEmail1";
+            txtEmail1.PlaceholderText = "Email-i juaj…";
             txtEmail1.Size = new Size(247, 30);
             txtEmail1.TabIndex = 2;
             // 
@@ -344,14 +357,15 @@
             ClientSize = new Size(1482, 853);
             Controls.Add(cbSelector);
             Controls.Add(pictureBox1);
-            Controls.Add(pnlRegister);
-            Controls.Add(pnlLogIn);
             Controls.Add(lblTextBot);
             Controls.Add(lblTextTop);
+            Controls.Add(pnlLogIn);
+            Controls.Add(pnlRegister);
             DoubleBuffered = true;
             Name = "FrmLogIn";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmLogIn";
+            Load += FrmLogIn_Load;
             pnlLogIn.ResumeLayout(false);
             pnlLogIn.PerformLayout();
             pnlRegister.ResumeLayout(false);
@@ -370,7 +384,7 @@
         private TextBox txtEmUsr;
         private TextBox txtPassword;
         private Panel pnlLogIn;
-        private Button btnLogIn;
+        private Button btnLogin;
         private Panel pnlRegister;
         private RadioButton rbTermsAndConds;
         private Button btnRegister;
@@ -386,5 +400,6 @@
         private Label lblUsername;
         private TextBox txtUsername1;
         private ComboBox cbSelector;
+        private ToolTip toolTip1;
     }
 }

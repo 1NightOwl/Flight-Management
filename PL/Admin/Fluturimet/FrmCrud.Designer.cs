@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnlCrud = new Panel();
+            numMaxRange = new NumericUpDown();
+            numSeatNr = new NumericUpDown();
             btnSwitchPanelSeatMap = new Button();
             btnSwitchPanelData = new Button();
             btnDelete = new Button();
@@ -36,8 +38,6 @@
             btnEdit = new Button();
             btnAdd = new Button();
             cbPlaneStatus = new ComboBox();
-            txtMaxRange = new TextBox();
-            txtSeatNr = new TextBox();
             txtPlaneRegistration = new TextBox();
             txtPlaneId = new TextBox();
             lblStatus = new Label();
@@ -55,6 +55,8 @@
             lblTitleSeatMap = new Label();
             pbSeatMap = new PictureBox();
             pnlCrud.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numMaxRange).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numSeatNr).BeginInit();
             pnlData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgData).BeginInit();
             pnlSeatMap.SuspendLayout();
@@ -64,6 +66,8 @@
             // pnlCrud
             // 
             pnlCrud.BackColor = Color.FromArgb(170, 190, 180);
+            pnlCrud.Controls.Add(numMaxRange);
+            pnlCrud.Controls.Add(numSeatNr);
             pnlCrud.Controls.Add(btnSwitchPanelSeatMap);
             pnlCrud.Controls.Add(btnSwitchPanelData);
             pnlCrud.Controls.Add(btnDelete);
@@ -71,8 +75,6 @@
             pnlCrud.Controls.Add(btnEdit);
             pnlCrud.Controls.Add(btnAdd);
             pnlCrud.Controls.Add(cbPlaneStatus);
-            pnlCrud.Controls.Add(txtMaxRange);
-            pnlCrud.Controls.Add(txtSeatNr);
             pnlCrud.Controls.Add(txtPlaneRegistration);
             pnlCrud.Controls.Add(txtPlaneId);
             pnlCrud.Controls.Add(lblStatus);
@@ -88,6 +90,28 @@
             pnlCrud.Name = "pnlCrud";
             pnlCrud.Size = new Size(1214, 405);
             pnlCrud.TabIndex = 0;
+            // 
+            // numMaxRange
+            // 
+            numMaxRange.Increment = new decimal(new int[] { 50, 0, 0, 0 });
+            numMaxRange.Location = new Point(857, 111);
+            numMaxRange.Maximum = new decimal(new int[] { 18000, 0, 0, 0 });
+            numMaxRange.Minimum = new decimal(new int[] { 500, 0, 0, 0 });
+            numMaxRange.Name = "numMaxRange";
+            numMaxRange.Size = new Size(174, 27);
+            numMaxRange.TabIndex = 20;
+            numMaxRange.ThousandsSeparator = true;
+            numMaxRange.Value = new decimal(new int[] { 500, 0, 0, 0 });
+            // 
+            // numSeatNr
+            // 
+            numSeatNr.Location = new Point(505, 202);
+            numSeatNr.Maximum = new decimal(new int[] { 600, 0, 0, 0 });
+            numSeatNr.Minimum = new decimal(new int[] { 50, 0, 0, 0 });
+            numSeatNr.Name = "numSeatNr";
+            numSeatNr.Size = new Size(174, 27);
+            numSeatNr.TabIndex = 19;
+            numSeatNr.Value = new decimal(new int[] { 50, 0, 0, 0 });
             // 
             // btnSwitchPanelSeatMap
             // 
@@ -118,7 +142,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = Color.Teal;
+            btnDelete.BackColor = Color.Crimson;
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Times New Roman", 12F);
             btnDelete.Location = new Point(829, 330);
@@ -145,6 +169,7 @@
             // btnEdit
             // 
             btnEdit.BackColor = Color.Teal;
+            btnEdit.Enabled = false;
             btnEdit.FlatStyle = FlatStyle.Popup;
             btnEdit.Font = new Font("Times New Roman", 12F);
             btnEdit.Location = new Point(441, 330);
@@ -176,22 +201,6 @@
             cbPlaneStatus.Name = "cbPlaneStatus";
             cbPlaneStatus.Size = new Size(174, 30);
             cbPlaneStatus.TabIndex = 12;
-            // 
-            // txtMaxRange
-            // 
-            txtMaxRange.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtMaxRange.Location = new Point(857, 108);
-            txtMaxRange.Name = "txtMaxRange";
-            txtMaxRange.Size = new Size(174, 30);
-            txtMaxRange.TabIndex = 11;
-            // 
-            // txtSeatNr
-            // 
-            txtSeatNr.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSeatNr.Location = new Point(506, 202);
-            txtSeatNr.Name = "txtSeatNr";
-            txtSeatNr.Size = new Size(174, 30);
-            txtSeatNr.TabIndex = 10;
             // 
             // txtPlaneRegistration
             // 
@@ -372,6 +381,8 @@
             Load += FrmCrud_Load;
             pnlCrud.ResumeLayout(false);
             pnlCrud.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numMaxRange).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numSeatNr).EndInit();
             pnlData.ResumeLayout(false);
             pnlData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgData).EndInit();
@@ -400,8 +411,6 @@
         private Label lblId;
         private TextBox txtPlaneId;
         private TextBox txtPlaneRegistration;
-        private TextBox txtSeatNr;
-        private TextBox txtMaxRange;
         private ComboBox cbPlaneStatus;
         private Button btnAdd;
         private Button btnDelete;
@@ -409,5 +418,7 @@
         private Button btnEdit;
         private Button btnSwitchPanelData;
         private Button btnSwitchPanelSeatMap;
+        private NumericUpDown numSeatNr;
+        private NumericUpDown numMaxRange;
     }
 }

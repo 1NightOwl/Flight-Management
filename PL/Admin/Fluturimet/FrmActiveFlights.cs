@@ -1,9 +1,13 @@
-﻿using System;
+﻿using FlightManagement.Core.Data.Entities;
+using FontAwesome.Sharp;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,5 +38,11 @@ namespace FlightManagement.PL.Admin.Fluturimet
             btnRouteSwitch.Visible = false;
             btnActivePlaneSwtich.Visible = true;
         }
+
+        private void FrmActiveFlights_Load(object sender, EventArgs e)
+        {
+        }
+
+
     }
 }

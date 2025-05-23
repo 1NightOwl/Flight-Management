@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -101,7 +102,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             ClassPriceManager.UpdateClassPrice(
                 selectedPlaneType,
-                txtPrice.Text,
+                numPrice.Text,
                 lblPlaneClasses,
                 lblEconomy,
                 lblBusiness,
@@ -109,7 +110,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
             );
         }
 
-        private void txtPrice_TextChanged(object sender, EventArgs e)
+        private void numPrice_TextChanged(object sender, EventArgs e)
         {
             UpdatePrices();
         }
@@ -161,9 +162,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
             cbDestination.SelectedIndex = -1;
             cbDepartDay.SelectedIndex = -1;
 
-            txtPrice.Text = string.Empty;
+            numPrice.Text = string.Empty;
             txtPlaneId.Text = string.Empty;
-            txtPrice.Text = string.Empty;
+            numPrice.Text = string.Empty;
             dtArrival.Value = DateTime.Now;
             dtDeparture.Value = DateTime.Now;
 
@@ -184,7 +185,13 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     return;
                 }
 
-                
+                //if (HasConflict(txtPlaneId, cbDepartDay, dtDeparture, dtArrival, editingId))
+                //{
+                //    SetErr(dtpStart, "Ky avion ka një fluturim tjetër në këtë kohë.");
+                //    return;
+                //}
+
+
                 var newRoute = new Route
                 {
                     PlaneId = selectedRouteDbId,
@@ -193,7 +200,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     DepartureDay = cbDepartDay.Text,
                     StartTime = dtDeparture.Value.TimeOfDay,
                     EndTime = dtArrival.Value.TimeOfDay,
-                    Price = int.Parse(txtPrice.Text),
+                    Price = int.Parse(numPrice.Text),
                     CreatedDate = DateTime.Today
                 };
 
@@ -233,7 +240,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     DepartureDay = cbDepartDay.Text,
                     StartTime = dtDeparture.Value.TimeOfDay,
                     EndTime = dtArrival.Value.TimeOfDay,
-                    Price = int.Parse(txtPrice.Text),
+                    Price = int.Parse(numPrice.Text),
                     UpdatedDate = DateTime.Now
                 };
 
@@ -349,7 +356,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     cbDepartDay.Text = row.Cells["DepartureDay"].Value.ToString();
                     dtDeparture.Value = DateTime.Today.Add((TimeSpan)row.Cells["StartTime"].Value);
                     dtArrival.Value = DateTime.Today.Add((TimeSpan)row.Cells["EndTime"].Value);
-                    txtPrice.Text = row.Cells["Price"].Value.ToString();
+                    numPrice.Text = row.Cells["Price"].Value.ToString();
                 }
             }
             else
@@ -420,5 +427,13 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
         }
+        //bool HasConflict(int planeId, string day, TimeSpan start, TimeSpan end, int? editingId = null)
+        //{
+        //    return Program.DbContext.Routes.Any(r =>
+        //        r.PlaneId == planeId &&
+        //        r.DepartureDay == day &&
+        //        r.Id != editingId &&                            // ignore the route we’re editing
+        //        r.StartTime < end && start < r.EndTime);        // classic overlap test
+        //}
     }
 }
