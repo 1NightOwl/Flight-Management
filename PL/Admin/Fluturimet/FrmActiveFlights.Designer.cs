@@ -51,6 +51,7 @@
             // btnRouteSwitch
             // 
             btnRouteSwitch.BackColor = Color.FromArgb(130, 180, 175);
+            btnRouteSwitch.Enabled = false;
             btnRouteSwitch.FlatStyle = FlatStyle.Flat;
             btnRouteSwitch.Font = new Font("Times New Roman", 12F);
             btnRouteSwitch.Location = new Point(1010, 3);
@@ -154,6 +155,7 @@
             dgActivePlanes.RowHeadersWidth = 51;
             dgActivePlanes.Size = new Size(1080, 447);
             dgActivePlanes.TabIndex = 3;
+            dgActivePlanes.CellClick += dgActivePlanes_CellClick;
             // 
             // lbTitleRouteList
             // 

@@ -43,7 +43,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             FillDataGridView();
             FillDataGridViewAvailablePlanes();
         }
-
         private void btnSwitchPanelInput_Click(object sender, EventArgs e)
         {
             pnlPlaneClasses.Visible = false;
@@ -54,7 +53,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             btnSwitchPanelInput.Visible = false;
             btnSwitchPanelList.Visible = true;
         }
-
         private void btnSwitchPanelList_Click(object sender, EventArgs e)
         {
             pnlPlaneClasses.Visible = false;
@@ -72,8 +70,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             pnlPlaneClasses.Visible = true;
             pnlRouteList.Refresh();
         }
-
-
         private void cbPlaneType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!isLoaded) return;
@@ -88,7 +84,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             FillFilteredPlanes();
             UpdatePrices();
         }
-
         public void UpdatePrices()
         {
             if (cbPlaneType.SelectedIndex == -1)
@@ -112,12 +107,10 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 lblFirstClass
             );
         }
-
         private void numPrice_TextChanged(object sender, EventArgs e)
         {
             UpdatePrices();
         }
-
         private void cbOrigin_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -136,7 +129,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             cbDestination.SelectedIndex = -1;
         }
-
         private void cbDestination_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -155,7 +147,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             cbOrigin.SelectedIndex = -1;
         }
-
         private void btnClear_Click(object sender, EventArgs e)
         {
             cbPlaneType.SelectedIndex = -1;
@@ -173,11 +164,11 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             txtPlaneId.ReadOnly = false;
             cbPlaneType.Enabled = true;
+            btnAdd.Enabled = true;
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
             UpdatePrices();
         }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -267,7 +258,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             }
             FillDataGridView();
         }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (selectedRouteDbId == -1)
@@ -359,6 +349,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             if (result == DialogResult.Yes)
             {
+                btnAdd.Enabled = false;
                 cbPlaneType.Enabled = false;
                 txtPlaneId.Enabled = false;
                 btnEdit.Enabled = true;
@@ -392,7 +383,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             }
         }
-
         private void dgAviablePlanes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
@@ -408,15 +398,15 @@ namespace FlightManagement.PL.Admin.Fluturimet
             {
                 cbPlaneType.Enabled = false;
                 txtPlaneId.Enabled = false;
-                if (e.RowIndex != -1)
-                {
-                    DataGridViewRow row = dgAviablePlanes.Rows[e.RowIndex];
+
+                if (e.RowIndex < 0)return;
+
+                    var row = dgAviablePlanes.Rows[e.RowIndex];
                     selectedPlaneId = Convert.ToInt32(row.Cells["Id"].Value);
 
                     txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
                     cbPlaneType.Text = row.Cells["Model"].Value.ToString();
                     cbStatus.SelectedItem = "Aktiv";
-                }
             }
             else
             {
