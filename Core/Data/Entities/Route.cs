@@ -16,7 +16,7 @@ namespace FlightManagement.Core.Data.Entities
         public string Departure { get; set; }
         public string Arrival { get; set; }
         public string DepartureDay { get; set; }
-
+        public string Status { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
         public int Price { get; set; }
@@ -36,6 +36,12 @@ namespace FlightManagement.Core.Data.Entities
             builder.Property(x => x.StartTime).IsRequired();
             builder.Property(x => x.EndTime).IsRequired();
             builder.Property(x => x.Price).IsRequired();
+
+            builder.Property(x => x.Status).HasMaxLength(30);
+            builder.Property(x => x.Status)
+                                   .HasMaxLength(30)
+                                   .HasDefaultValue("Aktiv")
+                                   .IsRequired();
 
             builder.HasOne(x => x.Plane)
                    .WithMany()

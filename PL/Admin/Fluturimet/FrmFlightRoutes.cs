@@ -20,8 +20,8 @@ namespace FlightManagement.PL.Admin.Fluturimet
     {
         string[] Airports = RouteDeafults.Airports;
         private int selectedRouteDbId = -1;
+        private int selectedPlaneId;
         public bool isLoaded = false;
-
 
         public FrmFlightRoutes()
         {
@@ -29,6 +29,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
         }
         private void FrmFlightRoutes_Load(object sender, EventArgs e)
         {
+            cbStatus.Items.Add("Aktiv");
+            cbStatus.Items.Add("Jo Aktiv");
+
             cbPlaneType.Items.AddRange(PlaneDeafults.planeTemplates.Keys.ToArray());
             isLoaded = true;
 
@@ -158,7 +161,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
             cbPlaneType.SelectedIndex = -1;
             cbOrigin.SelectedIndex = -1;
             cbOrigin.Text = "";
-
+            cbStatus.SelectedIndex = -1;
             cbDestination.SelectedIndex = -1;
             cbDepartDay.SelectedIndex = -1;
 
@@ -170,7 +173,8 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             txtPlaneId.ReadOnly = false;
             cbPlaneType.Enabled = true;
-
+            btnEdit.Enabled = false;
+            btnDelete.Enabled = false;
             UpdatePrices();
         }
 
@@ -185,6 +189,12 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     return;
                 }
 
+                if (selectedPlaneId <= 0)
+                {
+                    MessageBox.Show("Ju lutem, zgjidhni një avion nga lista përpara se të shtoni rrugën.");
+                    return;
+                }
+
                 //if (HasConflict(txtPlaneId, cbDepartDay, dtDeparture, dtArrival, editingId))
                 //{
                 //    SetErr(dtpStart, "Ky avion ka një fluturim tjetër në këtë kohë.");
@@ -194,11 +204,12 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
                 var newRoute = new Route
                 {
-                    PlaneId = selectedRouteDbId,
+                    PlaneId = selectedPlaneId,
                     Departure = cbOrigin.Text,
                     Arrival = cbDestination.Text,
                     DepartureDay = cbDepartDay.Text,
                     StartTime = dtDeparture.Value.TimeOfDay,
+                    Status = cbStatus.SelectedItem?.ToString(),
                     EndTime = dtArrival.Value.TimeOfDay,
                     Price = int.Parse(numPrice.Text),
                     CreatedDate = DateTime.Today
@@ -225,12 +236,13 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             try
             {
-                var selectedModel = cbPlaneType.SelectedItem?.ToString();
-                if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
-                {
-                    MessageBox.Show("Modeli i avionit nuk u gjet.");
-                    return;
-                }
+
+                //var selectedModel = cbPlaneType.SelectedItem?.ToString();
+                //if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
+                //{
+                //    MessageBox.Show("Modeli i avionit nuk u gjet.");
+                //    return;
+                //}
 
                 var updatedRoute = new Route
                 {
@@ -239,6 +251,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     Arrival = cbDestination.Text,
                     DepartureDay = cbDepartDay.Text,
                     StartTime = dtDeparture.Value.TimeOfDay,
+                    Status = cbStatus.SelectedItem?.ToString(),
                     EndTime = dtArrival.Value.TimeOfDay,
                     Price = int.Parse(numPrice.Text),
                     UpdatedDate = DateTime.Now
@@ -252,8 +265,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
             {
                 MessageBox.Show("Gabim gjatë përditësimit: " + ex.Message);
             }
-            txtPlaneId.Enabled = true;
-            cbPlaneType.Enabled = true;
             FillDataGridView();
         }
 
@@ -288,8 +299,13 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgPlaneRouteList.Columns["Departure"].HeaderText = "Nisja";
             dgPlaneRouteList.Columns["Arrival"].HeaderText = "Mbërritja";
             dgPlaneRouteList.Columns["DepartureDay"].HeaderText = "Dita";
-            dgPlaneRouteList.Columns["StartTime"].HeaderText = "Ora Nisjes";
+            dgPlaneRouteList.Columns["StartTime"].HeaderText = "Ora Nisjes"; 
             dgPlaneRouteList.Columns["EndTime"].HeaderText = "Ora Mbërritjes";
+
+            dgPlaneRouteList.Columns["StartTime"].DefaultCellStyle.Format = "hh\\:mm";
+            dgPlaneRouteList.Columns["EndTime"].DefaultCellStyle.Format = "hh\\:mm";
+
+            dgPlaneRouteList.Columns["Status"].HeaderText = "Statusi";
             dgPlaneRouteList.Columns["Price"].HeaderText = "Çmimi";
             dgPlaneRouteList.Columns["CreatedDate"].HeaderText = "Data Shtimit";
             dgPlaneRouteList.Columns["UpdatedDate"].HeaderText = "Data Përditësimit";
@@ -329,9 +345,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
         }
-
         private void dgPlaneRouteList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
             //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
             DialogResult result = MessageBox.Show(
@@ -345,19 +361,31 @@ namespace FlightManagement.PL.Admin.Fluturimet
             {
                 cbPlaneType.Enabled = false;
                 txtPlaneId.Enabled = false;
-                if (e.RowIndex != -1)
-                {
-                    DataGridViewRow row = dgPlaneRouteList.Rows[e.RowIndex];
-                    selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
 
+                if (e.RowIndex < 0) return;
+                    var row = dgPlaneRouteList.Rows[e.RowIndex];
+
+                    selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
+                    selectedPlaneId = Convert.ToInt32(row.Cells["PlaneId"].Value);
+
+                var modelName = Program.PlanesManager
+                                        .GetAll()
+                                        .Where(p => p.Id == selectedPlaneId)
+                                        .Select(p => p.Model)
+                                        .FirstOrDefault();
+
+                    cbPlaneType.Text = modelName;
                     txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
                     cbOrigin.Text = row.Cells["Departure"].Value.ToString();
                     cbDestination.Text = row.Cells["Arrival"].Value.ToString();
                     cbDepartDay.Text = row.Cells["DepartureDay"].Value.ToString();
                     dtDeparture.Value = DateTime.Today.Add((TimeSpan)row.Cells["StartTime"].Value);
                     dtArrival.Value = DateTime.Today.Add((TimeSpan)row.Cells["EndTime"].Value);
+                    cbStatus.SelectedItem = row.Cells["Status"].Value?.ToString() ?? "Aktiv";
                     numPrice.Text = row.Cells["Price"].Value.ToString();
-                }
+
             }
             else
             {
@@ -383,10 +411,11 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 if (e.RowIndex != -1)
                 {
                     DataGridViewRow row = dgAviablePlanes.Rows[e.RowIndex];
-                    selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
+                    selectedPlaneId = Convert.ToInt32(row.Cells["Id"].Value);
 
                     txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
                     cbPlaneType.Text = row.Cells["Model"].Value.ToString();
+                    cbStatus.SelectedItem = "Aktiv";
                 }
             }
             else
@@ -397,7 +426,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
         private void FillFilteredPlanes()
         {
 
-            string selectedModel = cbPlaneType.SelectedItem.ToString();
+            string selectedModel = cbPlaneType.Text;
 
             var filteredPlanes = Program.PlanesManager
                     .GetAll()
@@ -427,6 +456,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
         }
+
         //bool HasConflict(int planeId, string day, TimeSpan start, TimeSpan end, int? editingId = null)
         //{
         //    return Program.DbContext.Routes.Any(r =>

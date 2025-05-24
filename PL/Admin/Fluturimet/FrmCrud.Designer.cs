@@ -143,6 +143,7 @@
             // btnDelete
             // 
             btnDelete.BackColor = Color.Crimson;
+            btnDelete.Enabled = false;
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Times New Roman", 12F);
             btnDelete.Location = new Point(829, 330);

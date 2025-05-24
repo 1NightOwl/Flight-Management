@@ -21,6 +21,7 @@ namespace FlightManagement.Core.Logic.Managers
                 DepartureDay = route.DepartureDay,
                 StartTime = route.StartTime,
                 EndTime = route.EndTime,
+                Status = "Aktiv",
                 Price = route.Price,
                 CreatedDate = DateTime.Now
             });
@@ -39,6 +40,7 @@ namespace FlightManagement.Core.Logic.Managers
             dbRoute.EndTime = updated.EndTime;
             dbRoute.DepartureDay = updated.DepartureDay;
             dbRoute.PlaneId = updated.PlaneId;
+            dbRoute.Status = updated.Status ?? dbRoute.Status;
             dbRoute.Price = updated.Price;
             dbRoute.UpdatedDate = DateTime.Now;
 
@@ -58,6 +60,7 @@ namespace FlightManagement.Core.Logic.Managers
                               DepartureDay = r.DepartureDay,
                               StartTime = r.StartTime,
                               EndTime = r.EndTime,
+                              Status = r.Status,
                               Price = r.Price,
                               CreatedDate = r.CreatedDate,
                               UpdatedDate = r.UpdatedDate

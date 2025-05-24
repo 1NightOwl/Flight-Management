@@ -102,7 +102,9 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             txtPlaneId.Text = string.Empty;
             txtPlaneRegistration.Text = string.Empty;
 
+            btnDelete.Enabled = false;
             btnEdit.Enabled = false;
+            btnAdd.Enabled = true;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -124,8 +126,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                     Model = selectedModel,
                     PlaneId = int.Parse(txtPlaneId.Text),
                     Registration = txtPlaneRegistration.Text,
-                    SeatCount = int.Parse(numSeatNr.Text),
-                    RangeKm = int.Parse(numMaxRange.Text),
+                    SeatCount = (int)numSeatNr.Value,
+                    RangeKm = (int)numMaxRange.Value,
                     Status = cbPlaneStatus.SelectedItem?.ToString(),
                     HasClasses = template.HasClasses,
                     BuisnessFactor = template.BuisnessFactor,
@@ -173,8 +175,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                     Model = selectedModel,
                     PlaneId = int.Parse(txtPlaneId.Text),
                     Registration = txtPlaneRegistration.Text,
-                    SeatCount = int.Parse(numSeatNr.Text),
-                    RangeKm = int.Parse(numMaxRange.Text),
+                    SeatCount = (int)numSeatNr.Value,
+                    RangeKm = (int)numMaxRange.Value,
                     Status = cbPlaneStatus.SelectedItem?.ToString(),
                     HasClasses = template.HasClasses,
                     BuisnessFactor = template.BuisnessFactor,
@@ -186,7 +188,6 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                 MessageBox.Show("Avioni u përditësua me sukses!");
                 //Pastrimi i fushave
                 btnClear_Click(null, null);
-                btnEdit.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -261,7 +262,9 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             {
                 if (e.RowIndex != -1)
                 {
+                    btnDelete.Enabled = true;
                     btnEdit.Enabled = true;
+                    btnAdd.Enabled = false;
 
                     //Marrja e id se avionit te selektuar
                     DataGridViewRow row = dgData.Rows[e.RowIndex];
@@ -270,8 +273,8 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                     cbPlaneType.SelectedItem = row.Cells["Model"].Value.ToString();
                     txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
                     txtPlaneRegistration.Text = row.Cells["Registration"].Value.ToString();
-                    numSeatNr.Text = row.Cells["SeatCount"].Value.ToString();
-                    numMaxRange.Text = row.Cells["RangeKm"].Value.ToString();
+                    numSeatNr.Value = Convert.ToDecimal(row.Cells["SeatCount"].Value);
+                    numMaxRange.Value = Convert.ToDecimal(row.Cells["RangeKm"].Value);
                     cbPlaneStatus.Text = row.Cells["Status"].Value.ToString();
                 }
             }
