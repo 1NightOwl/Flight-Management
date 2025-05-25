@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PL\Admin\Perdoruesit\" />
     <Folder Include="PL\User\" />
   </ItemGroup>
 

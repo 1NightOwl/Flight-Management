@@ -127,7 +127,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
         }
         private void dgActivePlanes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
+            //Kontrollim nese rrjeshti qe admini ka shtypur eshte ai qe deshiron, 
             //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
             DialogResult result = MessageBox.Show(
                 "Deshiron te marresh te dhenat e ketij avioni?",

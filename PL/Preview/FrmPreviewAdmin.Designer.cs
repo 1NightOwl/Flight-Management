@@ -32,8 +32,8 @@
             pnlDetails = new Panel();
             btnLogOut = new Button();
             panel3 = new Panel();
-            label2 = new Label();
-            label1 = new Label();
+            lblEmail = new Label();
+            lblUsername = new Label();
             pnlUser = new Panel();
             btnPresentUsers = new Button();
             btnUsers = new Button();
@@ -80,8 +80,8 @@
             // 
             pnlDetails.Controls.Add(btnLogOut);
             pnlDetails.Controls.Add(panel3);
-            pnlDetails.Controls.Add(label2);
-            pnlDetails.Controls.Add(label1);
+            pnlDetails.Controls.Add(lblEmail);
+            pnlDetails.Controls.Add(lblUsername);
             pnlDetails.Dock = DockStyle.Bottom;
             pnlDetails.Location = new Point(0, 748);
             pnlDetails.Name = "pnlDetails";
@@ -110,25 +110,25 @@
             panel3.Size = new Size(268, 2);
             panel3.TabIndex = 12;
             // 
-            // label2
+            // lblEmail
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Times New Roman", 12F);
-            label2.Location = new Point(26, 62);
-            label2.Name = "label2";
-            label2.Size = new Size(137, 22);
-            label2.TabIndex = 1;
-            label2.Text = "test@gmail.com";
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Times New Roman", 12F);
+            lblEmail.Location = new Point(26, 62);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(137, 22);
+            lblEmail.TabIndex = 1;
+            lblEmail.Text = "test@gmail.com";
             // 
-            // label1
+            // lblUsername
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Times New Roman", 12F);
-            label1.Location = new Point(26, 24);
-            label1.Name = "label1";
-            label1.Size = new Size(88, 22);
-            label1.TabIndex = 0;
-            label1.Text = "Username";
+            lblUsername.AutoSize = true;
+            lblUsername.Font = new Font("Times New Roman", 12F);
+            lblUsername.Location = new Point(26, 24);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(88, 22);
+            lblUsername.TabIndex = 0;
+            lblUsername.Text = "Username";
             // 
             // pnlUser
             // 
@@ -151,6 +151,7 @@
             btnPresentUsers.TabIndex = 3;
             btnPresentUsers.Text = "Perdoruesit aktual";
             btnPresentUsers.UseVisualStyleBackColor = false;
+            btnPresentUsers.Click += btnPresentUsers_Click;
             // 
             // btnUsers
             // 
@@ -329,6 +330,7 @@
             Name = "FrmPreviewAdmin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmPreviewAdmin";
+            Load += FrmPreviewAdmin_Load;
             pnlDashboard.ResumeLayout(false);
             pnlDetails.ResumeLayout(false);
             pnlDetails.PerformLayout();
@@ -359,8 +361,8 @@
         private Button btnPresentUsers;
         private Button btnActiveFlights;
         private Panel pnlDetails;
-        private Label label2;
-        private Label label1;
+        private Label lblEmail;
+        private Label lblUsername;
         private Panel panel2;
         private Panel panel3;
         private Button btnLogOut;

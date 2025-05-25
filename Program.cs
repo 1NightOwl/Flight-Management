@@ -11,6 +11,7 @@ namespace FlightManagement
 
         public static PlanesManager PlanesManager;
         public static RoutesManager RoutesManager;
+        public static UsersManager UsersManager { get; } = new UsersManager();
         public static AppDbContext DbContext { get; private set; }
 
 

@@ -1,6 +1,8 @@
-﻿using FlightManagement.PL.Admin.Biletat;
+﻿using FlightManagement.Core;
+using FlightManagement.PL.Admin.Biletat;
 using FlightManagement.PL.Admin.Fluturimet;
 using FlightManagement.PL.Admin.Fluturimet.AddFlight;
+using FlightManagement.PL.Admin.Perdoruesit;
 using FlightManagement.PL.Start.Log_in;
 using System;
 using System.Collections.Generic;
@@ -134,6 +136,20 @@ namespace FlightManagement.PL.Preview
         private void btnPendingTicket_Click(object sender, EventArgs e)
         {
             LoadPanels(new FrmBiletat());
+        }
+
+        private void FrmPreviewAdmin_Load(object sender, EventArgs e)
+        {
+            if (Session.CurrentUser != null)
+            {
+                lblUsername.Text = $"{Session.CurrentUser.Username}";
+                lblEmail.Text = $"{Session.CurrentUser.Email}";
+            }
+        }
+
+        private void btnPresentUsers_Click(object sender, EventArgs e)
+        {
+            LoadPanels(new FrmActiveUsers());
         }
     }
 }

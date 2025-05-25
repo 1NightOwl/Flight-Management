@@ -37,7 +37,7 @@
             txtPassword = new TextBox();
             pnlLogIn = new Panel();
             btnShow = new Button();
-            lbRegister = new LinkLabel();
+            lblRegister = new LinkLabel();
             btnLogin = new Button();
             pnlRegister = new Panel();
             lblUsername = new Label();
@@ -130,7 +130,7 @@
             pnlLogIn.BackColor = Color.Transparent;
             pnlLogIn.BorderStyle = BorderStyle.FixedSingle;
             pnlLogIn.Controls.Add(btnShow);
-            pnlLogIn.Controls.Add(lbRegister);
+            pnlLogIn.Controls.Add(lblRegister);
             pnlLogIn.Controls.Add(btnLogin);
             pnlLogIn.Controls.Add(lblEmail);
             pnlLogIn.Controls.Add(txtPassword);
@@ -155,18 +155,18 @@
             btnShow.UseVisualStyleBackColor = true;
             btnShow.Click += btnShow_Click;
             // 
-            // lbRegister
+            // lblRegister
             // 
-            lbRegister.AutoSize = true;
-            lbRegister.Font = new Font("Times New Roman", 10.8F);
-            lbRegister.LinkColor = Color.Teal;
-            lbRegister.Location = new Point(57, 336);
-            lbRegister.Name = "lbRegister";
-            lbRegister.Size = new Size(278, 20);
-            lbRegister.TabIndex = 7;
-            lbRegister.TabStop = true;
-            lbRegister.Text = "Don't have an account? Register now";
-            lbRegister.Click += lbRegister_Click;
+            lblRegister.AutoSize = true;
+            lblRegister.Font = new Font("Times New Roman", 10.8F);
+            lblRegister.LinkColor = Color.Teal;
+            lblRegister.Location = new Point(57, 336);
+            lblRegister.Name = "lblRegister";
+            lblRegister.Size = new Size(278, 20);
+            lblRegister.TabIndex = 7;
+            lblRegister.TabStop = true;
+            lblRegister.Text = "Don't have an account? Register now";
+            lblRegister.Click += lblRegister_Click;
             // 
             // btnLogin
             // 
@@ -183,7 +183,6 @@
             btnLogin.Text = "Log In";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogIn_Click;
-            btnLogin.MouseHover += btnLogIn_MouseHover;
             // 
             // pnlRegister
             // 
@@ -279,7 +278,6 @@
             btnRegister.Text = "Register";
             btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
-            btnRegister.MouseHover += btnLogIn_MouseHover;
             // 
             // lblEmail1
             // 
@@ -392,7 +390,7 @@
         private TextBox txtPassword1;
         private TextBox txtEmail1;
         private Label lblPassword1;
-        private LinkLabel lbRegister;
+        private LinkLabel lblRegister;
         private LinkLabel lblLogin;
         private PictureBox pictureBox1;
         private Button btnShow;

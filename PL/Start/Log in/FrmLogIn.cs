@@ -1,4 +1,6 @@
-﻿using FlightManagement.Core.Common;
+﻿using FlightManagement.Core;
+using FlightManagement.Core.Common;
+using FlightManagement.Core.Logic.Managers;
 using FlightManagement.PL.Preview;
 using System;
 using System.Collections.Generic;
@@ -20,16 +22,8 @@ namespace FlightManagement.PL.Start.Log_in
 
             cbSelector.Items.Add("Admin");
             cbSelector.Items.Add("User");
-
-
         }
-
-        private void btnLogIn_MouseHover(object sender, EventArgs e)
-        {
-            BackColor = Color.DarkCyan;
-        }
-
-        private void lbRegister_Click(object sender, EventArgs e)
+        private void lblRegister_Click(object sender, EventArgs e)
         {
             pnlLogIn.Visible = false;
             pnlRegister.Visible = true;
@@ -100,9 +94,36 @@ namespace FlightManagement.PL.Start.Log_in
 
             if (selectedRole == Constants.RoleAdmin)
             {
-                FrmPreviewAdmin admin = new FrmPreviewAdmin();
-                admin.Show();
-                this.Hide();
+                //FrmPreviewAdmin admin = new FrmPreviewAdmin();
+                //admin.Show();
+                //this.Hide();
+
+                string userEmail = txtEmUsr.Text.Trim();
+                string password = txtPassword.Text;
+                try
+                {
+                    var user = new UsersManager();
+                    var logIn = user.Login(userEmail, password);
+
+                    Core.Session.StartSession(logIn);
+
+                    if (Session.CurrentUser.Role == "Admin") { 
+
+                        FrmPreviewAdmin admin = new FrmPreviewAdmin();
+                         admin.Show();
+                         this.Hide();
+                    }
+                    else if (Session.CurrentUser.Role == "User")
+                    {
+                        FrmPreviewUser userForm = new FrmPreviewUser();
+                        userForm.Show();
+                        this.Hide();
+                    }
+                }
+                catch (FlightManagementException ex)
+                {
+                    MessageBox.Show(ex.Message, "Gabim në regjistrim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             else if (selectedRole == Constants.RoleUser)
             {
@@ -124,12 +145,32 @@ namespace FlightManagement.PL.Start.Log_in
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            pnlLogIn.Visible = true;
-            pnlRegister.Visible = false;
-            txtUsername1.Clear();
-            txtPassword1.Clear();
-            txtEmail1.Clear();
-            cbSelector.SelectedIndex = -1;
+            string username = txtUsername1.Text.Trim();
+            string email = txtEmail1.Text.Trim();
+            string password = txtPassword1.Text;
+
+            try
+            {
+                var mgr = new UsersManager();
+                mgr.RegisterUser(username, email, password);
+
+                MessageBox.Show(
+                              "Regjistrimi u krye me sukses!",
+                              "Sukses",
+                                 MessageBoxButtons.OK,
+                                 MessageBoxIcon.Information
+                );
+                txtUsername1.Clear();
+                txtPassword1.Clear();
+                txtEmail1.Clear();
+                cbSelector.SelectedIndex = -1;
+                pnlLogIn.Visible = true;
+                pnlRegister.Visible = false;
+            }
+            catch (FlightManagementException ex)
+            {
+                MessageBox.Show(ex.Message, "Gabim në regjistrim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void FrmLogIn_Load(object sender, EventArgs e)
