@@ -12,6 +12,7 @@ namespace FlightManagement.Core.Data
 
         public DbSet<Data.Entities.Planes> Plane { get; set; }
         public DbSet<Data.Entities.Route> Routes { get; set; }
+        public DbSet<Data.Entities.Bileta> Biletat { get; set; }
         public DbSet<Data.Entities.User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,6 +30,7 @@ namespace FlightManagement.Core.Data
         {
             Data.Entities.Planes.ConfigureForDb(modelBuilder.Entity<Data.Entities.Planes>());
             Data.Entities.Route.ConfigureForDb(modelBuilder.Entity<Data.Entities.Route>());
+            Data.Entities.Bileta.ConfigureForDb(modelBuilder.Entity<Data.Entities.Bileta>());
             Data.Entities.User.ConfigureForDb(modelBuilder.Entity<Data.Entities.User>());
         }
     }

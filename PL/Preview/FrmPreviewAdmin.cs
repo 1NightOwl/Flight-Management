@@ -137,7 +137,6 @@ namespace FlightManagement.PL.Preview
         {
             LoadPanels(new FrmBiletat());
         }
-
         private void FrmPreviewAdmin_Load(object sender, EventArgs e)
         {
             if (Session.CurrentUser != null)
@@ -150,6 +149,10 @@ namespace FlightManagement.PL.Preview
         private void btnPresentUsers_Click(object sender, EventArgs e)
         {
             LoadPanels(new FrmActiveUsers());
+        }
+        private void btnTicketNr_Click(object sender, EventArgs e)
+        {
+            LoadPanels(new FrmBiletaFiltrim());
         }
     }
 }

@@ -243,7 +243,7 @@
             lblLogin.AutoSize = true;
             lblLogin.Font = new Font("Times New Roman", 10.8F);
             lblLogin.LinkColor = Color.Teal;
-            lblLogin.Location = new Point(45, 394);
+            lblLogin.Location = new Point(26, 389);
             lblLogin.Name = "lblLogin";
             lblLogin.Size = new Size(282, 20);
             lblLogin.TabIndex = 7;

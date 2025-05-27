@@ -38,7 +38,7 @@
             btnPresentUsers = new Button();
             btnUsers = new Button();
             pnlTicket = new Panel();
-            btnTicketNr = new Button();
+            btnTicketFilter = new Button();
             btnPendingTicket = new Button();
             btnTicket = new Button();
             pnlFlights = new Panel();
@@ -169,7 +169,7 @@
             // pnlTicket
             // 
             pnlTicket.BackColor = Color.FromArgb(231, 216, 182);
-            pnlTicket.Controls.Add(btnTicketNr);
+            pnlTicket.Controls.Add(btnTicketFilter);
             pnlTicket.Controls.Add(btnPendingTicket);
             pnlTicket.Dock = DockStyle.Top;
             pnlTicket.Location = new Point(0, 308);
@@ -177,17 +177,18 @@
             pnlTicket.Size = new Size(268, 0);
             pnlTicket.TabIndex = 13;
             // 
-            // btnTicketNr
+            // btnTicketFilter
             // 
-            btnTicketNr.BackColor = Color.FromArgb(186, 188, 165);
-            btnTicketNr.Dock = DockStyle.Top;
-            btnTicketNr.FlatStyle = FlatStyle.Flat;
-            btnTicketNr.Location = new Point(0, 46);
-            btnTicketNr.Name = "btnTicketNr";
-            btnTicketNr.Size = new Size(268, 46);
-            btnTicketNr.TabIndex = 3;
-            btnTicketNr.Text = "Nr i biletave ";
-            btnTicketNr.UseVisualStyleBackColor = false;
+            btnTicketFilter.BackColor = Color.FromArgb(186, 188, 165);
+            btnTicketFilter.Dock = DockStyle.Top;
+            btnTicketFilter.FlatStyle = FlatStyle.Flat;
+            btnTicketFilter.Location = new Point(0, 46);
+            btnTicketFilter.Name = "btnTicketFilter";
+            btnTicketFilter.Size = new Size(268, 46);
+            btnTicketFilter.TabIndex = 3;
+            btnTicketFilter.Text = "Filtrimi i Biletave";
+            btnTicketFilter.UseVisualStyleBackColor = false;
+            btnTicketFilter.Click += btnTicketNr_Click;
             // 
             // btnPendingTicket
             // 
@@ -356,7 +357,7 @@
         private Panel pnlFlights;
         private Button btnRegisterPlane;
         private Button btnAssignRoute;
-        private Button btnTicketNr;
+        private Button btnTicketFilter;
         private Button btnPendingTicket;
         private Button btnPresentUsers;
         private Button btnActiveFlights;
