@@ -69,7 +69,7 @@
             lblTitleRouteInput.Name = "lblTitleRouteInput";
             lblTitleRouteInput.Size = new Size(463, 33);
             lblTitleRouteInput.TabIndex = 2;
-            lblTitleRouteInput.Text = "✈️ Lista e perdorueseve aktivë në sistem";
+            lblTitleRouteInput.Text = "👤 Lista e perdorueseve aktivë në sistem";
             // 
             // pnlActiveUsers
             // 
@@ -89,9 +89,9 @@
             lblTitleRoute.ForeColor = Color.Teal;
             lblTitleRoute.Location = new Point(294, 16);
             lblTitleRoute.Name = "lblTitleRoute";
-            lblTitleRoute.Size = new Size(627, 33);
+            lblTitleRoute.Size = new Size(641, 33);
             lblTitleRoute.TabIndex = 0;
-            lblTitleRoute.Text = "📌 Opsione të disponueshme për avionin e përzgjedhur";
+            lblTitleRoute.Text = "📌 Opsione të disponueshme për personin e përzgjedhur";
             // 
             // btnExcelExport
             // 

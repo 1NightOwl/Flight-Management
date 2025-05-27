@@ -19,9 +19,6 @@ namespace FlightManagement.PL.Start.Log_in
         public FrmLogIn()
         {
             InitializeComponent();
-
-            cbSelector.Items.Add("Admin");
-            cbSelector.Items.Add("User");
         }
         private void lblRegister_Click(object sender, EventArgs e)
         {
@@ -30,7 +27,6 @@ namespace FlightManagement.PL.Start.Log_in
             txtPassword.Clear();
             txtEmUsr.Clear();
             rbTermsAndConds.Checked = false;
-            cbSelector.SelectedIndex = -1;
         }
 
         private void pnlRegister_Click(object sender, EventArgs e)
@@ -44,7 +40,6 @@ namespace FlightManagement.PL.Start.Log_in
             txtUsername1.Clear();
             txtPassword1.Clear();
             txtEmail1.Clear();
-            cbSelector.SelectedIndex = -1;
         }
 
         private void btnShow1_Click(object sender, EventArgs e)
@@ -83,37 +78,24 @@ namespace FlightManagement.PL.Start.Log_in
             btnRegister.Enabled = rbTermsAndConds.Checked;
         }
 
-        private void cbSelector_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnLogin.Enabled = cbSelector.SelectedIndex != -1;
-        }
-
         private void btnLogIn_Click(object sender, EventArgs e)
         {
-            string selectedRole = cbSelector.SelectedItem.ToString();
-
-            if (selectedRole == Constants.RoleAdmin)
-            {
-                //FrmPreviewAdmin admin = new FrmPreviewAdmin();
-                //admin.Show();
-                //this.Hide();
-
                 string userEmail = txtEmUsr.Text.Trim();
                 string password = txtPassword.Text;
                 try
                 {
                     var user = new UsersManager();
                     var logIn = user.Login(userEmail, password);
+                    Session.StartSession(logIn);
 
-                    Core.Session.StartSession(logIn);
 
-                    if (Session.CurrentUser.Role == "Admin") { 
+                    if (logIn.Role == Constants.RoleAdmin) { 
 
                         FrmPreviewAdmin admin = new FrmPreviewAdmin();
                          admin.Show();
                          this.Hide();
                     }
-                    else if (Session.CurrentUser.Role == "User")
+                    else
                     {
                         FrmPreviewUser userForm = new FrmPreviewUser();
                         userForm.Show();
@@ -124,17 +106,6 @@ namespace FlightManagement.PL.Start.Log_in
                 {
                     MessageBox.Show(ex.Message, "Gabim në regjistrim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }
-            else if (selectedRole == Constants.RoleUser)
-            {
-                FrmPreviewUser user = new FrmPreviewUser();
-                user.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Please select a valid role.");
-            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -163,7 +134,6 @@ namespace FlightManagement.PL.Start.Log_in
                 txtUsername1.Clear();
                 txtPassword1.Clear();
                 txtEmail1.Clear();
-                cbSelector.SelectedIndex = -1;
                 pnlLogIn.Visible = true;
                 pnlRegister.Visible = false;
             }
@@ -175,7 +145,11 @@ namespace FlightManagement.PL.Start.Log_in
 
         private void FrmLogIn_Load(object sender, EventArgs e)
         {
+            if(pnlLogIn.Visible = true)
             this.AcceptButton = btnLogin;
+
+            else if (pnlRegister.Visible = true)
+                this.AcceptButton = btnRegister;
         }
     }
 }
