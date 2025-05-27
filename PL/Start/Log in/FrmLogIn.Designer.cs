@@ -51,7 +51,6 @@
             txtEmail1 = new TextBox();
             lblPassword1 = new Label();
             pictureBox1 = new PictureBox();
-            cbSelector = new ComboBox();
             toolTip1 = new ToolTip(components);
             pnlLogIn.SuspendLayout();
             pnlRegister.SuspendLayout();
@@ -172,7 +171,6 @@
             // 
             btnLogin.AutoSize = true;
             btnLogin.BackColor = Color.Teal;
-            btnLogin.Enabled = false;
             btnLogin.FlatStyle = FlatStyle.Popup;
             btnLogin.Font = new Font("Times New Roman", 12F);
             btnLogin.ForeColor = SystemColors.Control;
@@ -327,24 +325,11 @@
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImage = Properties.Resources.Logo;
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(284, -1);
+            pictureBox1.Location = new Point(284, 32);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(247, 258);
             pictureBox1.TabIndex = 8;
             pictureBox1.TabStop = false;
-            // 
-            // cbSelector
-            // 
-            cbSelector.BackColor = Color.LightSteelBlue;
-            cbSelector.FlatStyle = FlatStyle.Flat;
-            cbSelector.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbSelector.ForeColor = SystemColors.MenuText;
-            cbSelector.FormattingEnabled = true;
-            cbSelector.Location = new Point(325, 277);
-            cbSelector.Name = "cbSelector";
-            cbSelector.Size = new Size(151, 30);
-            cbSelector.TabIndex = 9;
-            cbSelector.SelectedIndexChanged += cbSelector_SelectedIndexChanged;
             // 
             // FrmLogIn
             // 
@@ -353,7 +338,6 @@
             BackgroundImage = Properties.Resources.FotoBackLogin;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1482, 853);
-            Controls.Add(cbSelector);
             Controls.Add(pictureBox1);
             Controls.Add(lblTextBot);
             Controls.Add(lblTextTop);
@@ -397,7 +381,6 @@
         private Button btnShow1;
         private Label lblUsername;
         private TextBox txtUsername1;
-        private ComboBox cbSelector;
         private ToolTip toolTip1;
     }
 }
