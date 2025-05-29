@@ -17,6 +17,7 @@ namespace FlightManagement.Core.Data.Entities
         public string? Role { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public ICollection<Bileta> Biletat { get; set; } = new List<Bileta>();
         public static void ConfigureForDb(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("Users");

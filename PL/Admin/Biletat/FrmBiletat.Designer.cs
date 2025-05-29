@@ -93,10 +93,10 @@
             // 
             // lblTitulli
             // 
-            lblTitulli.BackColor = Color.Teal;
+            lblTitulli.BackColor = Color.FromArgb(170, 190, 180);
             lblTitulli.Dock = DockStyle.Fill;
             lblTitulli.Font = new Font("Segoe UI", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulli.ForeColor = Color.WhiteSmoke;
+            lblTitulli.ForeColor = Color.FromArgb(16, 94, 85);
             lblTitulli.Location = new Point(0, 0);
             lblTitulli.Name = "lblTitulli";
             lblTitulli.Size = new Size(1171, 100);
@@ -158,7 +158,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Silver;
+            BackColor = Color.FromArgb(202, 209, 193);
             ClientSize = new Size(1171, 853);
             Controls.Add(btnFresko);
             Controls.Add(label1);

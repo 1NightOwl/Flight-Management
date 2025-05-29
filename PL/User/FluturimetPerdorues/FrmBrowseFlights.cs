@@ -180,15 +180,28 @@ namespace FlightManagement.PL.User.Flights
                      ) != DialogResult.Yes)
                 return;
 
-            //new TicketsManager().Add(new Ticket
-            //{
-            //    UserId = Session.CurrentUser.Id,
-            //    RouteId = info.Route.Id,
-            //    FlightDate = info.FlightDate,
-            //    SeatClass = info.SeatClass,
-            //    PricePaid = info.Price,
-            //    PurchasedAt = DateTime.Now
-            //});
+            var firstLeg = info.Legs.First();
+            int routeId = firstLeg.Id;
+
+            var routeInDb = Program.DbContext.Routes.Find(routeId);
+            if (routeInDb == null)
+                throw new InvalidOperationException($"No Route with Id={routeId} found!");
+
+            var ticket = new Bileta
+            {
+                RouteId = routeId,
+                EmriPasagjerit = Session.CurrentUser.Username,
+                DataRezervimit = DateTime.Now,
+                Klasa = info.SeatClass,
+                Statusi = "Ne Pritje",
+                Fluturimi = string.Join(" → ",
+                                    info.Legs
+                                        .Select(r => r.Departure)
+                                        .Concat(new[] { info.Legs.Last().Arrival }))
+            };
+
+            // Save it
+            new TicketsManager().Add(ticket);
 
             MessageBox.Show("Biletë e blerë me sukses!");
             ClearForm();
