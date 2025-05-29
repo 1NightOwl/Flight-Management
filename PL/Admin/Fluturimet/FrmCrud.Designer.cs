@@ -196,6 +196,7 @@
             // 
             // cbPlaneStatus
             // 
+            cbPlaneStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlaneStatus.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbPlaneStatus.FormattingEnabled = true;
             cbPlaneStatus.Location = new Point(857, 202);
@@ -271,6 +272,7 @@
             // 
             // cbPlaneType
             // 
+            cbPlaneType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlaneType.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbPlaneType.FormattingEnabled = true;
             cbPlaneType.Location = new Point(147, 108);

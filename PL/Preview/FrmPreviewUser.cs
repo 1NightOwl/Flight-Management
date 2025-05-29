@@ -20,6 +20,13 @@ namespace FlightManagement.PL.Preview
         public FrmPreviewUser()
         {
             InitializeComponent();
+
+            pnlControls.SuspendLayout();
+            pnlControls.Visible = false;
+            if (Session.CurrentUser != null)
+                LoadPanels(new FrmBrowseFlights());
+            pnlControls.ResumeLayout();
+            pnlControls.Visible = true;
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)

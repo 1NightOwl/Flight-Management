@@ -1,5 +1,6 @@
 ﻿using FlightManagement.Core.Data.Entities;
 using FlightManagement.Core.Logic;
+using FlightManagement.Core.Logic.Managers;
 using FlightManagement.Core.Templates;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -132,14 +133,14 @@ namespace FlightManagement.PL.Admin.Fluturimet
         private void cbDestination_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            string selectedDeparture = cbDestination.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(selectedDeparture)) return;
+            string selectedDestination = cbDestination.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedDestination)) return;
 
             cbOrigin.Items.Clear();
 
             foreach (var airport in RouteDeafults.Airports)
             {
-                if (airport != selectedDeparture)
+                if (airport != selectedDestination)
                 {
                     cbOrigin.Items.Add(airport);
                 }
@@ -299,6 +300,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgPlaneRouteList.Columns["Price"].HeaderText = "Çmimi";
             dgPlaneRouteList.Columns["CreatedDate"].HeaderText = "Data Shtimit";
             dgPlaneRouteList.Columns["UpdatedDate"].HeaderText = "Data Përditësimit";
+            dgPlaneRouteList.Columns["CreatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
             dgPlaneRouteList.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
             dgPlaneRouteList.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
         }

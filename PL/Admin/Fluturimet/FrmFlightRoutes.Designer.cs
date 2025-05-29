@@ -240,6 +240,7 @@
             // 
             // cbPlaneType
             // 
+            cbPlaneType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbPlaneType.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbPlaneType.FormattingEnabled = true;
             cbPlaneType.Location = new Point(61, 123);
@@ -316,6 +317,7 @@
             // 
             // cbStatus
             // 
+            cbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cbStatus.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbStatus.FormattingEnabled = true;
             cbStatus.Location = new Point(1010, 174);
@@ -358,6 +360,7 @@
             // 
             // cbDepartDay
             // 
+            cbDepartDay.DropDownStyle = ComboBoxStyle.DropDownList;
             cbDepartDay.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbDepartDay.FormattingEnabled = true;
             cbDepartDay.Location = new Point(792, 217);

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnlSearch = new Panel();
+            lblPeople = new Label();
+            numPasangers = new NumericUpDown();
             btnSearch = new Button();
             rbOneWay = new RadioButton();
             rbReturn = new RadioButton();
@@ -43,17 +45,19 @@
             lblFrom = new Label();
             lblHeader = new Label();
             flpTickets = new FlowLayoutPanel();
-            numericUpDown1 = new NumericUpDown();
-            lblPeople = new Label();
+            label1 = new Label();
+            btnClear = new Button();
             pnlSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPasangers).BeginInit();
+            flpTickets.SuspendLayout();
             SuspendLayout();
             // 
             // pnlSearch
             // 
             pnlSearch.BackColor = Color.FromArgb(170, 190, 180);
+            pnlSearch.Controls.Add(btnClear);
             pnlSearch.Controls.Add(lblPeople);
-            pnlSearch.Controls.Add(numericUpDown1);
+            pnlSearch.Controls.Add(numPasangers);
             pnlSearch.Controls.Add(btnSearch);
             pnlSearch.Controls.Add(rbOneWay);
             pnlSearch.Controls.Add(rbReturn);
@@ -73,6 +77,26 @@
             pnlSearch.Size = new Size(1214, 233);
             pnlSearch.TabIndex = 0;
             // 
+            // lblPeople
+            // 
+            lblPeople.AutoSize = true;
+            lblPeople.Font = new Font("Times New Roman", 12F);
+            lblPeople.Location = new Point(410, 96);
+            lblPeople.Name = "lblPeople";
+            lblPeople.Size = new Size(157, 22);
+            lblPeople.TabIndex = 16;
+            lblPeople.Text = "Numri i personave";
+            // 
+            // numPasangers
+            // 
+            numPasangers.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            numPasangers.Location = new Point(410, 121);
+            numPasangers.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numPasangers.Name = "numPasangers";
+            numPasangers.Size = new Size(127, 30);
+            numPasangers.TabIndex = 15;
+            numPasangers.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
             // btnSearch
             // 
             btnSearch.BackColor = Color.Teal;
@@ -84,6 +108,7 @@
             btnSearch.TabIndex = 14;
             btnSearch.Text = "Kerko";
             btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
             // 
             // rbOneWay
             // 
@@ -121,12 +146,13 @@
             chkDirect.TabIndex = 9;
             chkDirect.Text = "Direct flights only";
             chkDirect.UseVisualStyleBackColor = true;
+            chkDirect.CheckedChanged += chkDirect_CheckedChanged;
             // 
             // dtReturn
             // 
-            dtReturn.CustomFormat = "mm/dd/yyyy";
+            dtReturn.CustomFormat = "dd/MM/yyyy";
             dtReturn.Font = new Font("Times New Roman", 12F);
-            dtReturn.Format = DateTimePickerFormat.Short;
+            dtReturn.Format = DateTimePickerFormat.Custom;
             dtReturn.Location = new Point(605, 185);
             dtReturn.MinDate = new DateTime(2025, 5, 27, 0, 0, 0, 0);
             dtReturn.Name = "dtReturn";
@@ -146,15 +172,16 @@
             // 
             // dtDepart
             // 
-            dtDepart.CustomFormat = "mm/dd/yyyy";
+            dtDepart.CustomFormat = "dd/MM/yyyy";
             dtDepart.Font = new Font("Times New Roman", 12F);
-            dtDepart.Format = DateTimePickerFormat.Short;
+            dtDepart.Format = DateTimePickerFormat.Custom;
             dtDepart.Location = new Point(605, 121);
-            dtDepart.MinDate = new DateTime(2025, 5, 27, 0, 0, 0, 0);
+            dtDepart.MinDate = new DateTime(2025, 5, 29, 0, 0, 0, 0);
             dtDepart.Name = "dtDepart";
             dtDepart.Size = new Size(189, 30);
             dtDepart.TabIndex = 6;
-            dtDepart.Value = new DateTime(2025, 5, 27, 0, 0, 0, 0);
+            dtDepart.Value = new DateTime(2025, 5, 29, 0, 0, 0, 0);
+            dtDepart.ValueChanged += dtDepart_ValueChanged;
             // 
             // cbTo
             // 
@@ -164,6 +191,7 @@
             cbTo.Name = "cbTo";
             cbTo.Size = new Size(162, 30);
             cbTo.TabIndex = 5;
+            cbTo.SelectedIndexChanged += cbTo_SelectedIndexChanged;
             // 
             // cbFrom
             // 
@@ -173,6 +201,7 @@
             cbFrom.Name = "cbFrom";
             cbFrom.Size = new Size(162, 30);
             cbFrom.TabIndex = 4;
+            cbFrom.SelectedIndexChanged += cbFrom_SelectedIndexChanged;
             // 
             // lblDepart
             // 
@@ -218,6 +247,7 @@
             // 
             flpTickets.AutoScroll = true;
             flpTickets.BackColor = Color.FromArgb(202, 209, 193);
+            flpTickets.Controls.Add(label1);
             flpTickets.Dock = DockStyle.Fill;
             flpTickets.FlowDirection = FlowDirection.TopDown;
             flpTickets.Location = new Point(0, 233);
@@ -227,25 +257,28 @@
             flpTickets.TabIndex = 1;
             flpTickets.WrapContents = false;
             // 
-            // numericUpDown1
+            // label1
             // 
-            numericUpDown1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numericUpDown1.Location = new Point(410, 121);
-            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(127, 30);
-            numericUpDown1.TabIndex = 15;
-            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            label1.AutoSize = true;
+            label1.Font = new Font("Times New Roman", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(13, 3);
+            label1.Name = "label1";
+            label1.Size = new Size(341, 35);
+            label1.TabIndex = 0;
+            label1.Text = "Nuk u gjet asnjë fluturim.";
             // 
-            // lblPeople
+            // btnClear
             // 
-            lblPeople.AutoSize = true;
-            lblPeople.Font = new Font("Times New Roman", 12F);
-            lblPeople.Location = new Point(410, 96);
-            lblPeople.Name = "lblPeople";
-            lblPeople.Size = new Size(157, 22);
-            lblPeople.TabIndex = 16;
-            lblPeople.Text = "Numri i personave";
+            btnClear.BackColor = Color.Teal;
+            btnClear.FlatStyle = FlatStyle.Popup;
+            btnClear.Font = new Font("Times New Roman", 12F);
+            btnClear.Location = new Point(1010, 110);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(156, 41);
+            btnClear.TabIndex = 17;
+            btnClear.Text = "Pastro";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // FrmBrowseFlights
             // 
@@ -259,9 +292,12 @@
             Name = "FrmBrowseFlights";
             Text = "FrmBrowseFlights";
             Load += FrmBrowseFlights_Load;
+            Shown += FrmBrowseFlights_Shown;
             pnlSearch.ResumeLayout(false);
             pnlSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPasangers).EndInit();
+            flpTickets.ResumeLayout(false);
+            flpTickets.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -283,6 +319,8 @@
         private CheckBox chkDirect;
         private Button btnSearch;
         private Label lblPeople;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown numPasangers;
+        private Label label1;
+        private Button btnClear;
     }
 }

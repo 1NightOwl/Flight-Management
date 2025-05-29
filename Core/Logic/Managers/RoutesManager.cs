@@ -47,24 +47,49 @@ namespace FlightManagement.Core.Logic.Managers
             Program.DbContext.SaveChanges();
         }
 
+        public IEnumerable<Route> FindDirect(
+        string from, string to, string departureDay)
+        {
+            return Program.DbContext.Routes
+                .Include(r => r.Plane)
+                .Where(r => r.Departure == from &&
+                            r.Arrival == to &&
+                            r.DepartureDay == departureDay &&
+                            r.Status == "Aktiv")
+                .ToList();
+        }
+
+        public IEnumerable<(Route FirstLeg, Route SecondLeg)> FindConnections(
+            string from, string to, string departureDay,
+             TimeSpan minLayover, TimeSpan maxLayover)
+        {
+            var all = Program.DbContext
+            .Routes
+            .Include(r => r.Plane)
+            .Where(r => r.DepartureDay == departureDay && r.Status == "Aktiv")
+            .ToList();
+
+            var firstLegs = all.Where(r => r.Departure == from);
+
+            var secondLegs = all.Where(r => r.Arrival == to);
+
+            var connections = from leg1 in firstLegs
+                              from leg2 in secondLegs
+                              where leg1.Arrival == leg2.Departure 
+                                 && leg2.StartTime > leg1.EndTime   
+                                 && (leg2.StartTime - leg1.EndTime) >= minLayover
+                                 && (leg2.StartTime - leg1.EndTime) <= maxLayover
+                              select (FirstLeg: leg1, SecondLeg: leg2);
+
+            return connections.ToList();
+        }
+
         public List<Route> GetAllRoutes()
         {
             return Program.DbContext
-                          .Routes
-                          .Select(r => new Route
-                          {
-                              Id = r.Id,
-                              PlaneId = r.PlaneId,
-                              Departure = r.Departure,
-                              Arrival = r.Arrival,
-                              DepartureDay = r.DepartureDay,
-                              StartTime = r.StartTime,
-                              EndTime = r.EndTime,
-                              Status = r.Status,
-                              Price = r.Price,
-                              CreatedDate = r.CreatedDate,
-                              UpdatedDate = r.UpdatedDate
-                          }).ToList();
+               .Routes
+               .Include(r => r.Plane)
+               .ToList();
         }
 
         public Route? GetById(int id) =>
