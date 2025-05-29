@@ -8,7 +8,7 @@ namespace FlightManagement.Core.Logic
 {
     public class RouteDeafults
     {
-        public static readonly string[] DaysOfTheWeek = { "E Hënë", "E Martë", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë", "E Diel" };
+        public static readonly string[] DaysOfTheWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
         public static readonly string[] Airports = { "Tirane (TIA)", "Vjena (VIE)","Stamboll (IST)", "Milano (MXP)", "Londër (LHR)" };
     }

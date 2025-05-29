@@ -228,7 +228,6 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
             dgData.DataSource = null;
             dgData.DataSource = Program.PlanesManager.GetAll();
             //Heqja e kolonave te panevojshme dhe vendosja e emrave te duhur per secilen kolone
-            dgData.Columns["Id"].Visible = false;
 
             dgData.Columns["PlaneId"].HeaderText = "ID e Avionit";
             dgData.Columns["Model"].HeaderText = "Modeli";
