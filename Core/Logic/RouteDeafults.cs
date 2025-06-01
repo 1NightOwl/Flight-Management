@@ -10,6 +10,6 @@ namespace FlightManagement.Core.Logic
     {
         public static readonly string[] DaysOfTheWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
-        public static readonly string[] Airports = { "Tirane (TIA)", "Vjena (VIE)","Stamboll (IST)", "Milano (MXP)", "Londër (LHR)" };
+        public static readonly string[] Airports = { "Tirane (TIA)", "Vjena (VIE)","Stamboll (IST)", "Milano (MXP)", "Londer (LHR)" };
     }
 }

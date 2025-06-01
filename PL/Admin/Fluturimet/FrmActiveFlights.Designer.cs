@@ -30,9 +30,9 @@
         {
             btnRouteSwitch = new Button();
             btnActivePlaneSwtich = new Button();
-            btnPdfExport = new Button();
+            btnRouteExport = new Button();
             btnWeekly = new Button();
-            btnExcelExport = new Button();
+            btnPlaneExport = new Button();
             lblTitleRoute = new Label();
             lblTitleRouteInput = new Label();
             pnlActivePlanes = new Panel();
@@ -41,6 +41,8 @@
             dgSelectedPlaneRoute = new DataGridView();
             pnlOptions = new Panel();
             pnlRouteList = new Panel();
+            saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog2 = new SaveFileDialog();
             pnlActivePlanes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgActivePlanes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgSelectedPlaneRoute).BeginInit();
@@ -76,17 +78,18 @@
             btnActivePlaneSwtich.Visible = false;
             btnActivePlaneSwtich.Click += btnActivePlaneSwtich_Click;
             // 
-            // btnPdfExport
+            // btnRouteExport
             // 
-            btnPdfExport.BackColor = Color.Teal;
-            btnPdfExport.FlatStyle = FlatStyle.Popup;
-            btnPdfExport.Font = new Font("Times New Roman", 12F);
-            btnPdfExport.Location = new Point(103, 173);
-            btnPdfExport.Name = "btnPdfExport";
-            btnPdfExport.Size = new Size(228, 80);
-            btnPdfExport.TabIndex = 16;
-            btnPdfExport.Text = "📄 Eksport në PDF";
-            btnPdfExport.UseVisualStyleBackColor = false;
+            btnRouteExport.BackColor = Color.Teal;
+            btnRouteExport.FlatStyle = FlatStyle.Popup;
+            btnRouteExport.Font = new Font("Times New Roman", 12F);
+            btnRouteExport.Location = new Point(103, 173);
+            btnRouteExport.Name = "btnRouteExport";
+            btnRouteExport.Size = new Size(228, 80);
+            btnRouteExport.TabIndex = 16;
+            btnRouteExport.Text = "📊 Eksporto rruget";
+            btnRouteExport.UseVisualStyleBackColor = false;
+            btnRouteExport.Click += btnRouteExport_Click;
             // 
             // btnWeekly
             // 
@@ -99,18 +102,20 @@
             btnWeekly.TabIndex = 15;
             btnWeekly.Text = "🗓️Shfaq Orarin Javor";
             btnWeekly.UseVisualStyleBackColor = false;
+            btnWeekly.Click += btnWeekly_Click;
             // 
-            // btnExcelExport
+            // btnPlaneExport
             // 
-            btnExcelExport.BackColor = Color.Teal;
-            btnExcelExport.FlatStyle = FlatStyle.Popup;
-            btnExcelExport.Font = new Font("Times New Roman", 12F);
-            btnExcelExport.Location = new Point(103, 68);
-            btnExcelExport.Name = "btnExcelExport";
-            btnExcelExport.Size = new Size(228, 80);
-            btnExcelExport.TabIndex = 13;
-            btnExcelExport.Text = "📊 Eksporto në Excel";
-            btnExcelExport.UseVisualStyleBackColor = false;
+            btnPlaneExport.BackColor = Color.Teal;
+            btnPlaneExport.FlatStyle = FlatStyle.Popup;
+            btnPlaneExport.Font = new Font("Times New Roman", 12F);
+            btnPlaneExport.Location = new Point(103, 68);
+            btnPlaneExport.Name = "btnPlaneExport";
+            btnPlaneExport.Size = new Size(228, 80);
+            btnPlaneExport.TabIndex = 13;
+            btnPlaneExport.Text = "📊 Eksporto avionat";
+            btnPlaneExport.UseVisualStyleBackColor = false;
+            btnPlaneExport.Click += btnPlaneExport_Click;
             // 
             // lblTitleRoute
             // 
@@ -184,9 +189,9 @@
             pnlOptions.BackColor = Color.FromArgb(170, 190, 180);
             pnlOptions.Controls.Add(btnRouteSwitch);
             pnlOptions.Controls.Add(btnActivePlaneSwtich);
-            pnlOptions.Controls.Add(btnPdfExport);
+            pnlOptions.Controls.Add(btnRouteExport);
             pnlOptions.Controls.Add(btnWeekly);
-            pnlOptions.Controls.Add(btnExcelExport);
+            pnlOptions.Controls.Add(btnPlaneExport);
             pnlOptions.Controls.Add(lblTitleRoute);
             pnlOptions.Dock = DockStyle.Bottom;
             pnlOptions.Location = new Point(0, 576);
@@ -233,9 +238,9 @@
         #endregion
         private Button btnRouteSwitch;
         private Button btnActivePlaneSwtich;
-        private Button btnPdfExport;
+        private Button btnRouteExport;
         private Button btnWeekly;
-        private Button btnExcelExport;
+        private Button btnPlaneExport;
         private Label lblTitleRoute;
         private Label lblTitleRouteInput;
         private Panel pnlActivePlanes;
@@ -244,5 +249,7 @@
         private Panel pnlOptions;
         private Panel pnlRouteList;
         private DataGridView dgActivePlanes;
+        private SaveFileDialog saveFileDialog1;
+        private SaveFileDialog saveFileDialog2;
     }
 }

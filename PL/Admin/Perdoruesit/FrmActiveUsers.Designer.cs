@@ -33,7 +33,6 @@
             pnlActiveUsers = new Panel();
             lblTitleRoute = new Label();
             btnExcelExport = new Button();
-            btnPdfExport = new Button();
             pnlOptions = new Panel();
             label3 = new Label();
             cbChangeRole = new ComboBox();
@@ -43,6 +42,7 @@
             label1 = new Label();
             txtFilterId = new TextBox();
             btnDelete = new Button();
+            saveFileDialog1 = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)dgActiveUsers).BeginInit();
             pnlActiveUsers.SuspendLayout();
             pnlOptions.SuspendLayout();
@@ -104,18 +104,7 @@
             btnExcelExport.TabIndex = 13;
             btnExcelExport.Text = "📊 Eksporto në Excel";
             btnExcelExport.UseVisualStyleBackColor = false;
-            // 
-            // btnPdfExport
-            // 
-            btnPdfExport.BackColor = Color.Teal;
-            btnPdfExport.FlatStyle = FlatStyle.Popup;
-            btnPdfExport.Font = new Font("Times New Roman", 12F);
-            btnPdfExport.Location = new Point(119, 173);
-            btnPdfExport.Name = "btnPdfExport";
-            btnPdfExport.Size = new Size(228, 80);
-            btnPdfExport.TabIndex = 16;
-            btnPdfExport.Text = "📄 Eksport në PDF";
-            btnPdfExport.UseVisualStyleBackColor = false;
+            btnExcelExport.Click += btnExcelExport_Click;
             // 
             // pnlOptions
             // 
@@ -128,7 +117,6 @@
             pnlOptions.Controls.Add(label1);
             pnlOptions.Controls.Add(txtFilterId);
             pnlOptions.Controls.Add(btnDelete);
-            pnlOptions.Controls.Add(btnPdfExport);
             pnlOptions.Controls.Add(btnExcelExport);
             pnlOptions.Controls.Add(lblTitleRoute);
             pnlOptions.Dock = DockStyle.Bottom;
@@ -253,7 +241,6 @@
         private Panel pnlActiveUsers;
         private Label lblTitleRoute;
         private Button btnExcelExport;
-        private Button btnPdfExport;
         private Panel pnlOptions;
         private Button btnDelete;
         private Label label2;
@@ -263,5 +250,6 @@
         private Button btnChangeRole;
         private Label label3;
         private ComboBox cbChangeRole;
+        private SaveFileDialog saveFileDialog1;
     }
 }
