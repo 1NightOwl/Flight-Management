@@ -78,6 +78,7 @@ namespace FlightManagement.PL.User.Flights
             flpTickets.SuspendLayout();
             flpTickets.Visible = false;
             flpTickets.Controls.Clear();
+
             int count = (int)numPasangers.Value;
             var from = cbFrom.Text;
             var to = cbTo.Text;
@@ -193,6 +194,7 @@ namespace FlightManagement.PL.User.Flights
                 EmriPasagjerit = Session.CurrentUser.Username,
                 DataRezervimit = DateTime.Now,
                 Klasa = info.SeatClass,
+                Price = (decimal)info.Price,
                 Statusi = "Ne Pritje",
                 Fluturimi = string.Join(" → ",
                                     info.Legs
@@ -200,7 +202,6 @@ namespace FlightManagement.PL.User.Flights
                                         .Concat(new[] { info.Legs.Last().Arrival }))
             };
 
-            // Save it
             new TicketsManager().Add(ticket);
 
             MessageBox.Show("Biletë e blerë me sukses!");

@@ -33,6 +33,7 @@ namespace FlightManagement.PL.Admin.Perdoruesit
             dgActiveUsers.DataSource = null;
             dgActiveUsers.DataSource = Program.UsersManager.GetAll().ToList();
             dgActiveUsers.Columns["Password"].Visible = false;
+            dgActiveUsers.Columns["Biletat"].Visible = false;
 
             dgActiveUsers.Columns["Id"].HeaderText = "ID";
             dgActiveUsers.Columns["Username"].HeaderText = "Emri i Përdoruesit";
@@ -49,6 +50,7 @@ namespace FlightManagement.PL.Admin.Perdoruesit
             userId = -1;
             btnDelete.Enabled = false;
             btnChangeRole.Enabled = false;
+            cbChangeRole.Enabled = false;
         }
         private void FilterUsers()
         {
@@ -95,6 +97,7 @@ namespace FlightManagement.PL.Admin.Perdoruesit
             {
                 if (e.RowIndex < 0) return;
 
+                cbChangeRole.Enabled = true;
                 btnDelete.Enabled = true;
                 btnChangeRole.Enabled = true;
 
