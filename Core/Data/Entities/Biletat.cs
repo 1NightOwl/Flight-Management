@@ -17,6 +17,7 @@ namespace FlightManagement.Core.Data.Entities
 
         public int UserId { get; set; }
         public User User { get; set; }
+        public decimal Price { get; set; } 
 
         public string EmriPasagjerit { get; set; }
         public DateTime DataRezervimit { get; set; }
@@ -43,6 +44,10 @@ namespace FlightManagement.Core.Data.Entities
 
             entity.Property(b => b.Klasa)
                   .HasMaxLength(50)
+                  .IsRequired();
+
+            entity.Property(b => b.Price)
+                  .HasColumnType("decimal(18,2)")
                   .IsRequired();
 
             entity.Property(b => b.Fluturimi)

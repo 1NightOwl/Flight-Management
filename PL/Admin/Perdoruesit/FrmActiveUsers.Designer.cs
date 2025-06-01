@@ -149,6 +149,7 @@
             // 
             // cbChangeRole
             // 
+            cbChangeRole.Enabled = false;
             cbChangeRole.Font = new Font("Times New Roman", 10.2F);
             cbChangeRole.FormattingEnabled = true;
             cbChangeRole.Items.AddRange(new object[] { "User", "Admin" });

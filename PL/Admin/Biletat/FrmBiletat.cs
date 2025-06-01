@@ -35,10 +35,6 @@ namespace FlightManagement.PL.Admin.Biletat
             cmbKlasaFilter.SelectedIndexChanged += (_, __) => AplikoFiltriminSipasKlases();
             cmbKlasaFilter.SelectedIndex = 0;
 
-            // Commented out test data until Routes exist to link
-            // ShtoBileteTest();
-            // ShtoBileteTest2();
-
             AplikoFiltriminSipasKlases();
         }
 
@@ -103,27 +99,51 @@ namespace FlightManagement.PL.Admin.Biletat
 
         private void dgvBiletat_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0 || e.RowIndex >= dgvBiletat.Rows.Count)
+                return;
 
-            var clicked = dgvBiletat.Columns[e.ColumnIndex].Name;
-            int id = (int)dgvBiletat.Rows[e.RowIndex].Cells["Id"].Value;
+            if (dgvBiletat.Rows[e.RowIndex].IsNewRow)
+                return;
+
+            if (dgvBiletat.Columns[e.ColumnIndex] is not DataGridViewButtonColumn)
+                return;
+
+            if (!dgvBiletat.Columns.Contains("Id"))
+                return;
+
+            var idCell = dgvBiletat.Rows[e.RowIndex].Cells["Id"];
+            if (idCell == null || idCell.Value == null)
+                return;
+
+            if (!int.TryParse(idCell.Value.ToString(), out int id))
+                return;
+
             var bilet = _db.Biletat.Find(id);
             if (bilet == null) return;
 
-            if (clicked == "PranoButton")
+            string clickedCol = dgvBiletat.Columns[e.ColumnIndex].Name;
+            if (clickedCol == "PranoButton")
             {
-                if (MessageBox.Show("Pranoni këtë biletë?", "Konfirmo",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(
+                        "Pranoni këtë biletë?",
+                        "Konfirmo",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    ) == DialogResult.Yes)
                 {
                     bilet.Statusi = "Pranuar";
                     _db.SaveChanges();
                     AplikoFiltriminSipasKlases();
                 }
             }
-            else if (clicked == "AnuloButton")
+            else if (clickedCol == "AnuloButton")
             {
-                if (MessageBox.Show("Anuloni këtë biletë?", "Konfirmo",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show(
+                        "Anuloni këtë biletë?",
+                        "Konfirmo",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    ) == DialogResult.Yes)
                 {
                     bilet.Statusi = "Anuluar";
                     _db.SaveChanges();

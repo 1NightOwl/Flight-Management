@@ -9,7 +9,8 @@ namespace FlightManagement
     {
         public static PlanesManager PlanesManager;
         public static RoutesManager RoutesManager;
-        public static UsersManager UsersManager { get; } = new UsersManager();
+        public static UsersManager UsersManager;
+        public static TicketsManager TicketsManager;
         public static AppDbContext DbContext { get; private set; }
 
 
@@ -47,6 +48,9 @@ namespace FlightManagement
 
             PlanesManager = new PlanesManager();
             RoutesManager = new RoutesManager();
+            UsersManager = new UsersManager();
+            TicketsManager = new TicketsManager();
+
             DbContext = new AppDbContext();
             DbContext.Database.EnsureCreated();
         }

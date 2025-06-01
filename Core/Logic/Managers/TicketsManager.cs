@@ -31,21 +31,22 @@ namespace FlightManagement.Core.Logic.Managers
                 .Include(b => b.User)
                 .ToList();
         }
-
-        public IEnumerable<Bileta> GetByUser(int userId)
-        {
-            return Program.DbContext.Biletat
-                .Include(b => b.Route)
-                .Where(b => b.UserId == userId)
-                .ToList();
-        }
-
         public void UpdateStatus(int id, string newStatus)
         {
             var bilet = Program.DbContext.Biletat.Find(id)
                         ?? throw new FlightManagementException("Bileta nuk u gjet.");
             bilet.Statusi = newStatus;
             Program.DbContext.SaveChanges();
+        }
+
+        public List<Bileta> GetByUserId(int userId)
+        {
+            return Program.DbContext.Set<Bileta>()
+                .Include(b => b.Route)
+                    .ThenInclude(r => r.Plane)
+                .Where(b => b.UserId == userId)
+                .OrderByDescending(b => b.DataRezervimit)
+                .ToList();
         }
 
         public void Delete(int id)
