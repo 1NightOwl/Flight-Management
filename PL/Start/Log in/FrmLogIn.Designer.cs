@@ -344,9 +344,10 @@
             Controls.Add(pnlLogIn);
             Controls.Add(pnlRegister);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FrmLogIn";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmLogIn";
+            Text = "  Log In";
             Load += FrmLogIn_Load;
             pnlLogIn.ResumeLayout(false);
             pnlLogIn.PerformLayout();

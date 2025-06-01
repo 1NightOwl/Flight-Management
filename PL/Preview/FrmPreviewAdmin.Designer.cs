@@ -328,9 +328,10 @@
             Controls.Add(pnlControls);
             Controls.Add(pnlDashboard);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FrmPreviewAdmin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmPreviewAdmin";
+            Text = "  Admin";
             Load += FrmPreviewAdmin_Load;
             pnlDashboard.ResumeLayout(false);
             pnlDetails.ResumeLayout(false);

@@ -1,4 +1,5 @@
-﻿using FlightManagement.Core.Data.Entities;
+﻿using FlightManagement.Core;
+using FlightManagement.Core.Data.Entities;
 using FlightManagement.Core.Logic.Managers;
 using FontAwesome.Sharp;
 using Microsoft.EntityFrameworkCore;
@@ -49,36 +50,18 @@ namespace FlightManagement.PL.Admin.Fluturimet
         }
         private void FillDataGridViewAvailablePlanes()
         {
+            var activePlanes = Program.PlanesManager
+                              .GetAll()
+                              .Where(p => p.Status == "Aktiv")
+                              .ToList();
+
             dgActivePlanes.AutoGenerateColumns = true;
-            dgActivePlanes.DataSource = null;
-            dgActivePlanes.DataSource = Program.PlanesManager.GetAll();
-            dgActivePlanes.DataSource = Program.PlanesManager
-                                         .GetAll()
-                                         .Where(p => p.Status == "Aktiv")
-                                         .ToList();
+            dgActivePlanes.DataSource = activePlanes;
+            dgActivePlanes.RowHeadersVisible = false;
+            dgSelectedPlaneRoute.AutoGenerateColumns = true;
+            dgSelectedPlaneRoute.DataSource = new List<Route>();
 
-            var visibleColumns = new List<string>
-                    {
-                         "PlaneId",
-                         "Model",
-                         "SeatCount",
-                         "HasClasses",
-                         "BuisnessFactor",
-                         "FirstClassFactor"
-                     };
-
-            foreach (DataGridViewColumn col in dgActivePlanes.Columns)
-            {
-                col.Visible = visibleColumns.Contains(col.Name);
-            }
-
-            dgActivePlanes.Columns["Id"].Visible = false;
-            dgActivePlanes.Columns["PlaneId"].HeaderText = "ID e Avionit";
-            dgActivePlanes.Columns["Model"].HeaderText = "Modeli i Avionit";
-            dgActivePlanes.Columns["SeatCount"].HeaderText = "Numri i Vendeve";
-            dgActivePlanes.Columns["HasClasses"].HeaderText = "Ka Klasa?";
-            dgActivePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
-            dgActivePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
+            DataGridViewCostumizer.StyleActiveFlightsGrid(dgActivePlanes, dgSelectedPlaneRoute);
         }
         private int GetPlaneIdFromRow(int rowIndex)
         {
@@ -99,34 +82,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
         {
             dgSelectedPlaneRoute.AutoGenerateColumns = true;
             dgSelectedPlaneRoute.DataSource = routes;
+            dgSelectedPlaneRoute.RowHeadersVisible = false;
 
-            var cols = new[]
-            {
-                "Arrival",
-                "CreatedDate",
-                "Departure",
-                "DepartureDay",
-                "EndTime",
-                "PlaneId",
-                "Price",
-                "StartTime",
-                "Status"
-            };
-
-            foreach (DataGridViewColumn c in dgSelectedPlaneRoute.Columns)
-                c.Visible = cols.Contains(c.Name);
-
-            dgSelectedPlaneRoute.Columns["PlaneId"].HeaderText = "ID e Avionit";
-            dgSelectedPlaneRoute.Columns["Departure"].HeaderText = "Nisja";
-            dgSelectedPlaneRoute.Columns["Arrival"].HeaderText = "Mbërritja";
-            dgSelectedPlaneRoute.Columns["DepartureDay"].HeaderText = "Dita";
-            dgSelectedPlaneRoute.Columns["StartTime"].HeaderText = "Ora Nisjes";
-            dgSelectedPlaneRoute.Columns["EndTime"].HeaderText = "Ora Mbërritjes";
-            dgSelectedPlaneRoute.Columns["StartTime"].DefaultCellStyle.Format = "hh\\:mm";
-            dgSelectedPlaneRoute.Columns["EndTime"].DefaultCellStyle.Format = "hh\\:mm";
-            dgSelectedPlaneRoute.Columns["Status"].HeaderText = "Statusi";
-            dgSelectedPlaneRoute.Columns["Price"].HeaderText = "Çmimi";
-            dgSelectedPlaneRoute.Columns["CreatedDate"].HeaderText = "Data Shtimit";
+            DataGridViewCostumizer.StyleRouteGrid(dgSelectedPlaneRoute);
         }
         private void dgActivePlanes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
