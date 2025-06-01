@@ -201,9 +201,10 @@
             Controls.Add(pnlDashboard);
             Controls.Add(pnlControls);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FrmPreviewUser";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmPreviewUser";
+            Text = "  User";
             Load += FrmPreviewUser_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlDetails.ResumeLayout(false);

@@ -1,4 +1,6 @@
-﻿using FlightManagement.Core.Data.Entities;
+﻿using FlightManagement.Core;
+using FlightManagement.Core.Common;
+using FlightManagement.Core.Data.Entities;
 using FlightManagement.Core.Logic;
 using FlightManagement.PL.Start.Log_in;
 using System;
@@ -109,6 +111,79 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (cbPlaneType.SelectedIndex == -1)
+            {
+                MessageBox.Show(
+                    "Zgjidhni tipin e avionit (Model).",
+                    "Gabim në përzgjedhje",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbPlaneType.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPlaneId.Text)
+             || !int.TryParse(txtPlaneId.Text, out int parsedPlaneId))
+            {
+                MessageBox.Show(
+                    "Shkruani një ID (numër) valide për avionin.",
+                    "Gabim në ID",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtPlaneId.Focus();
+                return;
+            }
+
+            string registration = txtPlaneRegistration.Text.Trim();
+            if (string.IsNullOrWhiteSpace(registration))
+            {
+                MessageBox.Show(
+                    "Shkruani regjistrimin e avionit (Registration).",
+                    "Gabim në Regjistrim",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                txtPlaneRegistration.Focus();
+                return;
+            }
+
+            if (numSeatNr.Value <= 0)
+            {
+                MessageBox.Show(
+                    "Numri i vendeve (SeatCount) duhet të jetë më i madh se zero.",
+                    "Gabim në SeatCount",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                numSeatNr.Focus();
+                return;
+            }
+
+            if (numMaxRange.Value <= 0)
+            {
+                MessageBox.Show(
+                    "Rrezja e avionit (RangeKm) duhet të jetë më e madhe se zero.",
+                    "Gabim në RangeKm",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                numMaxRange.Focus();
+                return;
+            }
+
+            if (cbPlaneStatus.SelectedIndex == -1)
+            {
+                MessageBox.Show(
+                    "Zgjidhni statusin e avionit (Aktiv / Jashtë Shërbimi).",
+                    "Gabim në Status",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbPlaneStatus.Focus();
+                return;
+            }
             try
             {
                 //Marrja e modelit te avionit
@@ -139,6 +214,10 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                 Program.PlanesManager.AddPlane(newPlane);
                 MessageBox.Show("Avioni u shtua me sukses!✅");
                 btnClear_Click(null, null);
+            }
+            catch (FlightManagementException exception)
+            {
+                MessageBox.Show(exception.Message, "Gabim në shtim", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -189,6 +268,10 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
                 //Pastrimi i fushave
                 btnClear_Click(null, null);
             }
+            catch (FlightManagementException exception)
+            {
+                MessageBox.Show(exception.Message, "Gabim në editim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Gabim gjatë përditësimit: " + ex.Message);
@@ -225,25 +308,9 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
         {
             //Gjenerimi i kolonave per ne datagrid
             dgData.AutoGenerateColumns = true;
-            dgData.DataSource = null;
+            dgData.RowHeadersVisible = false;
             dgData.DataSource = Program.PlanesManager.GetAll();
-            //Heqja e kolonave te panevojshme dhe vendosja e emrave te duhur per secilen kolone
-
-            dgData.Columns["PlaneId"].HeaderText = "ID e Avionit";
-            dgData.Columns["Model"].HeaderText = "Modeli";
-            dgData.Columns["Registration"].HeaderText = "Regjistrimi";
-            dgData.Columns["SeatCount"].HeaderText = "Vendesh";
-            dgData.Columns["RangeKm"].HeaderText = "Rrezja (km)";
-            dgData.Columns["Status"].HeaderText = "Statusi";
-            dgData.Columns["HasClasses"].HeaderText = "Ka Klasa?";
-            dgData.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
-            dgData.Columns["FirstClassFactor"].HeaderText = "Koef. First";
-            dgData.Columns["CreatedDate"].HeaderText = "Data e Shtimit";
-
-            dgData.Columns["UpdatedDate"].HeaderText = "Data e Perditesimit";
-            //Vendosja e formatit te duhur per datat, dhe vendosja e vleres null per avionet qe nuk jane updetuar akoma
-            dgData.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
-            dgData.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
+            DataGridViewCostumizer.StylePlaneGrid(dgData);
         }
 
         private void dgData_CellClick(object sender, DataGridViewCellEventArgs e)

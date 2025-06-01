@@ -1,4 +1,6 @@
-﻿using FlightManagement.Core.Data.Entities;
+﻿using FlightManagement.Core;
+using FlightManagement.Core.Common;
+using FlightManagement.Core.Data.Entities;
 using FlightManagement.Core.Logic;
 using FlightManagement.Core.Logic.Managers;
 using FlightManagement.Core.Templates;
@@ -172,6 +174,67 @@ namespace FlightManagement.PL.Admin.Fluturimet
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (selectedPlaneId <= 0)
+            {
+                MessageBox.Show(
+                    "Ju lutem, zgjidhni një avion nga lista e avionëve të disponueshëm para se të shtoni rrugën.",
+                    "Gabim në zgjedhjen e avionit",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbOrigin.Text))
+            {
+                MessageBox.Show(
+                    "Zgjidhni aeroportin e nisjes (Origin).",
+                    "Gabim në nisje",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbOrigin.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbDestination.Text))
+            {
+                MessageBox.Show(
+                    "Zgjidhni aeroportin e mbërritjes (Destination).",
+                    "Gabim në mbërritje",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbDestination.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbDepartDay.Text))
+            {
+                MessageBox.Show(
+                    "Zgjidhni ditën e nisjes (Departure Day).",
+                    "Gabim në ditën e nisjes",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbDepartDay.Focus();
+                return;
+            }
+
+            TimeSpan departureTime = dtDeparture.Value.TimeOfDay;
+            TimeSpan arrivalTime = dtArrival.Value.TimeOfDay;
+            if (arrivalTime <= departureTime)
+            {
+                MessageBox.Show(
+                    "Ora e mbërritjes duhet të jetë më e madhe se ora e nisjes.",
+                    "Gabim në kohë",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                dtArrival.Focus();
+                return;
+            }
+
             try
             {
                 var selectedModel = cbPlaneType.SelectedItem?.ToString();
@@ -186,12 +249,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
                     MessageBox.Show("Ju lutem, zgjidhni një avion nga lista përpara se të shtoni rrugën.");
                     return;
                 }
-
-                //if (HasConflict(txtPlaneId, cbDepartDay, dtDeparture, dtArrival, editingId))
-                //{
-                //    SetErr(dtpStart, "Ky avion ka një fluturim tjetër në këtë kohë.");
-                //    return;
-                //}
 
 
                 var newRoute = new Route
@@ -211,15 +268,83 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 MessageBox.Show("Rruga u shtua me sukses!");
                 btnClear_Click(null, null);
             }
+            catch (FlightManagementException exception)
+            {
+                MessageBox.Show(exception.Message, "Gabim në shtim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Gabim gjatë shtimit: " + ex.Message);
             }
-            FillDataGridView();
+            finally
+            {
+                FillDataGridView();
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (selectedPlaneId <= 0)
+            {
+                MessageBox.Show(
+                    "Ju lutem, zgjidhni një avion nga lista e avionëve të disponueshëm para se të shtoni rrugën.",
+                    "Gabim në zgjedhjen e avionit",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbOrigin.Text))
+            {
+                MessageBox.Show(
+                    "Zgjidhni aeroportin e nisjes (Origin).",
+                    "Gabim në nisje",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbOrigin.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbDestination.Text))
+            {
+                MessageBox.Show(
+                    "Zgjidhni aeroportin e mbërritjes (Destination).",
+                    "Gabim në mbërritje",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbDestination.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbDepartDay.Text))
+            {
+                MessageBox.Show(
+                    "Zgjidhni ditën e nisjes (Departure Day).",
+                    "Gabim në ditën e nisjes",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                cbDepartDay.Focus();
+                return;
+            }
+
+            TimeSpan departureTime = dtDeparture.Value.TimeOfDay;
+            TimeSpan arrivalTime = dtArrival.Value.TimeOfDay;
+            if (arrivalTime <= departureTime)
+            {
+                MessageBox.Show(
+                    "Ora e mbërritjes duhet të jetë më e madhe se ora e nisjes.",
+                    "Gabim në kohë",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                dtArrival.Focus();
+                return;
+            }
+
             if (selectedRouteDbId == -1)
             {
                 MessageBox.Show("Zgjidh një rruge për përditësim.");
@@ -228,13 +353,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
 
             try
             {
-
-                //var selectedModel = cbPlaneType.SelectedItem?.ToString();
-                //if (!PlaneDeafults.planeTemplates.TryGetValue(selectedModel, out var template))
-                //{
-                //    MessageBox.Show("Modeli i avionit nuk u gjet.");
-                //    return;
-                //}
 
                 var updatedRoute = new Route
                 {
@@ -253,94 +371,63 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 MessageBox.Show("Rruga u përditësua me sukses!");
                 btnClear_Click(null, null);
             }
+            catch (FlightManagementException exception)
+            {
+                MessageBox.Show(exception.Message, "Gabim në shtim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Gabim gjatë përditësimit: " + ex.Message);
             }
-            FillDataGridView();
+            finally
+            {
+                FillDataGridView();
+            }
+
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (selectedRouteDbId == -1)
-            {
-                MessageBox.Show("Zgjidh një rruge për fshirje.");
-                return;
-            }
-
-            var confirm = MessageBox.Show("Jeni i sigurt që doni të fshini këtë rruge?", "Konfirmim", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.Yes)
+            try
             {
                 Program.RoutesManager.DeleteRoute(selectedRouteDbId);
-                MessageBox.Show("Rruga u fshi me sukses!");
+                MessageBox.Show("Rruga u fshi me sukses! ✅", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnClear_Click(null, null);
+            }
+            catch (FlightManagementException exception)
+            {
+                MessageBox.Show(exception.Message, "Gabim në fshirje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gabim i papritur gjatë fshirjes: " + ex.Message, "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
                 FillDataGridView();
             }
-            txtPlaneId.Enabled = true;
-            cbPlaneType.Enabled = true;
         }
         private void FillDataGridView()
         {
             dgPlaneRouteList.AutoGenerateColumns = true;
-            dgPlaneRouteList.DataSource = null;
+            dgPlaneRouteList.RowHeadersVisible = false;
             dgPlaneRouteList.DataSource = Program.RoutesManager.GetAllRoutes();
-            dgPlaneRouteList.Columns["Plane"].Visible = false;
-            dgPlaneRouteList.Columns["Id"].Visible = false;
-
-            dgPlaneRouteList.Columns["PlaneId"].HeaderText = "ID e Avionit";
-            dgPlaneRouteList.Columns["Departure"].HeaderText = "Nisja";
-            dgPlaneRouteList.Columns["Arrival"].HeaderText = "Mbërritja";
-            dgPlaneRouteList.Columns["DepartureDay"].HeaderText = "Dita";
-            dgPlaneRouteList.Columns["StartTime"].HeaderText = "Ora Nisjes"; 
-            dgPlaneRouteList.Columns["EndTime"].HeaderText = "Ora Mbërritjes";
-
-            dgPlaneRouteList.Columns["StartTime"].DefaultCellStyle.Format = "hh\\:mm";
-            dgPlaneRouteList.Columns["EndTime"].DefaultCellStyle.Format = "hh\\:mm";
-
-            dgPlaneRouteList.Columns["Status"].HeaderText = "Statusi";
-            dgPlaneRouteList.Columns["Price"].HeaderText = "Çmimi";
-            dgPlaneRouteList.Columns["CreatedDate"].HeaderText = "Data Shtimit";
-            dgPlaneRouteList.Columns["UpdatedDate"].HeaderText = "Data Përditësimit";
-            dgPlaneRouteList.Columns["CreatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
-            dgPlaneRouteList.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
-            dgPlaneRouteList.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
+            DataGridViewCostumizer.StyleRouteGrid(dgPlaneRouteList);
         }
         private void FillDataGridViewAvailablePlanes()
         {
+            var avail = Program.PlanesManager
+                       .GetAll()
+                       .Where(p => p.Status == "Aktiv")
+                       .ToList();
+            dgAviablePlanes.RowHeadersVisible = false;
             dgAviablePlanes.AutoGenerateColumns = true;
-            dgAviablePlanes.DataSource = null;
-            dgAviablePlanes.DataSource = Program.PlanesManager.GetAll();
-            dgAviablePlanes.DataSource = Program.PlanesManager
-                                         .GetAll()
-                                         .Where(p => p.Status == "Aktiv")
-                                         .ToList();
-
-            var visibleColumns = new List<string>
-                    {
-                         "PlaneId",
-                         "Model",
-                         "SeatCount",
-                         "HasClasses",
-                         "BuisnessFactor",
-                         "FirstClassFactor"
-                     };
-
-            foreach (DataGridViewColumn col in dgAviablePlanes.Columns)
-            {
-                col.Visible = visibleColumns.Contains(col.Name);
-            }
-
-            dgAviablePlanes.Columns["Id"].Visible = false;
-            dgAviablePlanes.Columns["PlaneId"].HeaderText = "ID e Avionit";
-            dgAviablePlanes.Columns["Model"].HeaderText = "Modeli i Avionit";
-            dgAviablePlanes.Columns["SeatCount"].HeaderText = "Numri i Vendeve";
-            dgAviablePlanes.Columns["HasClasses"].HeaderText = "Ka Klasa?";
-            dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
-            dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
+            dgAviablePlanes.DataSource = avail;
+            DataGridViewCostumizer.StyleActiveFlightsGrid(dgAviablePlanes, dgPlaneRouteList);
         }
         private void dgPlaneRouteList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             
-            //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
+            //Kontrollim nese rrjeshti qe admini ka shtypur eshte ai qe deshiron, 
             //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
             DialogResult result = MessageBox.Show(
                 "Deshiron te marresh te dhenat e ketij avioni?",
@@ -387,7 +474,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
         }
         private void dgAviablePlanes_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Kontrollim nese rrjeshti qe admini ka shtyper eshte ai qe deshiron, 
+            //Kontrollim nese rrjeshti qe admini ka shtypur eshte ai qe deshiron, 
             //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
             DialogResult result = MessageBox.Show(
                 "Deshiron te marresh te dhenat e ketij avioni?",
@@ -448,14 +535,5 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
         }
-
-        //bool HasConflict(int planeId, string day, TimeSpan start, TimeSpan end, int? editingId = null)
-        //{
-        //    return Program.DbContext.Routes.Any(r =>
-        //        r.PlaneId == planeId &&
-        //        r.DepartureDay == day &&
-        //        r.Id != editingId &&                            // ignore the route we’re editing
-        //        r.StartTime < end && start < r.EndTime);        // classic overlap test
-        //}
     }
 }

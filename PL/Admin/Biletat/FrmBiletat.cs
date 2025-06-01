@@ -88,6 +88,7 @@ namespace FlightManagement.PL.Admin.Biletat
             };
             dgvBiletat.Columns["Fluturimi"].MinimumWidth = 300;
             dgvBiletat.Columns.Add(anuloBtn);
+            DataGridViewCostumizer.StyleTicketsGrid(dgvBiletat);
         }
 
         private void dgvBiletat_SelectionChanged(object sender, EventArgs e)

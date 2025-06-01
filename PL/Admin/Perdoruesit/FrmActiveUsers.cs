@@ -1,4 +1,5 @@
-﻿using FlightManagement.Core.Common;
+﻿using FlightManagement.Core;
+using FlightManagement.Core.Common;
 using FlightManagement.Core.Logic.Managers;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
@@ -30,20 +31,10 @@ namespace FlightManagement.PL.Admin.Perdoruesit
         }
         private void FillDataGridView()
         {
+            dgActiveUsers.RowHeadersVisible = false;
             dgActiveUsers.AutoGenerateColumns = true;
-            dgActiveUsers.DataSource = null;
             dgActiveUsers.DataSource = Program.UsersManager.GetAll().ToList();
-            dgActiveUsers.Columns["Password"].Visible = false;
-            dgActiveUsers.Columns["Biletat"].Visible = false;
-
-            dgActiveUsers.Columns["Id"].HeaderText = "ID";
-            dgActiveUsers.Columns["Username"].HeaderText = "Emri i Përdoruesit";
-            dgActiveUsers.Columns["Email"].HeaderText = "Email";
-            dgActiveUsers.Columns["Role"].HeaderText = "Roli";
-            dgActiveUsers.Columns["CreatedDate"].HeaderText = "Data e Krijimit";
-            dgActiveUsers.Columns["UpdatedDate"].HeaderText = "Data e Përditësimit";
-            dgActiveUsers.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
-            dgActiveUsers.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
+            DataGridViewCostumizer.StyleUserGrid(dgActiveUsers);
         }
         private void RefreshUserGrid()
         {
