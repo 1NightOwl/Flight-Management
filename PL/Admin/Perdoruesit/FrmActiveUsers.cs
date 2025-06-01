@@ -1,6 +1,7 @@
 ﻿using FlightManagement.Core.Common;
 using FlightManagement.Core.Logic.Managers;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -146,6 +147,36 @@ namespace FlightManagement.PL.Admin.Perdoruesit
         private void txtFilterId_TextChanged(object sender, EventArgs e)
         {
             FilterUsers();
+        }
+
+        private void btnExcelExport_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            saveFileDialog1.DefaultExt = "csv";
+            saveFileDialog1.FileName = "Users.csv";
+
+            var selectedFileResult = saveFileDialog1.ShowDialog();
+            if (selectedFileResult == DialogResult.OK)
+            {
+                var fileName = saveFileDialog1.FileName;
+                var userRows = new List<string>
+                    {
+                        "Id,Emri,Email,Roli,Data e Krijimit"
+                    };
+                var users = Program.UsersManager.GetAll();
+                foreach (var user in users)
+                {
+                    userRows.Add(string.Join(
+                        ",",
+                        user.Id,
+                        user.Username,
+                        user.Email,
+                        user.Role,
+                        user.CreatedDate.ToString("yyyy-MM-dd")
+                    ));
+                }
+                File.WriteAllLines(fileName, userRows.ToArray());
+            }
         }
     }
 }
