@@ -42,9 +42,9 @@
             pbLogo.BackColor = Color.Transparent;
             pbLogo.BackgroundImage = Properties.Resources.Logo;
             pbLogo.BackgroundImageLayout = ImageLayout.Stretch;
-            pbLogo.Location = new Point(587, 46);
+            pbLogo.Location = new Point(480, 91);
             pbLogo.Name = "pbLogo";
-            pbLogo.Size = new Size(362, 402);
+            pbLogo.Size = new Size(522, 561);
             pbLogo.TabIndex = 0;
             pbLogo.TabStop = false;
             // 

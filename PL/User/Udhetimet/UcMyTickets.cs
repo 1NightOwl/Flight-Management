@@ -38,10 +38,22 @@ namespace FlightManagement.PL.User.Udhetimet
 
             lblDate.Text = ticket.DataRezervimit.ToString("dd/MM/yyyy");
 
-            lblClass.Text = $"Class: {ticket.Klasa}";
+            lblClass.Text = $"Classi: {ticket.Klasa}";
 
-            lblStatus.Text = $"Statusi: {ticket.Statusi}";
-            ;
+            lblStatusClass.Text = ticket.Statusi;
+
+            if (lblStatusClass.Text == "Pranuar")
+            {
+                lblStatusClass.ForeColor = Color.LawnGreen;
+            }
+            else if (lblStatusClass.Text == "Anuluar")
+            {
+                lblStatusClass.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblStatusClass.ForeColor = Color.Orange;
+            }
 
             lblDate.Text = ticket.DataRezervimit.ToString("g");
 

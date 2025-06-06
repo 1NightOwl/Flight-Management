@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FlightManagement.Core
 {
@@ -103,23 +104,20 @@ namespace FlightManagement.Core
 
         public static void StyleUserGrid(DataGridView dgv)
         {
-            // 3a) Header
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgv.EnableHeadersVisualStyles = false;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 50, 50);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dgv.ColumnHeadersHeight = 30;
 
-            // 3b) Rreshta alternues
             dgv.BackgroundColor = Color.WhiteSmoke;
             dgv.RowsDefaultCellStyle.BackColor = Color.White;
             dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 238, 238);
 
-            // 3c) Selektimi
             dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 100, 100);
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
 
-            // 3d) Kolonat bazë
             dgv.Columns["Password"].Visible = false;
             dgv.Columns["Biletat"].Visible = false;
 
@@ -133,7 +131,6 @@ namespace FlightManagement.Core
             dgv.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
             dgv.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
 
-            // 3e) Një stil i lehtë me bazë role: Admin = #D4AF37 (gri‐ari), User = i bardhë
             foreach (DataGridViewRow row in dgv.Rows)
             {
                 if (row.Cells["Role"].Value?.ToString() == "Admin")
@@ -145,7 +142,6 @@ namespace FlightManagement.Core
 
         public static void StyleActiveFlightsGrid(DataGridView dgvActivePlanes, DataGridView dgvRoutes)
         {
-            // 4a) Për avionët (dgActivePlanes): e ngjashme me StylePlaneGrid, por pa CreatedDate/UpdatedDate
             dgvActivePlanes.EnableHeadersVisualStyles = false;
             dgvActivePlanes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(50, 80, 90);
             dgvActivePlanes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -166,7 +162,6 @@ namespace FlightManagement.Core
             dgvActivePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgvActivePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
 
-            // 4b) Për rrugët e avionit të zgjedhur (dgSelectedPlaneRoute)
             dgvRoutes.EnableHeadersVisualStyles = false;
             dgvRoutes.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(70, 100, 110);
             dgvRoutes.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
@@ -213,24 +208,18 @@ namespace FlightManagement.Core
 
         public static void StyleTicketsGrid(DataGridView dgv)
         {
-            // 5a) Header
             dgv.EnableHeadersVisualStyles = false;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(80, 50, 50);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dgv.ColumnHeadersHeight = 30;
 
-            // 5b) Bazë rreshtash
             dgv.BackgroundColor = Color.WhiteSmoke;
             dgv.RowsDefaultCellStyle.BackColor = Color.White;
             dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(240, 240, 240);
             dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(220, 20, 60);
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
 
-            // 5c) Vendos butonat (supozuar që i krijoni në form)
-            // Shkurtimisht: BTN “Prano” dhe “Anulo” i shtoni pas vendosjes së DataSource, jo këtu.
-
-            // 5d) Kolonat bazë, me emra dhe formate
             dgv.Columns["Id"].Visible = false;
             dgv.Columns["Pasagjer"].HeaderText = "Pasagjer";
             dgv.Columns["Fluturimi"].HeaderText = "Fluturimi";
@@ -238,8 +227,6 @@ namespace FlightManagement.Core
             dgv.Columns["Statusi"].HeaderText = "Statusi";
             dgv.Columns["Klasa"].HeaderText = "Klasa";
 
-            // 5e) Për ngjyrosje sipas fushës “Klasa”, shtoji eventin CellFormatting
-            // Nëse nuk e ke ngarkuar në form, mund ta vendosësh këtu:
             dgv.CellFormatting -= DgvTickets_CellFormatting;
             dgv.CellFormatting += DgvTickets_CellFormatting;
         }

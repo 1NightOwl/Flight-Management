@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pnlSearch = new Panel();
+            btnClear = new Button();
             lblPeople = new Label();
             numPasangers = new NumericUpDown();
             btnSearch = new Button();
@@ -46,7 +47,6 @@
             lblHeader = new Label();
             flpTickets = new FlowLayoutPanel();
             label1 = new Label();
-            btnClear = new Button();
             pnlSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numPasangers).BeginInit();
             flpTickets.SuspendLayout();
@@ -76,6 +76,19 @@
             pnlSearch.Name = "pnlSearch";
             pnlSearch.Size = new Size(1214, 233);
             pnlSearch.TabIndex = 0;
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.Teal;
+            btnClear.FlatStyle = FlatStyle.Popup;
+            btnClear.Font = new Font("Times New Roman", 12F);
+            btnClear.Location = new Point(1010, 110);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(156, 41);
+            btnClear.TabIndex = 17;
+            btnClear.Text = "Pastro";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // lblPeople
             // 
@@ -114,12 +127,12 @@
             // 
             rbOneWay.AutoSize = true;
             rbOneWay.Font = new Font("Times New Roman", 12F);
-            rbOneWay.Location = new Point(182, 64);
+            rbOneWay.Location = new Point(247, 64);
             rbOneWay.Name = "rbOneWay";
-            rbOneWay.Size = new Size(101, 26);
+            rbOneWay.Size = new Size(129, 26);
             rbOneWay.TabIndex = 11;
             rbOneWay.TabStop = true;
-            rbOneWay.Text = "One way";
+            rbOneWay.Text = "Vetëm vajtje";
             rbOneWay.UseVisualStyleBackColor = true;
             rbOneWay.CheckedChanged += rbOneWay_CheckedChanged;
             // 
@@ -129,10 +142,10 @@
             rbReturn.Font = new Font("Times New Roman", 12F);
             rbReturn.Location = new Point(44, 64);
             rbReturn.Name = "rbReturn";
-            rbReturn.Size = new Size(116, 26);
+            rbReturn.Size = new Size(204, 26);
             rbReturn.TabIndex = 10;
             rbReturn.TabStop = true;
-            rbReturn.Text = "Return trip";
+            rbReturn.Text = "Udhëtim vajtje-ardhje";
             rbReturn.UseVisualStyleBackColor = true;
             rbReturn.CheckedChanged += rbReturn_CheckedChanged;
             // 
@@ -142,9 +155,9 @@
             chkDirect.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             chkDirect.Location = new Point(43, 169);
             chkDirect.Name = "chkDirect";
-            chkDirect.Size = new Size(175, 26);
+            chkDirect.Size = new Size(159, 26);
             chkDirect.TabIndex = 9;
-            chkDirect.Text = "Direct flights only";
+            chkDirect.Text = "Fluturime direkt";
             chkDirect.UseVisualStyleBackColor = true;
             chkDirect.CheckedChanged += chkDirect_CheckedChanged;
             // 
@@ -166,9 +179,9 @@
             lblReturn.Font = new Font("Times New Roman", 12F);
             lblReturn.Location = new Point(605, 160);
             lblReturn.Name = "lblReturn";
-            lblReturn.Size = new Size(83, 22);
+            lblReturn.Size = new Size(107, 22);
             lblReturn.TabIndex = 7;
-            lblReturn.Text = "📅Return";
+            lblReturn.Text = "📅Mberritja";
             // 
             // dtDepart
             // 
@@ -209,9 +222,9 @@
             lblDepart.Font = new Font("Times New Roman", 12F);
             lblDepart.Location = new Point(605, 96);
             lblDepart.Name = "lblDepart";
-            lblDepart.Size = new Size(85, 22);
+            lblDepart.Size = new Size(74, 22);
             lblDepart.TabIndex = 3;
-            lblDepart.Text = "📅Depart";
+            lblDepart.Text = "📅Nisja";
             // 
             // lblTo
             // 
@@ -219,9 +232,9 @@
             lblTo.Font = new Font("Times New Roman", 12F);
             lblTo.Location = new Point(214, 96);
             lblTo.Name = "lblTo";
-            lblTo.Size = new Size(31, 22);
+            lblTo.Size = new Size(33, 22);
             lblTo.TabIndex = 2;
-            lblTo.Text = "To";
+            lblTo.Text = "Ne";
             // 
             // lblFrom
             // 
@@ -229,9 +242,9 @@
             lblFrom.Font = new Font("Times New Roman", 12F);
             lblFrom.Location = new Point(43, 96);
             lblFrom.Name = "lblFrom";
-            lblFrom.Size = new Size(52, 22);
+            lblFrom.Size = new Size(42, 22);
             lblFrom.TabIndex = 1;
-            lblFrom.Text = "From";
+            lblFrom.Text = "Nga";
             // 
             // lblHeader
             // 
@@ -239,9 +252,9 @@
             lblHeader.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblHeader.Location = new Point(35, 13);
             lblHeader.Name = "lblHeader";
-            lblHeader.Size = new Size(230, 34);
+            lblHeader.Size = new Size(258, 34);
             lblHeader.TabIndex = 0;
-            lblHeader.Text = "✈ Browse Flights";
+            lblHeader.Text = "✈ Kerko Fluturimet";
             // 
             // flpTickets
             // 
@@ -266,19 +279,6 @@
             label1.Size = new Size(341, 35);
             label1.TabIndex = 0;
             label1.Text = "Nuk u gjet asnjë fluturim.";
-            // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.Teal;
-            btnClear.FlatStyle = FlatStyle.Popup;
-            btnClear.Font = new Font("Times New Roman", 12F);
-            btnClear.Location = new Point(1010, 110);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(156, 41);
-            btnClear.TabIndex = 17;
-            btnClear.Text = "Pastro";
-            btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += btnClear_Click;
             // 
             // FrmBrowseFlights
             // 
