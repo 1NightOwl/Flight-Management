@@ -1,9 +1,11 @@
 ﻿using FlightManagement.Core;
+using FlightManagement.PL.Admin;
 using FlightManagement.PL.Admin.Biletat;
 using FlightManagement.PL.Admin.Fluturimet;
 using FlightManagement.PL.Admin.Fluturimet.AddFlight;
 using FlightManagement.PL.Admin.Perdoruesit;
 using FlightManagement.PL.Start.Log_in;
+using FlightManagement.PL.User.Flights;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +26,13 @@ namespace FlightManagement.PL.Preview
         public FrmPreviewAdmin()
         {
             InitializeComponent();
+
+            pnlControls.SuspendLayout();
+            pnlControls.Visible = false;
+            if (Session.CurrentUser != null)
+                LoadPanels(new FrmCrud());
+            pnlControls.ResumeLayout();
+            pnlControls.Visible = true;
         }
         private void togglePannels()
         {
@@ -34,24 +43,6 @@ namespace FlightManagement.PL.Preview
             else
             {
                 pnlFlights.Height = 0;
-            }
-
-            if (showPannelTickets)
-            {
-                pnlTicket.Height = 91;
-            }
-            else
-            {
-                pnlTicket.Height = 0;
-            }
-
-            if (showPannelUsers)
-            {
-                pnlUser.Height = 46;
-            }
-            else
-            {
-                pnlUser.Height = 0;
             }
         }
 
@@ -67,19 +58,13 @@ namespace FlightManagement.PL.Preview
         private void btnTicket_Click(object sender, EventArgs e)
         {
             showPannelFlights = false;
-            showPannelUsers = false;
-
-            showPannelTickets = !showPannelTickets;
-            togglePannels();
+            LoadPanels(new FrmBiletat());
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
-            showPannelTickets = false;
             showPannelFlights = false;
-
-            showPannelUsers = !showPannelUsers;
-            togglePannels();
+            LoadPanels(new FrmActiveUsers());
         }
 
 
@@ -132,11 +117,6 @@ namespace FlightManagement.PL.Preview
             base.OnFormClosing(e);
             Application.Exit();
         }
-
-        private void btnPendingTicket_Click(object sender, EventArgs e)
-        {
-            LoadPanels(new FrmBiletat());
-        }
         private void FrmPreviewAdmin_Load(object sender, EventArgs e)
         {
             if (Session.CurrentUser != null)
@@ -146,13 +126,10 @@ namespace FlightManagement.PL.Preview
             }
         }
 
-        private void btnPresentUsers_Click(object sender, EventArgs e)
+        private void btnAdminAccount_Click(object sender, EventArgs e)
         {
-            LoadPanels(new FrmActiveUsers());
-        }
-        private void btnTicketNr_Click(object sender, EventArgs e)
-        {
-            LoadPanels(new FrmBiletaFiltrim());
+            showPannelFlights = false;
+            LoadPanels(new FrmAdminAccount());
         }
     }
 }

@@ -35,6 +35,7 @@
             label1 = new Label();
             btnCancel = new Button();
             pnlInformation = new Panel();
+            lblStatusClass = new Label();
             lblStatus = new Label();
             lblClass = new Label();
             lblTotalPrice = new Label();
@@ -120,6 +121,7 @@
             // 
             pnlInformation.BackColor = Color.FromArgb(247, 251, 250);
             pnlInformation.BackgroundImageLayout = ImageLayout.Stretch;
+            pnlInformation.Controls.Add(lblStatusClass);
             pnlInformation.Controls.Add(lblStatus);
             pnlInformation.Controls.Add(lblClass);
             pnlInformation.Controls.Add(lblTotalPrice);
@@ -133,6 +135,18 @@
             pnlInformation.Size = new Size(940, 151);
             pnlInformation.TabIndex = 8;
             // 
+            // lblStatusClass
+            // 
+            lblStatusClass.AutoSize = true;
+            lblStatusClass.BackColor = Color.Transparent;
+            lblStatusClass.Font = new Font("Times New Roman", 13.8F);
+            lblStatusClass.ForeColor = Color.FromArgb(16, 94, 85);
+            lblStatusClass.Location = new Point(559, 102);
+            lblStatusClass.Name = "lblStatusClass";
+            lblStatusClass.Size = new Size(68, 26);
+            lblStatusClass.TabIndex = 15;
+            lblStatusClass.Text = "Status";
+            // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
@@ -141,9 +155,9 @@
             lblStatus.ForeColor = Color.FromArgb(16, 94, 85);
             lblStatus.Location = new Point(494, 102);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(68, 26);
+            lblStatus.Size = new Size(74, 26);
             lblStatus.TabIndex = 14;
-            lblStatus.Text = "Status";
+            lblStatus.Text = "Status:";
             // 
             // lblClass
             // 
@@ -163,11 +177,11 @@
             lblTotalPrice.BackColor = Color.Transparent;
             lblTotalPrice.Font = new Font("Times New Roman", 13.8F);
             lblTotalPrice.ForeColor = Color.FromArgb(16, 94, 85);
-            lblTotalPrice.Location = new Point(361, 64);
+            lblTotalPrice.Location = new Point(354, 63);
             lblTotalPrice.Name = "lblTotalPrice";
-            lblTotalPrice.Size = new Size(111, 26);
+            lblTotalPrice.Size = new Size(127, 26);
             lblTotalPrice.TabIndex = 10;
-            lblTotalPrice.Text = "Total Price";
+            lblTotalPrice.Text = "Cmimi Total";
             // 
             // lblPrice
             // 
@@ -248,5 +262,6 @@
         private Label lblRoute;
         private Label lblClass;
         private Label lblStatus;
+        private Label lblStatusClass;
     }
 }

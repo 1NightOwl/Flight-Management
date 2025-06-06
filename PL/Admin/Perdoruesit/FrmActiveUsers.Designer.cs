@@ -52,6 +52,8 @@
             // 
             dgActiveUsers.AllowUserToAddRows = false;
             dgActiveUsers.AllowUserToDeleteRows = false;
+            dgActiveUsers.AllowUserToResizeColumns = false;
+            dgActiveUsers.AllowUserToResizeRows = false;
             dgActiveUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgActiveUsers.Location = new Point(64, 81);
             dgActiveUsers.Name = "dgActiveUsers";

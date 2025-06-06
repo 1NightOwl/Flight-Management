@@ -188,10 +188,8 @@ namespace FlightManagement.PL.Admin.Fluturimet
             var firstDayOfWeek = DayOfWeek.Monday;
             int currentWeek = calendar.GetWeekOfYear(DateTime.Now, weekRule, firstDayOfWeek);
 
-            // 3) Filter tickets so that only those booked in 'this' week remain:
             var ticketsThisWeek = allTickets
                 .Where(b =>
-                    b.Statusi == "Pranuar" &&
                     calendar.GetWeekOfYear(
                         b.DataRezervimit,
                         weekRule,
@@ -200,9 +198,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 )
                 .ToList();
 
-
-
-            // 4) If there are no tickets, show a friendly message and return:
             if (!ticketsThisWeek.Any())
             {
                 MessageBox.Show(
@@ -214,13 +209,9 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 return;
             }
 
-            // 5) Compute your metrics:
-
-            // 5a) Total number of passengers (i.e., total tickets) this week
             int totalPassengers = ticketsThisWeek.Count;
 
-
-            // 5b) Most-frequent departure airport
+            //Aeroporti me i frekuentuar per nisje
             var topDepGroup = ticketsThisWeek
                 .GroupBy(b => b.Route.Departure)
                 .Select(g => new { Airport = g.Key, Count = g.Count() })
@@ -229,7 +220,7 @@ namespace FlightManagement.PL.Admin.Fluturimet
             string mostFrequentDeparture = topDepGroup.Airport;
             int depCount = topDepGroup.Count;
 
-            // 5c) Most-frequent arrival airport
+            //Aerorti me i frekuentuar per mbërritje
             var topArrGroup = ticketsThisWeek
                 .GroupBy(b => b.Route.Arrival)
                 .Select(g => new { Airport = g.Key, Count = g.Count() })
@@ -238,26 +229,23 @@ namespace FlightManagement.PL.Admin.Fluturimet
             string mostFrequentArrival = topArrGroup.Airport;
             int arrCount = topArrGroup.Count;
 
-            // 5d) Average ticket price (if you have price info in Bileta)
+            //Cmimi mesatar i biletës
             decimal avgPrice = ticketsThisWeek.Average(b => b.Price);
 
-            // 5e) (Optional) Count per class (Economy/Business/First, etc.)
-            // Example: how many “Klasa = Economy” vs “Business” this week
+            //Ndarja sipas klasave
             var classBreakdown = ticketsThisWeek
                 .GroupBy(b => b.Klasa)
                 .Select(g => new { Klasa = g.Key, Count = g.Count() })
                 .OrderByDescending(x => x.Count)
                 .ToList();
 
-            // 6) Build the multiline report string
+            //Nderitmi i tekstit per raportin javor
             var sb = new StringBuilder();
             sb.AppendLine($"==== Raporti për Javën {currentWeek} ====");
             sb.AppendLine($"Total pasagjerë (bileta): {totalPassengers}");
             sb.AppendLine($"Aeroporti më i frekuentuar (nisje): {mostFrequentDeparture} ({depCount} bileta)");
             sb.AppendLine($"Aeroporti më i frekuentuar (mbërritje): {mostFrequentArrival} ({arrCount} bileta)");
-            sb.AppendLine($"Çmimi mesatar i biletës: {avgPrice:0.00} EUR");
-
-            // 6a) Append breakdown by class, if you want to show it
+            sb.AppendLine($"Çmimi mesatar i biletës: {avgPrice:0.00} EUR");       
             sb.AppendLine();
             sb.AppendLine("Numri i biletave sipas klasës:");
             foreach (var kv in classBreakdown)
@@ -265,7 +253,6 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 sb.AppendLine($"  • {kv.Klasa}: {kv.Count}");
             }
 
-            // 7) Show everything in a MessageBox
             MessageBox.Show(
                 sb.ToString(),
                 "Raporti Javore",

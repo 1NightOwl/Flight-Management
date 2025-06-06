@@ -34,12 +34,7 @@
             panel3 = new Panel();
             lblEmail = new Label();
             lblUsername = new Label();
-            pnlUser = new Panel();
-            btnPresentUsers = new Button();
             btnUsers = new Button();
-            pnlTicket = new Panel();
-            btnTicketFilter = new Button();
-            btnPendingTicket = new Button();
             btnTicket = new Button();
             pnlFlights = new Panel();
             btnActiveFlights = new Button();
@@ -50,10 +45,9 @@
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
             pnlControls = new Panel();
+            btnAdminAccount = new Button();
             pnlDashboard.SuspendLayout();
             pnlDetails.SuspendLayout();
-            pnlUser.SuspendLayout();
-            pnlTicket.SuspendLayout();
             pnlFlights.SuspendLayout();
             pnlLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -62,10 +56,9 @@
             // pnlDashboard
             // 
             pnlDashboard.BackColor = Color.FromArgb(118, 166, 169);
+            pnlDashboard.Controls.Add(btnAdminAccount);
             pnlDashboard.Controls.Add(pnlDetails);
-            pnlDashboard.Controls.Add(pnlUser);
             pnlDashboard.Controls.Add(btnUsers);
-            pnlDashboard.Controls.Add(pnlTicket);
             pnlDashboard.Controls.Add(btnTicket);
             pnlDashboard.Controls.Add(pnlFlights);
             pnlDashboard.Controls.Add(btnFlights);
@@ -130,29 +123,6 @@
             lblUsername.TabIndex = 0;
             lblUsername.Text = "Username";
             // 
-            // pnlUser
-            // 
-            pnlUser.BackColor = Color.FromArgb(231, 216, 182);
-            pnlUser.Controls.Add(btnPresentUsers);
-            pnlUser.Dock = DockStyle.Top;
-            pnlUser.Location = new Point(0, 368);
-            pnlUser.Name = "pnlUser";
-            pnlUser.Size = new Size(268, 0);
-            pnlUser.TabIndex = 15;
-            // 
-            // btnPresentUsers
-            // 
-            btnPresentUsers.BackColor = Color.FromArgb(186, 188, 165);
-            btnPresentUsers.Dock = DockStyle.Top;
-            btnPresentUsers.FlatStyle = FlatStyle.Flat;
-            btnPresentUsers.Location = new Point(0, 0);
-            btnPresentUsers.Name = "btnPresentUsers";
-            btnPresentUsers.Size = new Size(268, 46);
-            btnPresentUsers.TabIndex = 3;
-            btnPresentUsers.Text = "Perdoruesit aktual";
-            btnPresentUsers.UseVisualStyleBackColor = false;
-            btnPresentUsers.Click += btnPresentUsers_Click;
-            // 
             // btnUsers
             // 
             btnUsers.BackColor = Color.Teal;
@@ -165,43 +135,6 @@
             btnUsers.Text = "👥Perdoruesit";
             btnUsers.UseVisualStyleBackColor = false;
             btnUsers.Click += btnUsers_Click;
-            // 
-            // pnlTicket
-            // 
-            pnlTicket.BackColor = Color.FromArgb(231, 216, 182);
-            pnlTicket.Controls.Add(btnTicketFilter);
-            pnlTicket.Controls.Add(btnPendingTicket);
-            pnlTicket.Dock = DockStyle.Top;
-            pnlTicket.Location = new Point(0, 308);
-            pnlTicket.Name = "pnlTicket";
-            pnlTicket.Size = new Size(268, 0);
-            pnlTicket.TabIndex = 13;
-            // 
-            // btnTicketFilter
-            // 
-            btnTicketFilter.BackColor = Color.FromArgb(186, 188, 165);
-            btnTicketFilter.Dock = DockStyle.Top;
-            btnTicketFilter.FlatStyle = FlatStyle.Flat;
-            btnTicketFilter.Location = new Point(0, 46);
-            btnTicketFilter.Name = "btnTicketFilter";
-            btnTicketFilter.Size = new Size(268, 46);
-            btnTicketFilter.TabIndex = 3;
-            btnTicketFilter.Text = "Filtrimi i Biletave";
-            btnTicketFilter.UseVisualStyleBackColor = false;
-            btnTicketFilter.Click += btnTicketNr_Click;
-            // 
-            // btnPendingTicket
-            // 
-            btnPendingTicket.BackColor = Color.FromArgb(186, 188, 165);
-            btnPendingTicket.Dock = DockStyle.Top;
-            btnPendingTicket.FlatStyle = FlatStyle.Flat;
-            btnPendingTicket.Location = new Point(0, 0);
-            btnPendingTicket.Name = "btnPendingTicket";
-            btnPendingTicket.Size = new Size(268, 46);
-            btnPendingTicket.TabIndex = 2;
-            btnPendingTicket.Text = "Biletat ne pritje";
-            btnPendingTicket.UseVisualStyleBackColor = false;
-            btnPendingTicket.Click += btnPendingTicket_Click;
             // 
             // btnTicket
             // 
@@ -320,6 +253,19 @@
             pnlControls.Size = new Size(1214, 853);
             pnlControls.TabIndex = 1;
             // 
+            // btnAdminAccount
+            // 
+            btnAdminAccount.BackColor = Color.Teal;
+            btnAdminAccount.Dock = DockStyle.Top;
+            btnAdminAccount.FlatStyle = FlatStyle.Popup;
+            btnAdminAccount.Location = new Point(0, 368);
+            btnAdminAccount.Name = "btnAdminAccount";
+            btnAdminAccount.Size = new Size(268, 60);
+            btnAdminAccount.TabIndex = 17;
+            btnAdminAccount.Text = "⚙  Account";
+            btnAdminAccount.UseVisualStyleBackColor = false;
+            btnAdminAccount.Click += btnAdminAccount_Click;
+            // 
             // FrmPreviewAdmin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -336,8 +282,6 @@
             pnlDashboard.ResumeLayout(false);
             pnlDetails.ResumeLayout(false);
             pnlDetails.PerformLayout();
-            pnlUser.ResumeLayout(false);
-            pnlTicket.ResumeLayout(false);
             pnlFlights.ResumeLayout(false);
             pnlLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -351,16 +295,11 @@
         private Button btnFlights;
         private Panel pnlLogo;
         private PictureBox pictureBox1;
-        private Panel pnlUser;
         private Button btnUsers;
-        private Panel pnlTicket;
         private Button btnTicket;
         private Panel pnlFlights;
         private Button btnRegisterPlane;
         private Button btnAssignRoute;
-        private Button btnTicketFilter;
-        private Button btnPendingTicket;
-        private Button btnPresentUsers;
         private Button btnActiveFlights;
         private Panel pnlDetails;
         private Label lblEmail;
@@ -368,5 +307,6 @@
         private Panel panel2;
         private Panel panel3;
         private Button btnLogOut;
+        private Button btnAdminAccount;
     }
 }
