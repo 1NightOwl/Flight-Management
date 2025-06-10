@@ -25,6 +25,16 @@ namespace FlightManagement.PL.User.Flights
             InitializeComponent();
             //this.Shown += FrmBrowseFlights_Shown;
 
+            numPasangers.ValueChanged += (s, e) =>
+            {
+                int newQty = (int)numPasangers.Value;
+
+                foreach (var card in flpTickets.Controls.OfType<UcFlightCard>())
+                {
+                    card.SetQuantity(newQty);
+                }
+            };
+
             dtDepart.ValueChanged += dtDepart_ValueChanged;
         }
 

@@ -322,6 +322,7 @@
             // 
             // btnImportRoutes
             // 
+            btnImportRoutes.AllowDrop = true;
             btnImportRoutes.BackColor = Color.Teal;
             btnImportRoutes.FlatStyle = FlatStyle.Popup;
             btnImportRoutes.Font = new Font("Times New Roman", 12F);
