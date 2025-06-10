@@ -30,6 +30,8 @@ namespace FlightManagement.PL.Admin.Fluturimet
         public FrmFlightRoutes()
         {
             InitializeComponent();
+
+            numPrice.ValueChanged += (s, e) => UpdatePrices();
         }
         private void FrmFlightRoutes_Load(object sender, EventArgs e)
         {

@@ -10,7 +10,7 @@ namespace FlightManagement.PL.Admin.Biletat
 {
     public partial class FrmBiletat : Form
     {
-        private readonly AppDbContext _db = new AppDbContext();
+        private readonly AppDbContext _db = Program.DbContext;
 
         public FrmBiletat()
         {

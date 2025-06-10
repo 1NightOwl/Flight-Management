@@ -84,6 +84,12 @@ namespace FlightManagement.PL.User.FluturimetPerdorues
             UpdatePrice();
         }
 
+        public void SetQuantity(int qty)
+        {
+            _quantity = qty;
+            UpdatePrice();
+        }
+
         private void UpdatePrice()
         {
             if (_legs == null || !_legs.Any())
