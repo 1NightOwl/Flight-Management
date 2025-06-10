@@ -212,7 +212,7 @@ namespace FlightManagement.PL.Admin.Fluturimet.AddFlight
 
                 //Shtimi i avionit ne databaze
                 Program.PlanesManager.AddPlane(newPlane);
-                MessageBox.Show("Avioni u shtua me sukses!✅");
+                MessageBox.Show("Avioni u shtua me sukses!");
                 btnClear_Click(null, null);
             }
             catch (FlightManagementException exception)

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -389,9 +390,14 @@ namespace FlightManagement.PL.Admin.Fluturimet
         {
             try
             {
-                Program.RoutesManager.DeleteRoute(selectedRouteDbId);
-                MessageBox.Show("Rruga u fshi me sukses! ✅", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                btnClear_Click(null, null);
+                var confirm = MessageBox.Show("Jeni i sigurt që doni të fshini këtë rruge?", "Konfirmim", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (confirm == DialogResult.Yes)
+                {
+                    Program.RoutesManager.DeleteRoute(selectedRouteDbId);
+                    MessageBox.Show("Rruga u fshi me sukses!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    btnClear_Click(null, null);
+                }
+
             }
             catch (FlightManagementException exception)
             {
@@ -426,11 +432,11 @@ namespace FlightManagement.PL.Admin.Fluturimet
         }
         private void dgPlaneRouteList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
             //Kontrollim nese rrjeshti qe admini ka shtypur eshte ai qe deshiron, 
             //dhe gjithashtu si mase brojtese kunder klikimit pa qellim mbi cell dhe fshirja e te dhenave te meparshme
             DialogResult result = MessageBox.Show(
-                "Deshiron te marresh te dhenat e ketij avioni?",
+                "Deshiron te marresh te dhenat e kesaj rruge?",
                 "Confirmation",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning
@@ -445,10 +451,10 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 btnDelete.Enabled = true;
 
                 if (e.RowIndex < 0) return;
-                    var row = dgPlaneRouteList.Rows[e.RowIndex];
+                var row = dgPlaneRouteList.Rows[e.RowIndex];
 
-                    selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
-                    selectedPlaneId = Convert.ToInt32(row.Cells["PlaneId"].Value);
+                selectedRouteDbId = Convert.ToInt32(row.Cells["Id"].Value);
+                selectedPlaneId = Convert.ToInt32(row.Cells["PlaneId"].Value);
 
                 var modelName = Program.PlanesManager
                                         .GetAll()
@@ -456,15 +462,15 @@ namespace FlightManagement.PL.Admin.Fluturimet
                                         .Select(p => p.Model)
                                         .FirstOrDefault();
 
-                    cbPlaneType.Text = modelName;
-                    txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
-                    cbOrigin.Text = row.Cells["Departure"].Value.ToString();
-                    cbDestination.Text = row.Cells["Arrival"].Value.ToString();
-                    cbDepartDay.Text = row.Cells["DepartureDay"].Value.ToString();
-                    dtDeparture.Value = DateTime.Today.Add((TimeSpan)row.Cells["StartTime"].Value);
-                    dtArrival.Value = DateTime.Today.Add((TimeSpan)row.Cells["EndTime"].Value);
-                    cbStatus.SelectedItem = row.Cells["Status"].Value?.ToString() ?? "Aktiv";
-                    numPrice.Text = row.Cells["Price"].Value.ToString();
+                cbPlaneType.Text = modelName;
+                txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
+                cbOrigin.Text = row.Cells["Departure"].Value.ToString();
+                cbDestination.Text = row.Cells["Arrival"].Value.ToString();
+                cbDepartDay.Text = row.Cells["DepartureDay"].Value.ToString();
+                dtDeparture.Value = DateTime.Today.Add((TimeSpan)row.Cells["StartTime"].Value);
+                dtArrival.Value = DateTime.Today.Add((TimeSpan)row.Cells["EndTime"].Value);
+                cbStatus.SelectedItem = row.Cells["Status"].Value?.ToString() ?? "Aktiv";
+                numPrice.Text = row.Cells["Price"].Value.ToString();
 
             }
             else
@@ -488,14 +494,14 @@ namespace FlightManagement.PL.Admin.Fluturimet
                 cbPlaneType.Enabled = false;
                 txtPlaneId.Enabled = false;
 
-                if (e.RowIndex < 0)return;
+                if (e.RowIndex < 0) return;
 
-                    var row = dgAviablePlanes.Rows[e.RowIndex];
-                    selectedPlaneId = Convert.ToInt32(row.Cells["Id"].Value);
+                var row = dgAviablePlanes.Rows[e.RowIndex];
+                selectedPlaneId = Convert.ToInt32(row.Cells["Id"].Value);
 
-                    txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
-                    cbPlaneType.Text = row.Cells["Model"].Value.ToString();
-                    cbStatus.SelectedItem = "Aktiv";
+                txtPlaneId.Text = row.Cells["PlaneId"].Value.ToString();
+                cbPlaneType.Text = row.Cells["Model"].Value.ToString();
+                cbStatus.SelectedItem = "Aktiv";
             }
             else
             {
@@ -534,6 +540,68 @@ namespace FlightManagement.PL.Admin.Fluturimet
             dgAviablePlanes.Columns["HasClasses"].HeaderText = "Ka Klasa?";
             dgAviablePlanes.Columns["BuisnessFactor"].HeaderText = "Koef. Biznes";
             dgAviablePlanes.Columns["FirstClassFactor"].HeaderText = "Koef. First";
+        }
+
+        private void btnImportRoutes_Click(object sender, EventArgs e)
+        {
+            using var ofd = new OpenFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv",
+                Title = "Zgjidh skedarin CSV me rrugët"
+            };
+
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+
+            var path = ofd.FileName;
+            var lines = File.ReadAllLines(path);
+            if (lines.Length < 2)
+            {
+                MessageBox.Show("Skedari është bosh ose mungon header-i.", "Gabim", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var header = lines[0].Split(',');
+            var successes = 0;
+            var failures = 0;
+            var errors = new List<string>();
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                var row = lines[i].Split(',');
+                try
+                {
+                    var route = new Route
+                    {
+                        PlaneId = int.Parse(row[0], CultureInfo.InvariantCulture),
+                        Departure = row[1],
+                        Arrival = row[2],
+                        DepartureDay = row[3],
+                        StartTime = TimeSpan.Parse(row[4], CultureInfo.InvariantCulture),
+                        EndTime = TimeSpan.Parse(row[5], CultureInfo.InvariantCulture),
+                        Status = row[6],
+                        Price = int.Parse(row[7], CultureInfo.InvariantCulture),
+                        CreatedDate = DateTime.Now
+                    };
+
+                    Program.RoutesManager.AddRoute(route);
+                    successes++;
+                }
+                catch (Exception ex)
+                {
+                    failures++;
+                    errors.Add($"Rreshti {i + 1}: {ex.Message}");
+                }
+            }
+
+            FillDataGridView();
+
+            var summary = $"Importimi përfundoi: {successes} të suksesshme, {failures} me gabim.";
+            if (failures > 0)
+                summary += "\n\nDetajet e gabimeve:\n" + string.Join("\n", errors);
+
+            MessageBox.Show(summary, "Përfundoi importi", MessageBoxButtons.OK,
+                failures == 0 ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
     }
 }

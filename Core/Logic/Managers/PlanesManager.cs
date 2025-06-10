@@ -1,11 +1,9 @@
 ﻿using FlightManagement.Core.Common;
 using FlightManagement.Core.Data.Entities;
+using FlightManagement.Core.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlightManagement.Core.Logic.Managers
 {
@@ -26,30 +24,19 @@ namespace FlightManagement.Core.Logic.Managers
             if (string.IsNullOrWhiteSpace(p.Status))
                 throw new FlightManagementException("Duhet të vendosni një status për avionin.");
 
-            bool exists = Program.DbContext.Plane.Any(x => x.PlaneId == p.PlaneId || x.Registration == p.Registration);
+            var exists = PlanesRepository.GetAll()
+                           .Any(x => x.PlaneId == p.PlaneId || x.Registration == p.Registration);
             if (exists)
                 throw new FlightManagementException("Ky avion ekziston tashmë (ID ose Regjistrim i përdorur).");
 
-            Program.DbContext.Plane.Add(new Planes
-            {
-                PlaneId = p.PlaneId,
-                Model = p.Model,
-                Registration = p.Registration,
-                SeatCount = p.SeatCount,
-                RangeKm = p.RangeKm,
-                Status = p.Status,
-                HasClasses = p.HasClasses,
-                BuisnessFactor = p.BuisnessFactor,
-                FirstClassFactor = p.FirstClassFactor,
-                CreatedDate = DateTime.Now
-            });
-
-            Program.DbContext.SaveChanges();
+            p.CreatedDate = DateTime.Now;
+            PlanesRepository.Add(p);
         }
 
         public void Update(int id, Planes p)
         {
-            var dbPlane = Program.DbContext.Plane.Find(id) ?? throw new FlightManagementException("Avioni nuk u gjet!");
+            var dbPlane = PlanesRepository.GetById(id)
+                          ?? throw new FlightManagementException("Avioni nuk u gjet!");
 
             dbPlane.PlaneId = p.PlaneId;
             dbPlane.Model = p.Model;
@@ -62,43 +49,16 @@ namespace FlightManagement.Core.Logic.Managers
             dbPlane.FirstClassFactor = p.FirstClassFactor;
             dbPlane.UpdatedDate = DateTime.Now;
 
-            Program.DbContext.SaveChanges();
+            PlanesRepository.Update(dbPlane);
         }
 
-        public List<Planes> GetAll()
-        {
-            return Program.DbContext
-                          .Plane
-                          .Select(p => new Planes
-                          {
-                              Id = p.Id,
-                              PlaneId = p.PlaneId,
-                              Model = p.Model,
-                              Registration = p.Registration,
-                              SeatCount = p.SeatCount,
-                              RangeKm = p.RangeKm,
-                              Status = p.Status,
-                              HasClasses = p.HasClasses,
-                              BuisnessFactor = p.BuisnessFactor,
-                              FirstClassFactor = p.FirstClassFactor,
-                              CreatedDate = p.CreatedDate,
-                              UpdatedDate = p.UpdatedDate
-                          }).ToList();
-        }
+        public List<Planes> GetAll() =>
+            PlanesRepository.GetAll();
 
-        public Planes? GetById(int id)
-        {
-            var plane = Program.DbContext.Plane.Find(id);
-            if (plane == null) return null;
-            return plane;
-        }
+        public Planes? GetById(int id) =>
+            PlanesRepository.GetById(id);
 
-        public void Delete(int id)
-        {
-            var dbPlane = Program.DbContext.Plane.Find(id) ?? throw new FlightManagementException("Avioni nuk u gjet!");
-            Program.DbContext.Plane.Remove(dbPlane);
-            Program.DbContext.SaveChanges();
-        }
-
+        public void Delete(int id) =>
+            PlanesRepository.Remove(id);
     }
 }

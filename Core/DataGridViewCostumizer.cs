@@ -11,23 +11,19 @@ namespace FlightManagement.Core
     {
         public static void StylePlaneGrid(DataGridView dgv)
         {
-            // 1a) Bazë: Krijo header‐in si të errët + tekst të bardhë
             dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(60, 75, 85); // një gri‐jeshile i errët
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(60, 75, 85);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dgv.ColumnHeadersHeight = 30;
 
-            // 1b) Rreshta alternues: e bardhë vs. e plur
             dgv.BackgroundColor = Color.WhiteSmoke;
             dgv.RowsDefaultCellStyle.BackColor = Color.White;
             dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 241, 246);
 
-            // 1c) Kur zgjidhet një rresht: blu i çelët
             dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(51, 153, 255);
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
 
-            // 1d) Kolonat bazë
             dgv.Columns["Id"].Visible = false;
             dgv.Columns["PlaneId"].HeaderText = "ID e Avionit";
             dgv.Columns["Model"].HeaderText = "Modeli";
@@ -41,7 +37,6 @@ namespace FlightManagement.Core
             dgv.Columns["CreatedDate"].HeaderText = "Data e Shtimit";
             dgv.Columns["UpdatedDate"].HeaderText = "Data e Përditësimit";
 
-            // 1e) Formato datat (mm/dd/yyyy) dhe vendos “—” për null
             if (dgv.Columns.Contains("CreatedDate"))
                 dgv.Columns["CreatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
             if (dgv.Columns.Contains("UpdatedDate"))
@@ -50,7 +45,6 @@ namespace FlightManagement.Core
                 dgv.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
             }
 
-            // 1f) Centërso kolonat e disa fushave për pamje më të pastrë
             dgv.Columns["SeatCount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.Columns["RangeKm"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.Columns["Status"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -59,23 +53,19 @@ namespace FlightManagement.Core
 
         public static void StyleRouteGrid(DataGridView dgv)
         {
-            // 2a) Header stil
             dgv.EnableHeadersVisualStyles = false;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(70, 90, 100);
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             dgv.ColumnHeadersHeight = 30;
 
-            // 2b) Rreshta alternues
             dgv.BackgroundColor = Color.WhiteSmoke;
             dgv.RowsDefaultCellStyle.BackColor = Color.White;
             dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 248, 251);
 
-            // 2c) Selektimi
             dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 120, 215);
             dgv.DefaultCellStyle.SelectionForeColor = Color.White;
 
-            // 2d) Kolonat bazë
             dgv.Columns["Plane"].Visible = false;
             dgv.Columns["Id"].Visible = false;
 
@@ -96,7 +86,6 @@ namespace FlightManagement.Core
             dgv.Columns["UpdatedDate"].DefaultCellStyle.Format = "MM/dd/yyyy";
             dgv.Columns["UpdatedDate"].DefaultCellStyle.NullValue = "—";
 
-            // 2e) Center alignment për disa
             dgv.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgv.Columns["Status"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.Columns["DepartureDay"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
