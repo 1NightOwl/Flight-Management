@@ -258,15 +258,15 @@ namespace FlightManagement.PL.User.Flights
             var dayName = dtDepart.Value.DayOfWeek.ToString();
 
             //Tregon rruget qe jane diten e sotme
-            //var all = mgr.GetAllRoutes()
-            //    .Where(r => r.Status == "Aktiv" &&
-            //                r.DepartureDay == dayName)
-            //            .ToList();
+            var all = mgr.GetAllRoutes()
+                .Where(r => r.Status == "Aktiv" &&
+                            r.DepartureDay == dayName)
+                        .ToList();
 
             //Trego te gjithe rruget ne databaze
-            var all = mgr.GetAllRoutes()
-                .Where(r => r.Status == "Aktiv")
-                        .ToList();
+            //var all = mgr.GetAllRoutes()
+            //    .Where(r => r.Status == "Aktiv")
+            //            .ToList();
 
             var qty = (int)numPasangers.Value;
 

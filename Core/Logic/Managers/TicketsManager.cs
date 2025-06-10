@@ -1,11 +1,9 @@
 ﻿using FlightManagement.Core.Common;
 using FlightManagement.Core.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+using FlightManagement.Core.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlightManagement.Core.Logic.Managers
 {
@@ -20,41 +18,34 @@ namespace FlightManagement.Core.Logic.Managers
             if (string.IsNullOrEmpty(bilet.Statusi))
                 bilet.Statusi = "Ne Pritje";
 
-            Program.DbContext.Biletat.Add(bilet);
-            Program.DbContext.SaveChanges();
+            TicketsRepository.Add(bilet);
         }
 
         public IEnumerable<Bileta> GetAll()
         {
-            return Program.DbContext.Biletat
-                .Include(b => b.Route)
-                .Include(b => b.User)
-                .ToList();
+            return TicketsRepository.GetAll();
         }
+
         public void UpdateStatus(int id, string newStatus)
         {
-            var bilet = Program.DbContext.Biletat.Find(id)
+            var bilet = TicketsRepository.GetById(id)
                         ?? throw new FlightManagementException("Bileta nuk u gjet.");
             bilet.Statusi = newStatus;
-            Program.DbContext.SaveChanges();
+            TicketsRepository.Update(bilet);
         }
 
         public List<Bileta> GetByUserId(int userId)
         {
-            return Program.DbContext.Set<Bileta>()
-                .Include(b => b.Route)
-                    .ThenInclude(r => r.Plane)
-                .Where(b => b.UserId == userId)
-                .OrderByDescending(b => b.DataRezervimit)
-                .ToList();
+            return TicketsRepository
+                   .GetAll()
+                   .Where(b => b.UserId == userId)
+                   .OrderByDescending(b => b.DataRezervimit)
+                   .ToList();
         }
 
         public void Delete(int id)
         {
-            var bilet = Program.DbContext.Biletat.Find(id)
-                        ?? throw new FlightManagementException("Bileta nuk u gjet.");
-            Program.DbContext.Biletat.Remove(bilet);
-            Program.DbContext.SaveChanges();
+            TicketsRepository.Remove(id);
         }
     }
 }

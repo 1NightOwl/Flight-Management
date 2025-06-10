@@ -47,6 +47,7 @@
             lblTitleRoute = new Label();
             lblTitleRouteInput = new Label();
             pnlCrud = new Panel();
+            btnImportRoutes = new Button();
             cbStatus = new ComboBox();
             lblStatus = new Label();
             numPrice = new NumericUpDown();
@@ -66,6 +67,7 @@
             lblBusiness = new Label();
             lblEconomy = new Label();
             lblPlaneClasses = new Label();
+            openFileDialog1 = new OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)dgPlaneRouteList).BeginInit();
             pnlRouteList.SuspendLayout();
             pnlCrud.SuspendLayout();
@@ -79,6 +81,8 @@
             // 
             dgPlaneRouteList.AllowUserToAddRows = false;
             dgPlaneRouteList.AllowUserToDeleteRows = false;
+            dgPlaneRouteList.AllowUserToResizeColumns = false;
+            dgPlaneRouteList.AllowUserToResizeRows = false;
             dgPlaneRouteList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgPlaneRouteList.Location = new Point(112, 81);
             dgPlaneRouteList.Name = "dgPlaneRouteList";
@@ -120,7 +124,7 @@
             btnDelete.Enabled = false;
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Times New Roman", 12F);
-            btnDelete.Location = new Point(829, 330);
+            btnDelete.Location = new Point(924, 330);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(138, 54);
             btnDelete.TabIndex = 16;
@@ -133,7 +137,7 @@
             btnClear.BackColor = Color.Teal;
             btnClear.FlatStyle = FlatStyle.Popup;
             btnClear.Font = new Font("Times New Roman", 12F);
-            btnClear.Location = new Point(635, 330);
+            btnClear.Location = new Point(731, 330);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(138, 54);
             btnClear.TabIndex = 15;
@@ -147,7 +151,7 @@
             btnEdit.Enabled = false;
             btnEdit.FlatStyle = FlatStyle.Popup;
             btnEdit.Font = new Font("Times New Roman", 12F);
-            btnEdit.Location = new Point(441, 330);
+            btnEdit.Location = new Point(538, 330);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(138, 54);
             btnEdit.TabIndex = 14;
@@ -160,7 +164,7 @@
             btnAdd.BackColor = Color.Teal;
             btnAdd.FlatStyle = FlatStyle.Popup;
             btnAdd.Font = new Font("Times New Roman", 12F);
-            btnAdd.Location = new Point(247, 330);
+            btnAdd.Location = new Point(345, 330);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(138, 54);
             btnAdd.TabIndex = 13;
@@ -283,6 +287,7 @@
             // pnlCrud
             // 
             pnlCrud.BackColor = Color.FromArgb(170, 190, 180);
+            pnlCrud.Controls.Add(btnImportRoutes);
             pnlCrud.Controls.Add(cbStatus);
             pnlCrud.Controls.Add(lblStatus);
             pnlCrud.Controls.Add(numPrice);
@@ -314,6 +319,19 @@
             pnlCrud.Name = "pnlCrud";
             pnlCrud.Size = new Size(1214, 405);
             pnlCrud.TabIndex = 3;
+            // 
+            // btnImportRoutes
+            // 
+            btnImportRoutes.BackColor = Color.Teal;
+            btnImportRoutes.FlatStyle = FlatStyle.Popup;
+            btnImportRoutes.Font = new Font("Times New Roman", 12F);
+            btnImportRoutes.Location = new Point(124, 330);
+            btnImportRoutes.Name = "btnImportRoutes";
+            btnImportRoutes.Size = new Size(166, 54);
+            btnImportRoutes.TabIndex = 39;
+            btnImportRoutes.Text = "📤 Importo Rrugët";
+            btnImportRoutes.UseVisualStyleBackColor = false;
+            btnImportRoutes.Click += btnImportRoutes_Click;
             // 
             // cbStatus
             // 
@@ -454,6 +472,8 @@
             // 
             dgAviablePlanes.AllowUserToAddRows = false;
             dgAviablePlanes.AllowUserToDeleteRows = false;
+            dgAviablePlanes.AllowUserToResizeColumns = false;
+            dgAviablePlanes.AllowUserToResizeRows = false;
             dgAviablePlanes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgAviablePlanes.Location = new Point(112, 81);
             dgAviablePlanes.Name = "dgAviablePlanes";
@@ -517,15 +537,19 @@
             lblPlaneClasses.TabIndex = 3;
             lblPlaneClasses.Text = "🎫Klaset e avionit:  ";
             // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
             // FrmFlightRoutes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1214, 853);
             Controls.Add(pnlCrud);
+            Controls.Add(pnlRouteList);
             Controls.Add(pnlRouteInput);
             Controls.Add(pnlPlaneClasses);
-            Controls.Add(pnlRouteList);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmFlightRoutes";
@@ -584,5 +608,7 @@
         private NumericUpDown numPrice;
         private ComboBox cbStatus;
         private Label lblStatus;
+        private Button btnImportRoutes;
+        private OpenFileDialog openFileDialog1;
     }
 }

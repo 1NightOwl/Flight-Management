@@ -1,5 +1,6 @@
 ﻿using FlightManagement.Core.Common;
 using FlightManagement.Core.Data;
+using FlightManagement.Core.Data.Repositories;
 using FlightManagement.Core.Logic.Managers;
 using FlightManagement.PL.Start.Loading;
 
@@ -53,6 +54,12 @@ namespace FlightManagement
 
             DbContext = new AppDbContext();
             DbContext.Database.EnsureCreated();
+
+
+            PlanesRepository.Init(DbContext);
+            RoutesRepository.Init(DbContext);
+            TicketsRepository.Init(DbContext);
+            UsersRepository.Init(DbContext);
         }
     }
 }

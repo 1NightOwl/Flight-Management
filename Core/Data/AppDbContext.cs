@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlightManagement.Core.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
 
         public DbSet<Data.Entities.Planes> Plane { get; set; }
